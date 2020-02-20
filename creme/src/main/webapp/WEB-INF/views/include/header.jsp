@@ -669,5 +669,4 @@
 		location.href="${path}/member/constract";
 	});
 </script>
-</body>
 </html>
