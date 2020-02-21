@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../include/include.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -164,7 +165,7 @@
 			cursor: no-drop;
 			border: none;
 			outline: none;
-			background-color: #95A5C3;
+			background-color: #34495e;
 		}
 		#uemail {
 			margin-right: 87px;
@@ -379,8 +380,7 @@
         }).open();
     }
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="../../js/validation.js"></script>
+<script src="${path}/resources/js/validation.js"></script>
 <script type="text/javascript">
 	$(function(){
 		// 비밀번호가 유효한 값인지 체크해주는 Flag값 
@@ -406,6 +406,7 @@
 			var id = $(this).val().trim(); // 사용자가 입력한 값
 			// validation.js의 checkId로 유효성체크를 실행 후 
 			// 결과를 result에 담음(code, desc)
+			
 			var result = joinValidate.checkId(id);
 
 			if(result.code == 0) {
@@ -593,6 +594,7 @@
 		// 버튼 활성화!
 		$('.int').keyup(function(){
 			var checkAll = true;
+			
 			for (var i = 0; i < checkArr.length; i++) {
 				if(!checkArr[i]) {
 					checkAll = false;

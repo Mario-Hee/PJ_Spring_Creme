@@ -163,7 +163,7 @@ var joinValidate = {
 
 
 		if (pw == '' || pw.length == 0) { //1. 값이 있는지 체크한다.
-				return this.resultCode.empty_val;
+			return this.resultCode.empty_val;
 
 		} else if(pw.match(regEmpty)) { //2. 공백값이 있는지 체크한다.
 			return this.resultCode.space_length_val;
@@ -295,19 +295,16 @@ function idCheck(id) {
 		url: 'idoverlap?id='+id,
 		async: false,
 		success: function(data) {
-			consol.log(data);
-			if(data >= 1) {
+			console.log(data);
+			if(data == "1") {
 				return_val = true;
-			}else {
+			} else {
 				return_val = false;
 			}
 		},
 		error: function() {
-			alert('System ERROR;(');
+			alert('System ERROR:(');
 		}
 	});
 	return return_val;
-	
-	
-	
 }

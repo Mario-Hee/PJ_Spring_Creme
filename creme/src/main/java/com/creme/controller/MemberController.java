@@ -45,10 +45,20 @@ public class MemberController {
 	
 	// 회원가입 ID 중복체크
 	@ResponseBody
-	@PostMapping("/idoverlap")
-	public int idOverlap(String id ) {
+	@PostMapping(value="/idoverlap", produces="appication/text; charset=utf-8")
+	public String idOverlap(String id ) {
 		log.info(">>>>> ID OVERLAP CHECK");
 		log.info("아이디: " + id);
-		return mService.idOverlap(id);
+		
+		int cnt = mService.idOverlap(id);
+		
+		String flag = "1";
+		if(cnt == 0) {
+			flag = "0";
+		}
+		
+		return flag;
+		
+//		return mService.idOverlap(id);
 	}
 }
