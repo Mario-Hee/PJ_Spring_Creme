@@ -113,6 +113,7 @@
 		}
 		.header_content_logo_img {
 			max-width: 81px;
+			height: 80px;
 			vertical-align: middle;
 		}
 		.header_content_logo_text {
@@ -186,6 +187,7 @@
 				0 4px 20px 0 rgba(0,0,0,0.19);
 			border-radius: 2px;
 			overflow: hidden;
+			margin-bottom: 1px;
 		}
 		.member {
 			width: 600px;
@@ -421,7 +423,6 @@
 			display: flex;
 			align-items: center;
 		}
-
 	</style>
 </head>
 <body>

@@ -27,4 +27,6 @@ public class MemberDTO {
 	private String useyn;			// ID 사용여부
 	private String regdate;			// 수신여부
 
+	
 }
+

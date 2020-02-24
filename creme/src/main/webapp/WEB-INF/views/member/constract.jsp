@@ -233,8 +233,8 @@
 		}
 		.btn_agree {
 			color: #fff;
-			border: 1px solid #95A5C3;
-			background-color: #95A5C3;
+			border: 1px solid #34495e;
+			background-color: #34495e;
 		}
 		.group_join {
 			margin: 20px 0px 65px;
@@ -471,7 +471,8 @@
 			location.href="${path}/member/join?useon="+agree_one
 												+"&primaryon="+agree_two
 												+"&locon="+agree_three
-												+"&eventon="+agree_four;
+												+"&eventon="+agree_four
+												+"&flag=1";
 			
 		});		
 		

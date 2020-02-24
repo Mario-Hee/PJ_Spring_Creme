@@ -1,5 +1,6 @@
 	/* 구글 웹 폰트*/
 	@import url('https://fonts.googleapis.com/css?family=Gothic+A1&display=swap');
+	
 	/* 고통사항 */
 * { box-sizing: border-box; }
 body {
@@ -46,7 +47,7 @@ a {
 			color: #1D292C;
 			background-color: #95A5C3;
 		}
-		button.btn_agree {
+		button.btn-agree {
 			font-weight: bold;
 			color: white;
 			background-color: #95A5C3;
@@ -69,7 +70,7 @@ a {
 			border-color: transparent;
 		}
 		/* Text에 빝줄 쳐지는 CSS효과 */
-				.magicline:after {
+		.magicline:after {
 			content: '';
 			display: block;
 			width: 0;

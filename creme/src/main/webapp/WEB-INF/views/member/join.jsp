@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../include/include.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
 <style type="text/css">
 	@import url('https://fonts.googleapis.com/css?family=Secular+One&display=swap');
 		* {
@@ -165,7 +167,6 @@
 			cursor: no-drop;
 			border: none;
 			outline: none;
-			background-color: #34495e;
 		}
 		#uemail {
 			margin-right: 87px;
@@ -229,7 +230,8 @@
 	</div></header>
 
 	<section>
-		<form name="frm_join" action="" method="POST">
+		<!-- <form name="frm_join" action="${path}/member/join" method="POST"> -->
+		<form:form id="frm_member" modelAttribute="memberDTO" autocomplete="on">
 			<div class="container">
 				<div class="join_content">
 					<div class="row_group">
@@ -238,7 +240,7 @@
 								<label for="id">아이디</label>
 							</h3>
 							<span class="ps_box int_id">
-								<input type="text" id="uid" name="uid" class="int" placeholder="아이디를 입력해 주세요">	
+								<input type="text" id="uid" name="id" class="int" placeholder="아이디를 입력해 주세요">	
 							</span>
 							<span class="error_next_box">필수 정보입니다.</span>
 						</div>
@@ -247,7 +249,7 @@
 								<label for="pswd1">비밀번호</label>
 							</h3>
 							<span class="ps_box int_pass">
-								<input type="password" id="upw" name="upw" class="int" placeholder="비밀번호를 입력해 주세요">
+								<input type="password" id="upw" name="pw" class="int" placeholder="비밀번호를 입력해 주세요">
 								<span class="step_url"><span class="pw_lock"></span></span>
 							</span>
 							<span class="error_next_box">필수 정보입니다.</span>
@@ -257,7 +259,7 @@
 								<label for="pswd2">비밀번호 재확인</label>
 							</h3>
 							<span class="ps_box int_pass">
-								<input type="password" id="urpw" name="urpw" class="int" placeholder="비밀번호 재확인">
+								<input type="password" id="urpw" name="rpw" class="int" placeholder="비밀번호 재확인">
 								<span class="step_url"><span class="repw_lock"></span></span>
 							</span>
 							<span class="error_next_box">필수 정보입니다.</span>
@@ -269,7 +271,7 @@
 								<label for="name">이름</label>
 							</h3>
 							<span class="ps_box">
-								<input type="text" id="uname" name="uname" class="int" placeholder="이름을 입력해 주세요">
+								<input type="text" id="uname" name="name" class="int" placeholder="이름을 입력해 주세요">
 							</span>
 							<span class="error_next_box">필수 정보입니다.</span>
 						</div>
@@ -279,13 +281,15 @@
 								<label for="email">본인 확인 이메일<span class="choice">(선택)</span></label>
 							</h3>
 							<span class="ps_box">
-								<input type="text" id="uemail" name="uemail" class="int" placeholder="이메일을 입력해주세요">
+								<input type="text" id="uemail" name="email" class="int" placeholder="이메일을 입력해주세요">
 								<select class="sel" id="selemail">
 									<option value="No" selected="selected">Email 선택</option>
 									<option value="naver.com">@naver.com(네이버)</option>
 									<option value="daum.net">@daum.net(다음)</option>
 									<option value="gmail.com">@gmail.com(구글)</option>
 								</select>
+								<input type="hidden" name="email" id="emailall">
+								
 							</span>
 							<span class="error_next_box">필수 정보입니다.</span>
 						</div>
@@ -294,7 +298,7 @@
 								<label for="phone">휴대전화</label>
 							</h3>
 							<span class="ps_box">
-								<input type="tel" id="uphone" name="uphone" class="int" placeholder="-없이 입력 예)01012345678">
+								<input type="tel" id="uphone" name="phone" class="int" placeholder="-없이 입력 예)01012345678">
 							</span>
 							<span class="error_next_box">필수 정보입니다.</span>
 						</div>
@@ -304,24 +308,26 @@
 								<label for="addr">주소</label>
 							</h3>
 							<span class="ps_box">
-								<input type="text" id="sample6_postcode" class="int addr_only" placeholder="우편번호" readonly value="1234">
+								<input type="text" id="sample6_postcode" name="postcode" class="int addr_only" placeholder="우편번호" readonly >
 								<input type="button" id=btn_post onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 							</span>
 							<span class="ps_box">
-								<input type="text" id="sample6_address" class="int addr_only" placeholder="주소" readonly value="광주광역시 북구 중흥동"><br>
+								<input type="text" id="sample6_address" name="addr1" class="int addr_only" placeholder="주소" readonly ><br>
 							</span>
 							<span class="ps_box">
-								<input type="text" id="sample6_detailAddress" class="int" placeholder="상세주소">
+								<input type="text" id="sample6_detailAddress" name="addr2" class="int" placeholder="상세주소">
+								<input type="hidden" id="sample6_extraAddress" placeholder="참고항목">
 							</span>
 							<span class="error_next_box">필수 정보입니다.</span>
 						</div>
 					</div>
 					<div class="btn_double_area">
-						<span><button type="button" id="btn_join" class="btn_type">가입하기</button></span>
+						<span><button type="button" id="btn_join" class="btn_type btn-agree">가입하기</button></span>
 					</div>
 				</div>
 			</div>
-		</form>
+		</form:form>
+		<!--</form>-->
 	</section>
 	<footer>
 			<div id="footer">
@@ -383,6 +389,17 @@
 <script src="${path}/resources/js/validation.js"></script>
 <script type="text/javascript">
 	$(function(){
+		// 비정상적인 접근인지 판단한다.
+		// '${flag}' el태그로 받는다.
+		// el태그를 쓸때는 따옴표를 붙여서 써야한다! 그렇지 않으면 오류!
+		
+		var flag = '${flag}';
+		if (flag == 0) {
+			location.href="${path}/member/constract";
+		}
+		
+		
+		
 		// 비밀번호가 유효한 값인지 체크해주는 Flag값 
 		// 기본값 false
 		// checkPw를 5번까지 통과하면 true
@@ -543,6 +560,7 @@
 				} else {
 					checkArr[4] = false;
 				}
+				
 			ckDesign(result.code, result.desc, 4, 4);
 			} else {
 				$('.ps_box:eq(4)').css('border', '2px solid #f46665');
@@ -602,11 +620,13 @@
 			}
 
 			if(checkAll) {
-				$('.btn_type').addClass('btn_agree');
+				$('.btn_type').removeClass('btn-agree')
+				.addClass('btn-primary');
 				//$('#btn_join').prop('disabled', false);
 				$('.btn_type').css('cursor', 'pointer');
 			} else {
-				$('.btn_type').removeClass('btn_agree');
+				$('.btn_type').removeClass('btn-primary')
+				.add('btn-agree');
 				// $('#btn_join').prop('disabled', true);
 				$('.btn_type').css('cursor', 'no-drop');
 			}
@@ -620,7 +640,7 @@
 			var invalidAll = true;
 			for(var i = 0; i <checkArr.length; i++) {
 				if (!checkArr[i]) {
-			$('.error_next_box:eq('+msg+')').css('visibility', 'visible')
+			$('.error_next_box:eq('+i+')').css('visibility', 'visible')
 									   		.css('color', '#3885ca');
 				}
 			}
@@ -632,9 +652,17 @@
 				}
 			}
 			printcheckArr(checkArr);
-
+			
+			
 			if (invalidAll) {
+				var id = $('#uemail').val();
+				var url = $('#selemail').val(); 
+				$('#emailall').val(id+'@'+url);
 				alert('회원가입 성공!');
+				// submit: form태그 안에 있는 데이터들을 서버단으로 전송
+				// action: 목적지(MemberController '/join')
+				// method: 방법(POST:숨겨서 보내기)
+				$('#frm_member').submit();
 			} else { 
 				alert('유효성체크를 진행해주세요!');
 			}
