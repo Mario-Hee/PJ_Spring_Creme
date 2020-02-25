@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT COUNT(*) FROM tbl_pdt
 	</select> -->
 	
-	<select id="bestPdtList" resultType="ProductDTO">
+	<select id="bestPdtList" resultType="com.creme.domain.ProductDTO">
 		SELECT * 
 		FROM (SELECT rownum rnum, best.*
 		      FROM ( SELECT * FROM tbl_pdt
@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE rnum between 1 and 5
 	</select>
 	
-	<select id="newPdtList" resultType="ProductDTO">
+	<select id="newPdtList" resultType="com.creme.domain.ProductDTO">
 		SELECT * 
 		FROM (SELECT rownum rnum, best.*
 		      FROM ( SELECT * FROM tbl_pdt

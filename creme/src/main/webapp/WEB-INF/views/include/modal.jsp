@@ -5,13 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>크렘므: 탈퇴 경고창</title>
+<script src="https://kit.fontawesome.com/3d124ab517.js" crossorigin="anonymous"></script>
 <style type="text/css">	
-		.modal_close {
+		.modal_close2 {
 			position: absolute;
 			top: 7px;
 			right: 7px;
 		}
-		.modal_close > button {
+		.modal_close2 > button {
 			color: rgb(142, 142, 142);
 			border: none;
 			background: white;
@@ -19,7 +20,7 @@
 			cursor: pointer;
 			outline: none;
 		}
-		.modal_close > button:hover {
+		.modal_close2 > button:hover {
 			color: #EBA444;
 		}
 		.modal_wrap {
@@ -37,7 +38,7 @@
 		.modal_on {
 			display: block;
 		}
-		.modal_content {
+		.modal_contents {
 			position: relative;
 			width: 460px;
 			height: 258px;
@@ -80,8 +81,8 @@
 </head>
 <body>
 <div class="modal_wrap">
-		<div class="modal_content">
-			<div class="modal_close">
+		<div class="modal_contents">
+			<div class="modal_close2">
 				<button><i class="fas fa-times"></i></button>
 			</div>
 			<p class="modal_p">회원님</p>
@@ -99,7 +100,7 @@
 	});
 
 	//MODAL창의 X버튼을 클릭하면 Modal창 Close
-	$(document).on('click', '.modal_close', function(){
+	$(document).on('click', '.modal_close2', function(){
 		$('.modal_wrap').css('display', 'none');		
 	});
 </script>

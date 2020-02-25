@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/header.jsp" %> 
+<%@ include file="include/modal.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<script src="https://kit.fontawesome.com/3d124ab517.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
 	<style type="text/css">
 		@import url('https://fonts.googleapis.com/css?family=Gothic+A1&display=swap');
+		@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
 
 		div.content_wrap {
 			width: 100%;
@@ -17,7 +20,6 @@
 		div.content {
 			width: 1400px;
 			margin: 0 auto;
-			border: 1px solid red;
 		}
 
 		* {box-sizing: border-box;}
@@ -124,7 +126,7 @@
 
 		.thumbnail a > img {
 
-			border: 1px solid green;
+			border: 1px solid #e7e7e7
 
 		}
 
@@ -134,7 +136,7 @@
 
 			padding-bottom: 5px;
 
-			border-bottom: 1px solid blue;
+			border-bottom: 1px solid #1b1b1b;
 
 			text-align: center;
 
@@ -204,7 +206,7 @@
 
 			padding: 0;
 
-			border: 1px solid green;
+
 
 		}
 
@@ -242,7 +244,6 @@
 
 			margin: 50px auto 0;
 
-			border: 1px solid red;
 
 		}
 
@@ -256,7 +257,6 @@
 
 			padding: 0 0;
 
-			border: 1px solid blue;
 
 		}
 
@@ -286,6 +286,9 @@
 			font-size: 20px;
 			color: white;
 			font-weight: 600;
+			font-family: 'Nanum Gothic';
+			text-align: center;
+   			display: inline-block;
 		}
 
 		.ban02 {
@@ -326,7 +329,6 @@
 
 			height: 350px;
 
-			border-top: 1px solid red;
 			
 			margin-top: 50px;
 
@@ -366,7 +368,6 @@
 
 			color: #cccccc;
 
-			border: 1px solid red;
 
 		}
 
@@ -392,7 +393,6 @@
 
 			text-align: center;
 
-			border: 1px solid red;
 
 		}
 
@@ -412,7 +412,6 @@
 
 			line-height: 20px;
 
-			border: 1px solid red;
 
 		}
 
@@ -432,22 +431,44 @@
 
 		}
 		#footer_creme {
-		width: 208px;
-		height: 76px;
-		margin: -40px;
+			width: 208px;
+			height: 76px;
+			margin: -40px;
 		}
 		
 		.btn_bizinfo {
-		width: 109px;
-		height: 20px;
+			width: 109px;
+			height: 20px;
 		}
-		#gotop {
-		width: 20px;
-		height: 20px;
+		
+		.top_btn {
+			 bottom: 115px;
+   			 background-color: #34495e;
+  			 display: none;
+		}
+		.fix_btn {
+			position: fixed;
+    		right: 50px;
+		    color: white;
+		    width: 70px;
+		    height: 70px;
+		    border-radius: 50%;
+		    display: flex;
+		    margin-bottom: -85px;
+		    justify-content: center;
+		    align-items: center;
+		    font-size: 30px;
+		    cursor: pointer;
+		    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,.19);
+		}
+		.fas {
+			font-weight: 900;
 		}
 	</style>
 </head>
 <body>
+	<div class="top_btn fix_btn"><i class="fas fa-arrow-up"></i></div>
+
 	<div class="content_wrap">
 		<div class="content">
 			<div class="slideshow-container">
@@ -690,7 +711,7 @@
 
 										<!-- <img src=""> -->
 
-										<strong class="Scroll_txt">크렘므는 프래그런스 라이프 스타일 브랜드입니다. 당신의 일상을 풍요롭게 할 향기를 주제로 다양한 라이프 스타일 오브제를 만듭니다.</strong>
+										<strong class="Scroll_txt">CREME<br><br><br><br>크렘므는 프래그런스 라이프 스타일 브랜드입니다.<br> 당신의 일상을 풍요롭게 할 향기를 주제로 다양한 라이프 스타일 오브제를 만듭니다.</strong>
 
 									</a>
 
@@ -835,12 +856,6 @@
 
 				</div>
 
-				<a href="#" class="ftop gotop" style="display: block;">
-
-					<img src="" id="gotop" alt="top">
-
-				</a>
-
 			</div>
 
 			<div class="container">
@@ -860,6 +875,20 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
+	$(document).ready(function () {
+		$(window).scroll(function(){ //스크롤이 움직이면
+		if(document.body.scrollTop > 80 || document.documentElement.scrollTop > 80){
+			$('.top_btn').fadeIn().css("display","flex"); 
+		// fadeIn은 잔상효과처럼 Top버튼이 나오는 것
+		} else {
+			$('.top_btn').fadeOut();
+		}
+	});
+	$('.top_btn').click(function(){
+	// Top버튼을 클릭했을때 이 동작을 하게끔 만드는 것
+	$('html, body').animate({scrollTop : 0}, 800);
+	});
+});
 var slideIndex = 0;
 showSlides();
 
@@ -918,8 +947,8 @@ function showSlides() {
         }
 
     });
-
 });
+	
 
 
 

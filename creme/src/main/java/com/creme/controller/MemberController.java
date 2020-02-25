@@ -18,7 +18,10 @@ package com.creme.controller;
  * 이름을 표준 패턴이 아닌 임의의 이름으로 바꾸고 싶다.
  * */
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +32,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.creme.domain.MemberDTO;
+import com.creme.service.mail.MailService;
 import com.creme.service.member.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +45,12 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/member")
 @Controller
 public class MemberController {
+	@Autowired
+	PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private MailService mailService;
+	
 	@Autowired
 	MemberService mService;
 	
@@ -101,26 +112,48 @@ public class MemberController {
 	// 그래서 4개 값을 넣어서 12개(8개 + 4개)가 된다 
 	// 그러나 해당 값이 HTML Form태그가 아닌 Spring input? Form? 태그로 꼭 되있어야한다!!
 	@PostMapping("/join")
-	public String join(@ModelAttribute("memberDTO") MemberDTO mDto, SessionStatus sessionStatus) {   
+	public String join(@ModelAttribute("memberDTO") MemberDTO mDto, 
+						SessionStatus sessionStatus, 
+						HttpServletRequest request) {   
 		log.info(">>>>>>>>>>> MEMBER/JOIN POST DB에 회원정보 저장");
 		log.info(mDto.toString());
 		
+		log.info("Password: " + mDto.getPw()); // 사용자 입력 PW값
+		// 1.사용자 암호 hash 변환
+		String encPw = passwordEncoder.encode(mDto.getPw());
+		mDto.setPw(encPw);
+		log.info("Password(+Hash): " + mDto.getPw());
 		
-		// DB에 회원 등록
+		// 2.DB에 회원 등록
 		int result = mService.memInsert(mDto);
 		
 		
-		// 회원 등록 결과
+		// 3.회원 등록 결과
 		if(result > 0) {
 			log.info(">>>>>> " + mDto.getId() + "님 회원가입되셨습니다.");
 		}
+		
+		// 4.회원가입 인증 메일 보내기
+		mailService.mailSendUser(mDto.getEmail(), mDto.getId(), request);
 		
 		// 자원을 반납하는 작업!!
 		// SessionAttributes를 사용할때 insert, update가 완료되고
 		// view로 보내기 전 반드시 setComplete()를 실행하여
 		// Session에 담긴 값을 clear 해주어야 한다.
 		sessionStatus.setComplete(); // <- 써서 반드시 자원을 반납해 주어야 한다. 안그러면 계속 자원이 남아있기 때문에!
-		return "";
+		return "redirect:/";
+	}
+	
+	// 회원가입 후 email 인증
+	@GetMapping("/keyauth")
+	public String ketAuth(String id, String key, RedirectAttributes rttr) {
+		mailService.keyAuth(id, key);
+		
+		//인증 후 메시지 출력을 위한 값 전달
+		rttr.addFlashAttribute("id", id);
+		rttr.addFlashAttribute("key", "auth");
+		
+		return "redirect:/";
 	}
 	
 	// 회원가입 ID 중복체크

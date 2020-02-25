@@ -89,7 +89,7 @@
 			display: inline-block;
 			padding: 12px 15px;
 			font-weight: 400;
-			border: 1px solid transparent;
+
 			border-radius: 2px;
 			height: 45px;
 			color: #506763;
@@ -264,7 +264,9 @@
 			color: #333333;
 			margin: 10px 0 0;
 			padding: 0 0 0 14px;
+			height: 60px;
 		}
+	
 		.member .box .login .input-info div .icon {
 			position: absolute;
 			top: 13px;
@@ -452,8 +454,6 @@
 								<div>
 									<div class="inp_login">
 										<span class="icon">
-											<img src="" alt>
-											<i class="fas fa-user"></i>
 										</span>
 										<input type="text" class="text" id="login_bx" name="login_id" value placeholder="아이디" required>
 									</div>
@@ -461,8 +461,6 @@
 								<div>
 									<div class="inp_login">
 										<span class="icon">
-											<img src=""alt>
-											<i class="fas fa-lock"></i>
 										</span>
 										<input type="password" class="text" id="login_bx" name="login_pw" value placeholder="비밀번호" required minlength="6" maxlength="18">
 										<span class="pw_eye">

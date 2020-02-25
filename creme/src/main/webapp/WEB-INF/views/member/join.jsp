@@ -281,7 +281,7 @@
 								<label for="email">본인 확인 이메일<span class="choice">(선택)</span></label>
 							</h3>
 							<span class="ps_box">
-								<input type="text" id="uemail" name="email" class="int" placeholder="이메일을 입력해주세요">
+								<input type="text" id="uemail" class="int" placeholder="이메일을 입력해주세요">
 								<select class="sel" id="selemail">
 									<option value="No" selected="selected">Email 선택</option>
 									<option value="naver.com">@naver.com(네이버)</option>
@@ -657,6 +657,7 @@
 			if (invalidAll) {
 				var id = $('#uemail').val();
 				var url = $('#selemail').val(); 
+				console.log(id+", "+url);
 				$('#emailall').val(id+'@'+url);
 				alert('회원가입 성공!');
 				// submit: form태그 안에 있는 데이터들을 서버단으로 전송
@@ -667,7 +668,7 @@
 				alert('유효성체크를 진행해주세요!');
 			}
 
-		});
+		});	
 	});
 
 			// 에러메세지 출력
