@@ -40,19 +40,21 @@ import com.creme.service.member.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
 
-@SessionAttributes({"memberDTO"})	
 @Slf4j
 @RequestMapping("/member")
+@SessionAttributes({"memberDTO"})	
 @Controller
 public class MemberController {
-	@Autowired
+	@Autowired // @Autowired는 의존성 주입 할때마다 하나 당 한개씩 따로 써야한다. 
 	PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private MailService mailService;
 	
 	@Autowired
-	MemberService mService;
+	MemberService mService;  //의존성 주입 타입으로 하므로 MemberService(객체자료형,전역변수)의 타입이 중요하다. 
+							 // 타입으로 읽는다.
+							 //자동초기화하는데 객체자료형이므로 null값이 들어간다.
 	
 	/*
 	 * SessionAttribut를 사용하기
@@ -114,19 +116,30 @@ public class MemberController {
 	@PostMapping("/join")
 	public String join(@ModelAttribute("memberDTO") MemberDTO mDto, 
 						SessionStatus sessionStatus, 
-						HttpServletRequest request) {   
-		log.info(">>>>>>>>>>> MEMBER/JOIN POST DB에 회원정보 저장");
+						HttpServletRequest request,
+						RedirectAttributes rttr) {   
+		
+		
+		// View단에서 Controller단으로 이동
+		// 콘솔창에서 테스트 하려고 써 놓은 것
+		// setter값이 잘 안들어오면 name값을 확인하라
+		log.info(">>>>>>>>>>> MEMBER/JOIN POST DB에 회원정보 저장"); 
+		
+		// View단에서 전송된 데이터가 잘 전달됐는지 확인 , 들어오지 않은 값은 모두 null처리
 		log.info(mDto.toString());
 		
-		log.info("Password: " + mDto.getPw()); // 사용자 입력 PW값
+		
+		log.info("Password: " + mDto.getPw()); // 사용자 입력한 PW값 그대로 나타난다.
+		
 		// 1.사용자 암호 hash 변환
-		String encPw = passwordEncoder.encode(mDto.getPw());
-		mDto.setPw(encPw);
-		log.info("Password(+Hash): " + mDto.getPw());
+		String encPw = passwordEncoder.encode(mDto.getPw()); //사용자가 입력한 Pw값을  encoder메서드를 실행하겠다!(요상한 값을 바뀌어서 나옴.)
+		mDto.setPw(encPw); // 사용자가 입력한 값을 Hash에 값을 넣어서 바꾸겠다. 암호화된 패스워드가 변화되어서 넣어져있다. mDto에 변환된 값이 넣어져있다.
+		log.info("Password(+Hash): " + mDto.getPw()); // 암호화된 비밀번호가 나온다. 
 		
 		// 2.DB에 회원 등록
-		int result = mService.memInsert(mDto);
-		
+		int result = mService.memInsert(mDto);  // mDto 데이터를 가지고  mService에 간다.
+												// mService(인스턴스) memberService를 사용하려면 의존성주입을 해야한다.
+												// insert, update, delete : 성공 1 또는 실패 0 으로 나타난다. 
 		
 		log.info("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★result: " + result);
 		// 3.회원 등록 결과
@@ -134,31 +147,42 @@ public class MemberController {
 			log.info(">>>>>> " + mDto.getId() + "님 회원가입되셨습니다.");
 		}
 		
-		log.info("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★인증 이메일 보냈음");
+		log.info("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★인증 이메일 좀 보내봐....");
 		// 4.회원가입 인증 메일 보내기
-		mailService.mailSendUser(mDto.getEmail(), mDto.getId(), request);
-		
-		// 자원을 반납하는 작업!!
-		// SessionAttributes를 사용할때 insert, update가 완료되고
-		// view로 보내기 전 반드시 setComplete()를 실행하여
-		// Session에 담긴 값을 clear 해주어야 한다.
-		log.info("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★sessionattributes 초기화");
+		mailService.mailSendUser(mDto.getEmail(), mDto.getId(), request); // 수신인으로 인증하는 메일이 보내진다.(오류x)
+//		
+//		// 자원을 반납하는 작업!!
+//		// SessionAttributes를 사용할때 insert, update가 완료되고
+//		// view로 보내기 전 반드시 setComplete()를 실행하여
+//		// Session에 담긴 값을 clear 해주어야 한다.
+//		log.info("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★sessionattributes 초기화");
 		sessionStatus.setComplete(); // <- 써서 반드시 자원을 반납해 주어야 한다. 안그러면 계속 자원이 남아있기 때문에!
+									 // controller에서 공유하던 영역 제거하는 작업이다.!
+//		
+//		log.info("★★★★★★★★★★★★★★★★★★★★★★★★★★★★화면단 출력함");
 		
-		log.info("★★★★★★★★★★★★★★★★★★★★★★★★★★★★화면단 출력함");
+		// 회원가입 후 메시지 출력을 위한 값 전달
+		rttr.addFlashAttribute("id", mDto.getId());
+		rttr.addFlashAttribute("email", mDto.getEmail());
+		rttr.addFlashAttribute("key", "join");
+		
 		return "redirect:/";
 	}
 	
 	// 회원가입 후 email 인증
 	@GetMapping("/keyauth")
-	public String ketAuth(String id, String key, RedirectAttributes rttr) {
+	public String ketAuth(String id, String key, 
+						  RedirectAttributes rttr) {
+		
 		mailService.keyAuth(id, key);
 		
 		//인증 후 메시지 출력을 위한 값 전달
 		rttr.addFlashAttribute("id", id);
 		rttr.addFlashAttribute("key", "auth");
 		
-		return "redirect:/";
+		return "redirect:/"; // redirect라고 명시하지 않으면 forward가 기본이다.
+							 // redirect:(redirect:방법으로 하겠다) 페이지를 새로띄울 수 있게 만들려면  mapping 을 타야하므로
+							 // /로 mapping 을 실행하라는 뜻이다.
 	}
 	
 	// 회원가입 ID 중복체크

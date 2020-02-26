@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="include/header.jsp" %> 
-<%@ include file="include/modal.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -160,9 +159,9 @@
 
 		.txt a > strong {
 
-			font-size: 12px;
+			font-size: 14px;
 
-			font-weight: normal;
+			font-weight: bold;
 
 			line-height: 20px;
 
@@ -172,7 +171,7 @@
 
 		.price {
 
-			padding: 7px 6px 0;
+			padding: 17px 6px 0;
 
 			text-align: center;
 
@@ -467,6 +466,7 @@
 	</style>
 </head>
 <body>
+	<%@ include file="include/modal.jsp" %>
 	<div class="top_btn fix_btn"><i class="fas fa-arrow-up"></i></div>
 
 	<div class="content_wrap">

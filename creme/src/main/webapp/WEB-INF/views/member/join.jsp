@@ -171,7 +171,27 @@
 		#uemail {
 			margin-right: 87px;
 		}
-
+		#back {
+			position: fixed;
+			z-index: 1200;
+			background-color: rgba(0,0,0,0.4);
+			overflow: auto;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			display: none;
+			align-items: center;
+			justify-content: center;
+		}
+		.loading_img {
+			animation: ani_loading 1.5s infinite linear;
+			font-size: 70px;
+		}
+		@keyframes ani_loading {
+			from {-webkit-transform: rotate(0deg);}
+			to {-webkit-transform: rotate(359deg);}
+		}
 
 		#footer {
 			padding: 15px 0;
@@ -221,6 +241,8 @@
 		table <= display: table;
 		td    <= display: table-cell;
 		div   <= display: block;
+		
+
 	</style>
 </head>
 <body>
@@ -389,6 +411,7 @@
 <script src="${path}/resources/js/validation.js"></script>
 <script type="text/javascript">
 	$(function(){
+		FunLoadingBarStart();
 		// 비정상적인 접근인지 판단한다.
 		// '${flag}' el태그로 받는다.
 		// el태그를 쓸때는 따옴표를 붙여서 써야한다! 그렇지 않으면 오류!
@@ -655,6 +678,7 @@
 			
 			
 			if (invalidAll) {
+				FunLoadingBarStart(); //로딩바생성
 				var id = $('#uemail').val();
 				var url = $('#selemail').val(); 
 				console.log(id+", "+url);
@@ -663,10 +687,13 @@
 				// submit: form태그 안에 있는 데이터들을 서버단으로 전송
 				// action: 목적지(MemberController '/join')
 				// method: 방법(POST:숨겨서 보내기)
-				$('#frm_member').submit();
+				$('#frm_member').submit();  
+				//submit메서드는 사용자데이터를 보내겠다! form태그 먼저 찾기
 			} else { 
 				alert('유효성체크를 진행해주세요!');
 			}
+			
+			
 
 		});	
 	});
@@ -695,6 +722,18 @@
 		for(var i=0; i < checkArr.length; i++) {
 			console.log(i +'번지: ' + checkArr[i]);
 		}
+	}
+			
+	// 로딩바 출력
+	function FunLoadingBarStart() {
+		var loadingBarImage = ''; //가운데 띄워 줄 이미지
+		loadingBarImage += "<div id='back'>";
+		loadingBarImage += "<div id='loadingBar'>";
+		loadingBarImage += "<img src='${path}/resources/img/icons8-loader-96.png' class='loading_img'>";
+		loadingBarImage += "</div></div>";
+		$('body').append(loadingBarImage);
+		$('#back').css('display', 'flex');
+		$('#loadingImg').show();
 	}
 </script>
 </html>

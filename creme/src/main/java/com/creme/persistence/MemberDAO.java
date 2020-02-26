@@ -1,4 +1,5 @@
-package com.creme.persistence;
+package com.creme.persistence; 
+// memberMapper랑 경로를 맞춰야한다. mapper에 가서 Sql문 확인
 
 import com.creme.domain.MemberDTO;
 

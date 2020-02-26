@@ -4,15 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>크렘므: 탈퇴 경고창</title>
+<title>크렘므: </title>
 <script src="https://kit.fontawesome.com/3d124ab517.js" crossorigin="anonymous"></script>
 <style type="text/css">	
-		.modal_close2 {
+		.modal_msg_close {
 			position: absolute;
 			top: 7px;
 			right: 7px;
 		}
-		.modal_close2 > button {
+		.modal_msg_close > button {
 			color: rgb(142, 142, 142);
 			border: none;
 			background: white;
@@ -20,10 +20,10 @@
 			cursor: pointer;
 			outline: none;
 		}
-		.modal_close2 > button:hover {
+		.modal_msg_close > button:hover {
 			color: #EBA444;
 		}
-		.modal_wrap {
+		.modal_msg_wrap {
 			position: fixed;
 			z-index: 1000;
 			background-color: rgba(0,0,0,0.4);
@@ -33,7 +33,7 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			display: none;
+			
 		}
 		.modal_on {
 			display: block;
@@ -48,17 +48,17 @@
 			border-radius: 2px;
 			overflow: hidden;
 		}	
-		.modal_p {
+		#modal_msg_main_txt {
 			text-align: center;
-			margin: 34px 0 0;
-			font-size: 25px;
+			margin: 54px 0 0;
+			font-size: 20px;
 			font-weight: bold;
 			color: #1b1b1b;
 		}
-		.modal_span {
+		#modal_msg_sub_txt {
 			display: block;	
 			text-align: center;
-			font-size: 20px;
+			font-size: 18px;
 			margin: 20 0 0;
 			color: #1b1b1b;
 			font-weight: bold;
@@ -77,31 +77,73 @@
 			line-height: 40px;
 			margin: 0 auto 25px;
 		}
+		.modal_O {
+			width: 120px;
+			height: 45px;
+			background-color: #34495e;
+			border-radius: 4px;
+			border: 1px solid #D1D1D1;
+			color: #fff;
+			font-weight: bold;
+			text-align: center;
+			line-height: 40px;
+			margin: 0 auto 25px;
+			display: none;
+		}
+		.madal_box{
+			padding-left: 101px;
+		}
 	</style>
 </head>
 <body>
-<div class="modal_wrap">
-		<div class="modal_contents">
-			<div class="modal_close2">
-				<button><i class="fas fa-times"></i></button>
-			</div>
-			<p class="modal_p">회원님</p>
-			<span class="modal_span">탈퇴 하시겠습니까?</span>
-			<div class="modal_x">확인</div>
-			<div class="modal_back"></div>
-		</div>		
-	</div>
+<div class="modal_msg_wrap">
+	<div class="modal_contents">
+		<div class="modal_msg_close">
+			<button><i class="fas fa-times"></i></button>
+		</div>
+		<div id="modal_msg_main_txt">
+			<p>회원님</p>
+		</div>
+		<div id="modal_msg_sub_txt">
+			<span>회원가입을 축하합니다.
+				<br>인증하셔야만 사이트 활동이 가능합니다.
+			</span>
+		</div>
+		<div class="modal_x" id="modal_msg_yes">확인</div>
+		<div class="modal_O" id="modal_msg_cancle">취소</div>
+		<div class="modal_back"></div>
+	</div>		
+</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
-	// 탈퇴버튼 클릭시 Modal창 Open
-	$(document).on('click', '.out', function(){
-		$('.modal_wrap').css('display', 'flex');
-	});
-
-	//MODAL창의 X버튼을 클릭하면 Modal창 Close
-	$(document).on('click', '.modal_close2', function(){
-		$('.modal_wrap').css('display', 'none');		
+	$(function(){
+		var id='${id}';
+		var email='${email}';
+		var key='${key}';
+		
+		var join_main_txt = id+'님 회원가입을 축하드립니다.';
+		var join_sub_txt = email+'으로 인증메일을 보냈습니다. 인증하셔야만 사이트 활동이 가능합니다.';
+		var auth_main_txt = id+'님 이메일 인증되셨습니다.';
+		var auth_sub_txt = '지금부터 사이트 활동이 가능합니다. 감사합니다.'
+		
+		if(key == 'join') {
+			$('#modal_msg_main_txt').text(join_main_txt);	//메인 텍스트
+			$('#modal_msg_sub_txt').text(join_sub_txt);		//서브 텍스트
+			$('#modal_msg_cancle').css('display', 'none');	//취소버튼 제거
+			$('.modal_msg_wrap').css('display', 'flex');	//모달창 출력
+		} else if(key == 'auth') {
+			$('#modal_msg_main_txt').text(auth_main_txt);
+			$('#modal_msg_sub_txt').text(auth_sub_txt);		
+			$('#modal_msg_cancle').css('display', 'none');	
+			$('.modal_msg_wrap').css('display', 'flex');
+		}
+		$('#modal_msg_yes').on('click', function(){
+			$('.modal_msg_wrap').css('display', 'none');
+			});
+		$('.modal_msg_close').on('click', function(){
+			$('.modal_msg_wrap').css('display', 'none');
+		});
 	});
 </script>
 </html>

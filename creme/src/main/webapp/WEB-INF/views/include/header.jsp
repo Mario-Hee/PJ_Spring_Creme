@@ -21,7 +21,7 @@
 		div.header_content {
 			width: 1400px;
 			margin: 0 auto;
-			height: 65px;
+			height: 103px;
 			box-sizing: border-box;
 			border-left: 1px;
 			border-right: 1px;
@@ -41,7 +41,7 @@
 			border-color: transparent;
 			width: 220px;
 			height: 30px;
-			font-size: 13px;
+			font-size: 17px;
 			border-radius: 2px;
 			padding: 10px 12px;
 			outline: none; /* input 태그 focus시 파란테두리*/
@@ -89,6 +89,7 @@
 			display: inline-block;
 			padding: 12px 15px;
 			font-weight: 400;
+			font-size: 20px;
 
 			border-radius: 2px;
 			height: 45px;
@@ -112,8 +113,8 @@
 			line-height: 19px;
 		}
 		.header_content_logo_img {
-			max-width: 81px;
-			height: 80px;
+			max-width: 114px;
+			height: 97px;
 			vertical-align: middle;
 		}
 		.header_content_logo_text {
@@ -166,7 +167,7 @@
 
 
 		/* 모달 로그인 창 */
-		.modal_wrap {
+		.modal_wrap2 {
 			position: fixed;
 			z-index: 1000;
 			background-color: rgba(0,0,0,0.4);
@@ -285,6 +286,7 @@
 			padding: 0 5px;
 			outline: none;
 			font-size: 14px;
+			right: 0px;
 		}
 		.save {
 			width: 335px;
@@ -328,8 +330,8 @@
 			margin: 20px 0 0;
 		}
 		.skinbtn.point1.l-confirm, .member .skinbtn.point2{
-			background: #95A5C3;
-			border: 1px solid #95A5C3;
+			background: #34495e;
+			border: 1px solid #34495e;
 			color: #fff;
 			font-weight: bold;
 		}
@@ -428,7 +430,7 @@
 	</style>
 </head>
 <body>
-<div class="modal_wrap">
+<div class="modal_wrap2">
 		<div class="modal_content">
 			<div class="login_close">
 				<button><i class="fas fa-times"></i></button>
@@ -509,39 +511,36 @@
 				<div class="header_content_nav">
 					<div class="header_content_dropdown_wrap">
 						<div class="header_content_dropdown_group">
-							<a href="#" class="magicline">제품</a>
+							<a href="#" class="magicline">OUR STORY</a>
 							<div class="header_dropdown">
 								<div class="arrow"></div>
 								<ul class="header_dropdown_menu">
-									<li><a href="#">페이스</a></li>
-									<li><a href="#">헤어</a></li>
-									<li><a href="#">바디</a></li>
-									<li><a href="#">퍼퓸</a></li>
+									<li><a href="#">BRANDSTORY</a></li>
 								</ul>
 							</div>
 						</div>
 					</div>
 					<div class="header_content_dropdown_wrap">
 						<div class="header_content_dropdown_group">
-							<a href="#" class="magicline">베스트</a>
+							<a href="#" class="magicline">SHOP</a>
 							<div class="header_dropdown">
 								<div class="arrow"></div>
 								<ul class="header_dropdown_menu">
-									<li><a href="#">주간베스트</a></li>
-									<li><a href="#">신제품</a></li>
+									<li><a href="#">NEW</a></li>
+									<li><a href="#">WOMAN</a></li>
+									<li><a href="#">MAN</a></li>
+									<li><a href="#">PERFUME</a></li>
+									
 								</ul>
 							</div>
 						</div>
 					</div>
 					<div class="header_content_dropdown_wrap">
 						<div class="header_content_dropdown_group">
-							<a href="#" class="magicline">브랜드</a>
+							<a href="#" class="magicline">REVIEW</a>
 							<div class="header_dropdown">
 								<div class="arrow"></div>
 								<ul class="header_dropdown_menu">
-									<li><a href="#">크렘므</a></li>
-									<li><a href="#">캠페인</a></li>
-									<li><a href="#">원자료</a></li>
 								</ul>
 							</div>
 						</div>
@@ -562,8 +561,7 @@
 							<div class="header_dropdown">
 								<div class="arrow"></div>
 								<ul class="header_dropdown_menu">
-									<li><a href="#">위시리스트</a></li>
-									<li><a href="#">후기</a></li>
+									<li><a href="#">WISHLIST</a></li>
 									<li><a href="#">회원정보수정</a></li>
 									<li><a href="#">고객센터</a></li>
 								</ul>
@@ -615,13 +613,13 @@
 
 	// LOGIN버튼 클릭시 Modal창 Open
 	$(document).on('click', '.login_open', function(){
-		$('.modal_wrap').css('display', 'flex');
+		$('.modal_wrap2').css('display', 'flex');
 		$('#login_id').focus();
 	});
 
 	//MODAL창의 X버튼을 클릭하면 Modal창 Close
 	$(document).on('click', '.login_close', function(){
-		$('.modal_wrap').css('display', 'none');
+		$('.modal_wrap2').css('display', 'none');
 		$('#formLogin')[0].reset();
 		$('.pw_eye').prev().attr('type', 'password');
 		$('.pw_eye').html('<i class="fas fa-eye-slash"></i>')
