@@ -128,11 +128,13 @@ public class MemberController {
 		int result = mService.memInsert(mDto);
 		
 		
+		log.info("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★result: " + result);
 		// 3.회원 등록 결과
 		if(result > 0) {
 			log.info(">>>>>> " + mDto.getId() + "님 회원가입되셨습니다.");
 		}
 		
+		log.info("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★인증 이메일 보냈음");
 		// 4.회원가입 인증 메일 보내기
 		mailService.mailSendUser(mDto.getEmail(), mDto.getId(), request);
 		
@@ -140,7 +142,10 @@ public class MemberController {
 		// SessionAttributes를 사용할때 insert, update가 완료되고
 		// view로 보내기 전 반드시 setComplete()를 실행하여
 		// Session에 담긴 값을 clear 해주어야 한다.
+		log.info("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★sessionattributes 초기화");
 		sessionStatus.setComplete(); // <- 써서 반드시 자원을 반납해 주어야 한다. 안그러면 계속 자원이 남아있기 때문에!
+		
+		log.info("★★★★★★★★★★★★★★★★★★★★★★★★★★★★화면단 출력함");
 		return "redirect:/";
 	}
 	
