@@ -442,8 +442,9 @@
 		
 		.top_btn {
 			 bottom: 115px;
-   			 background-color: #34495e;
+   			 background-color: #962521;
   			 display: none;
+  			 z-index: 90;
 		}
 		.fix_btn {
 			position: fixed;

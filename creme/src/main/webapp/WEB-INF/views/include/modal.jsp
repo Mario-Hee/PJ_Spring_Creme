@@ -30,7 +30,7 @@
 			overflow: auto;
 			width: 100%;
 			height: 100%;
-			display: flex;
+			display: none;
 			justify-content: center;
 			align-items: center;
 			
@@ -106,7 +106,7 @@
 		</div>
 		<div id="modal_msg_sub_txt">
 			<span>회원가입을 축하합니다.
-				<br>인증하셔야만 사이트 활동이 가능합니다.
+				<br> 인증하셔야만 사이트 활동이 가능합니다.
 			</span>
 		</div>
 		<div class="modal_x" id="modal_msg_yes">확인</div>
@@ -123,7 +123,7 @@
 		var key='${key}';
 		
 		var join_main_txt = id+'님 회원가입을 축하드립니다.';
-		var join_sub_txt = email+'으로 인증메일을 보냈습니다. 인증하셔야만 사이트 활동이 가능합니다.';
+		var join_sub_txt = email+'으로 인증메일을 보냈습니다.  인증하셔야만 사이트 활동이 가능합니다.';
 		var auth_main_txt = id+'님 이메일 인증되셨습니다.';
 		var auth_sub_txt = '지금부터 사이트 활동이 가능합니다. 감사합니다.'
 		

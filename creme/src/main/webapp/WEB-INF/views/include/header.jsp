@@ -29,7 +29,9 @@
 			justify-content: space-between;
 			align-items: center;
 		}
-
+		.header_content_search {
+			padding-top: 13px;
+		}
 		.header_content_search_group {
 			display: flex;
 			align-items: center;
@@ -251,7 +253,7 @@
 		}
 		.login {
 			width: 335px;
-			margin: 55px auto 0;
+			margin: 19px auto 0;
 			overflow: hidden;
 		}
 		.input-info div {
@@ -285,7 +287,7 @@
 		input.text, input.password, input.edit {
 			padding: 0 5px;
 			outline: none;
-			font-size: 14px;
+			font-size: 17px;
 			right: 0px;
 		}
 		.save {
@@ -325,6 +327,7 @@
 			width: 100%;
 			height: 55px;
 			line-height: 55px;
+			font-size: 25px;
 		}
 		.member .box .login button {
 			margin: 20px 0 0;
@@ -388,11 +391,11 @@
 		}
 		button#btnFindPwd.skinbtn::after {
 			background: #8f8f8f;
-			margin: -5px 0 0;
+			margin: -12px -7px 0;
 		}
 		button#btnFindPwd.skinbtn {
-			margin: 20px 5px 0;
-			padding: 0 0 0 8px;
+			margin: 20px 4px 0;
+			padding: 0 5px 0 2px;
 		}
 		.form#formLogin {
 			font-size: 14px;
@@ -427,6 +430,14 @@
 			display: flex;
 			align-items: center;
 		}
+		
+		.err_content {
+			text-align: center;
+			background: none;
+			display: none;
+			color: #f46665;
+			padding-top: 13px;
+		}
 	</style>
 </head>
 <body>
@@ -448,23 +459,27 @@
 						<a href="#">비회원</a>
 					</li>
 				</ul>
-				<form id="formLogin" method="post" action="">
+				<div class="err_content">
+					로그인 중 문제가 발생했습니다.
+					아이디 및 비밀번호를 확인해주세요.
+				</div>
+				<form id="formLogin" method="post" action="" onsubmit="return false">
 					<input type="hidden" id="mode" name="mode" value="login">
 					<input type="hidden" id="returnUr1" name="returnUr1" value="#">
-						<div class="login">
-							<div class="input_info">
+						<div class="login" >
+							<div class="input_info" >
 								<div>
 									<div class="inp_login">
 										<span class="icon">
 										</span>
-										<input type="text" class="text" id="login_bx" name="login_id" value placeholder="아이디" required>
+										<input type="text" class="text" id="login_id" name="login_id" value placeholder="아이디" required>
 									</div>
 								</div>
 								<div>
-									<div class="inp_login">
+									<div class="inp_login" >
 										<span class="icon">
 										</span>
-										<input type="password" class="text" id="login_bx" name="login_pw" value placeholder="비밀번호" required minlength="6" maxlength="18">
+										<input type="password" class="text" id="login_pw" name="login_pw" value placeholder="비밀번호" required minlength="6" maxlength="18">
 										<span class="pw_eye">
 											<i class="fas fa-eye-slash"></i>
 										</span>
@@ -475,7 +490,7 @@
 									<input type="checkbox" class="checkbox" id="saveId" name="saveId" value="y" checked="">
 									<label for="saveId" class="label">아이디 저장</label>
 								</div>
-									<button type="submit" class="skinbtn point2 l-login">
+									<button type="submit" class="skinbtn point2 l-login" id="btn_login">
 										<em>로그인</em>
 									</button>
 									<div class="login_menu">
@@ -485,7 +500,7 @@
 										<button type="button" class="skinbtn" id="btnFindId">
 											<em>아이디 찾기</em>
 										</button>
-										<button type="button" class="skinbtn" id="btnFindPwa">
+										<button type="button" class="skinbtn" id="btnFindPwd">
 											<em>비밀번호 찾기</em>
 										</button>
 									</div>
@@ -573,8 +588,17 @@
 							<a href="#"><i class="fas fa-shopping-bag"></i></a>
 						</div>
 					</div>
+					<c:choose>
+						<c:when test="${empty sessionScope.userid}">
 					<div><button type="button" class="btn btn-basic login_open">로그인</button></div>
 					<div><button type="button" id="header_btn_join" class="btn btn-primary">가입하기</button></div>
+						</c:when>
+						<c:otherwise>
+						</c:otherwise>
+					</c:choose>
+					<c:if test="${empty sessionScope.userid}">
+					<div><button type="button" class="btn btn-basic logout_open" id="header-bo">로그아웃</button></div>
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -660,10 +684,52 @@
 		}
 		
 	});
-
+	
+	// LOGIN 버튼 클릭시 AJAX 동작
+	$(document).on('click', '#btn_login', function(){
+		/* alert('zzz'); */
+		// id와 pw값 받아와서 null값이면 작동하지 않는다.
+		var id = $('#login_id').val();
+		var pw = $('#login_pw').val();
+		
+		// 유효성 체크(id, pw) Null체크
+		if(id != '' && pw != '' && id.length != 0 && pw.length != 0) {
+			/* alert(id + ', ' + pw); */
+			$.ajax({
+				url: '${path}/login/in',
+				type: 'POST',
+				data: 'id='+id+'&pw='+pw,
+				success: function(data) {
+					/* alert('System Success:)'); */
+					console.log(data);
+					
+					if(data == 0 || data == 3) {
+						$('.err_content').css('display', 'block')
+						.text('로그인 중 문제가 발생했습니다.' <br> '아이디 및 비밀번호를 확인하거나 계정을 생성하십시오.');
+					} else if(data == 1) {
+						console.log('로그인 성공');
+						location.reload(); //새로고침
+						
+					} else if(data == 2) {
+						$('.err_content').css('display', 'block')
+						.text('이메일 인증 후 로그인 할 수 있습니다.');
+					}
+	
+				},
+				error: function() {
+					alert('System Error:/');
+				}
+			});
+		}
+		
+		
+	});
+	
 	/* Header 가입하기 버튼 클릭시 동의 페이지 이동 */
 	$(document).on('click', '#header_btn_join', function(){
 		location.href="${path}/member/constract";
 	});
+	
+
 </script>
 </html>

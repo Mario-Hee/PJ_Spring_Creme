@@ -411,7 +411,6 @@
 <script src="${path}/resources/js/validation.js"></script>
 <script type="text/javascript">
 	$(function(){
-		FunLoadingBarStart();
 		// 비정상적인 접근인지 판단한다.
 		// '${flag}' el태그로 받는다.
 		// el태그를 쓸때는 따옴표를 붙여서 써야한다! 그렇지 않으면 오류!
