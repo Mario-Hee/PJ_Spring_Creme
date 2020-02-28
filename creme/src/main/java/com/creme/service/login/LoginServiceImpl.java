@@ -92,10 +92,12 @@ public class LoginServiceImpl implements LoginService{
 		
 
 	}
-	
 	@Override
-	public void logout() {
+	public void logout(HttpSession session) {
+		// TODO Auto-generated method stub
+		session.invalidate();
 		
 	}
-
+	
+	
 }

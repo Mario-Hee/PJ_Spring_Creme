@@ -464,6 +464,12 @@
 		.fas {
 			font-weight: 900;
 		}
+		.footer_creme {
+			
+			font-size: 30px;
+			font-family: 'Nanum Gothic';
+		}
+		
 	</style>
 </head>
 <body>
@@ -785,7 +791,7 @@
 
 				<a href="#">
 
-					<img src=""  id="footer_creme" alt="크렘므 로고">
+					<span class="footer_creme">CREME</span>
 
 				</a>
 

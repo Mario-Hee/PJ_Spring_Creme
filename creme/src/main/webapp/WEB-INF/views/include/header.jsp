@@ -89,14 +89,15 @@
 		}
 		.header_content_dropdown_group > a {
 			display: inline-block;
-			padding: 12px 15px;
+			padding: 14px 15px;
 			font-weight: 400;
 			font-size: 20px;
-
 			border-radius: 2px;
 			height: 45px;
 			color: #506763;
 			line-height: 19px;
+			position: relative;
+			left: -22px;
 		}
 		.header_content_dropdown_wrap:hover > div > a,
 		.header_content_member_bag:hover > a {
@@ -113,6 +114,9 @@
 			text-align: center;
 			padding: 12px;
 			line-height: 19px;
+			position: relative;
+			left: -19px;
+			top: 3px;
 		}
 		.header_content_logo_img {
 			max-width: 114px;
@@ -438,6 +442,7 @@
 			color: #f46665;
 			padding-top: 13px;
 		}
+		
 	</style>
 </head>
 <body>
@@ -590,15 +595,14 @@
 					</div>
 					<c:choose>
 						<c:when test="${empty sessionScope.userid}">
-					<div><button type="button" class="btn btn-basic login_open">로그인</button></div>
-					<div><button type="button" id="header_btn_join" class="btn btn-primary">가입하기</button></div>
-						</c:when>
+							<div><button type="button" class="btn btn-basic login_open">로그인</button></div>
+							<div><button type="button" id="header_btn_join" class="btn btn-primary">가입하기</button></div>
+						</c:when>	
 						<c:otherwise>
+							<div><span class="header_user_name">${name}</span></div>
+							<div><button type="button" id="header_btn_logout" class="btn btn-basic logout_open">로그아웃</button></div>
 						</c:otherwise>
-					</c:choose>
-					<c:if test="${empty sessionScope.userid}">
-					<div><button type="button" class="btn btn-basic logout_open" id="header-bo">로그아웃</button></div>
-					</c:if>
+					</c:choose>	
 				</div>
 			</div>
 		</div>
@@ -705,7 +709,7 @@
 					
 					if(data == 0 || data == 3) {
 						$('.err_content').css('display', 'block')
-						.text('로그인 중 문제가 발생했습니다.' <br> '아이디 및 비밀번호를 확인하거나 계정을 생성하십시오.');
+						.text('로그인 중 문제가 발생했습니다.아이디 및 비밀번호를 확인하거나 계정을 생성하십시오.');
 					} else if(data == 1) {
 						console.log('로그인 성공');
 						location.reload(); //새로고침
@@ -722,6 +726,22 @@
 			});
 		}
 		
+	});
+	
+	/* LOGOUT 기능 */
+	$(document).on('click', '#header_btn_logout', function(){
+		/* alert('로그아웃'); */		
+		$.ajax({
+			url: '${path}/login/out',
+			type: 'POST',
+			success: function() {
+				console.log('Logout Success:)');
+				location.reload();
+			},
+			error: function() {
+				/* alert('System error:/'); */
+			}
+		});
 		
 	});
 	
