@@ -9,9 +9,10 @@
 	<script src="https://kit.fontawesome.com/3d124ab517.js" crossorigin="anonymous"></script>
 	<link rel="icon" type="image/png" href="${path}/resources/img/favicon.png">
 	<style type="text/css">
+	@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
 		* {
 			/*font-size: 12px;*/
-			font-family: Dotum,'돋움',Helvetica,sans-self;
+			font-family:font-family: 'Nanum Gothic' ;
 			/*line-height: 1.5;*/
 			color: #333;
 		}

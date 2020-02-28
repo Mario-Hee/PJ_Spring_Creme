@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.creme.domain.MemberDTO;
 import com.creme.service.login.LoginService;
@@ -15,13 +16,13 @@ import lombok.extern.slf4j.Slf4j;
 
 @RequestMapping("/login")
 @Slf4j
-@Controller
+@RestController
 public class LoginController {
+	
 	
 	@Autowired
 	LoginService lService;
 	
-	@ResponseBody
 	@PostMapping("/in") // 사용자가 로그인 값을 입력하면 오는 곳
 	public Integer logIn(MemberDTO mDto,
 						 HttpSession session) { // 매개변수 선언만 해주면 스프링이 읽어서 자동으로 객체생성해서 넣어준다. 
@@ -36,7 +37,7 @@ public class LoginController {
 		return result;
 	}
 	
-	@ResponseBody
+	
 	@PostMapping("/out")
 	public void logOut(HttpSession session) {
 		log.info(">>>>> POST: LOGOUT/LOGOUT ACTION");

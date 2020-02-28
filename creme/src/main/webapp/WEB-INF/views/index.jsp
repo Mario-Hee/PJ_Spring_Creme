@@ -135,7 +135,7 @@
 
 			padding-bottom: 5px;
 
-			border-bottom: 1px solid #1b1b1b;
+			border-bottom: 1px solid #333333;
 
 			text-align: center;
 
@@ -159,7 +159,7 @@
 
 		.txt a > strong {
 
-			font-size: 14px;
+			font-size: 16px;
 
 			font-weight: bold;
 
@@ -179,9 +179,9 @@
 
 		.cost strong {
 
-			color: #333;
+			color: #333333;
 
-			font-size: 13px;
+			font-size: 18px;
 
 		}
 

@@ -581,8 +581,12 @@
 							<div class="header_dropdown">
 								<div class="arrow"></div>
 								<ul class="header_dropdown_menu">
-									<li><a href="#">WISHLIST</a></li>
-									<li><a href="#">회원정보수정</a></li>
+									<li><a href="#">주문내역</a></li>
+									<li><a href="#">위시리스트</a></li>
+									<c:if test="${not empty userid}">
+										<li><a href="${path}/member/update">회원정보수정</a></li>
+										<li><a href="${path}/member/pwupdate">비밀번호재설정</a></li>
+									</c:if>
 									<li><a href="#">고객센터</a></li>
 								</ul>
 							</div>
@@ -595,12 +599,12 @@
 					</div>
 					<c:choose>
 						<c:when test="${empty sessionScope.userid}">
-							<div><button type="button" class="btn btn-basic login_open">로그인</button></div>
-							<div><button type="button" id="header_btn_join" class="btn btn-primary">가입하기</button></div>
+							<div><button type="button" class="btn btn-basic login_open">Login</button></div>
+							<div><button type="button" id="header_btn_join" class="btn btn-primary">Sign up</button></div>
 						</c:when>	
 						<c:otherwise>
 							<div><span class="header_user_name">${name}</span></div>
-							<div><button type="button" id="header_btn_logout" class="btn btn-basic logout_open">로그아웃</button></div>
+							<div><button type="button" id="header_btn_logout" class="btn btn-basic logout_open">Logout</button></div>
 						</c:otherwise>
 					</c:choose>	
 				</div>

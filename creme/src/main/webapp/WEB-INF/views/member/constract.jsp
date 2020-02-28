@@ -8,11 +8,12 @@
 <title>Insert title here</title>
 <style type="text/css">
 		@import url('https://fonts.googleapis.com/css?family=Secular+One&display=swap');
+		@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
 		/* Common */
 		/* 기본적으로 태그에 margin 또는 padding */
 		* { 
 			box-sizing: border-box; 
-			font-family: Dotum, 돋움, Helvetica, sans-serif;
+			font-family:font-family: 'Nanum Gothic' ;
 		}
 		body, ul, h1, h2, h3, h4, h5, h6 {
 			margin: 0; padding: 0;

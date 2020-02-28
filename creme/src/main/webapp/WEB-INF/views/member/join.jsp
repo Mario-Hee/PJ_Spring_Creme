@@ -10,8 +10,9 @@
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
 <style type="text/css">
 	@import url('https://fonts.googleapis.com/css?family=Secular+One&display=swap');
+	@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
 		* {
-			font-family: Dotum,'돋움',Helvetica,sans-self;
+			font-family:font-family: 'Nanum Gothic' ;
 			box-sizing: border-box;
 		}
 		body, h1, h2, h3, h4, h5, h6, ul, p {
@@ -262,7 +263,7 @@
 								<label for="id">아이디</label>
 							</h3>
 							<span class="ps_box int_id">
-								<input type="text" id="uid" name="id" class="int" placeholder="아이디를 입력해 주세요">	
+								<input type="text" id="uid" name="id" class="int" placeholder="아이디를 입력해 주세요" readonly value="${user.id}">	
 							</span>
 							<span class="error_next_box">필수 정보입니다.</span>
 						</div>
@@ -330,14 +331,14 @@
 								<label for="addr">주소</label>
 							</h3>
 							<span class="ps_box">
-								<input type="text" id="sample6_postcode" name="postcode" class="int addr_only" placeholder="우편번호" readonly >
+								<input type="text" id="sample6_postcode" name="postcode" class="int addr_only" placeholder="우편번호" readonly value="${user.postcode}">
 								<input type="button" id=btn_post onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
 							</span>
 							<span class="ps_box">
-								<input type="text" id="sample6_address" name="addr1" class="int addr_only" placeholder="주소" readonly ><br>
+								<input type="text" id="sample6_address" name="addr1" class="int addr_only" placeholder="주소" readonly value="${user.addr1}" ><br>
 							</span>
 							<span class="ps_box">
-								<input type="text" id="sample6_detailAddress" name="addr2" class="int" placeholder="상세주소">
+								<input type="text" id="sample6_detailAddress" name="addr2" class="int" placeholder="상세주소" readonly value="${user.addr2}">
 								<input type="hidden" id="sample6_extraAddress" placeholder="참고항목">
 							</span>
 							<span class="error_next_box">필수 정보입니다.</span>
@@ -411,14 +412,33 @@
 <script src="${path}/resources/js/validation.js"></script>
 <script type="text/javascript">
 	$(function(){
+		alert('user: '+'${user}');
+		
+		if('${user}' != '') {
+			// 회원정보수정 디자인 변경
+			
+			// →버튼 텍스트가 수정하기로 바뀐다
+			$('#btn_join').text('수정하기');
+			
+			// →비밀번호 제거
+			$('.join_row:eq(1)').css('display', 'none');
+			
+			// →비밀번호 재설정 제거
+			$('.join_row:eq(2)').css('display', 'none');
+			
+			// →id에 readonly 효과를 줘서 입력이 불가능
+			// id=#id를 제거해서 우리가 입력한 유효성체크 동작 불가능
+			$('.join_info_box_input:eq(0)').attr('readonly', 'true')
+										   .removeAttr('id');
+		}
 		// 비정상적인 접근인지 판단한다.
 		// '${flag}' el태그로 받는다.
 		// el태그를 쓸때는 따옴표를 붙여서 써야한다! 그렇지 않으면 오류!
 		
-		var flag = '${flag}';
-		if (flag == 0) {
-			location.href="${path}/member/constract";
-		}
+	//	var flag = '${flag}';
+	//	if (flag == 0) {
+	//		location.href="${path}/member/constract";
+	//	}
 		
 		
 		
@@ -457,7 +477,7 @@
 			// 유효성체크 결과로 테두리색과 err메세지를 출력하는
 			// 함수 실행
 			console.log(result.code + " ," + result.desc);
-			ckDesign(result.code, result.desc, 0, 0);  
+			ckDesign(result.code, result.desc, 0, 0);
 		});
 
 		// 비밀번호 유효성체크

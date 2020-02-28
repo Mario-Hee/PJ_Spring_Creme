@@ -7,6 +7,10 @@
 <title>크렘므: </title>
 <script src="https://kit.fontawesome.com/3d124ab517.js" crossorigin="anonymous"></script>
 <style type="text/css">	
+	@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
+		a {
+		font-family: 'Nanum Gothic' ;
+		}
 		.modal_msg_close {
 			position: absolute;
 			top: 7px;

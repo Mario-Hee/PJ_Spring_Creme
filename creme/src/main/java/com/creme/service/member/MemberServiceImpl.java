@@ -22,8 +22,14 @@ public class MemberServiceImpl implements MemberService {
 	public int idOverlap(String id) {
 		return mDao.idOverLap(id);
 	}
+	
 	@Override
 	public int memInsert(MemberDTO mDto) {
 		return mDao.memInsert(mDto);
+	}
+	
+	@Override
+	public MemberDTO userView(String id) {
+		return mDao.userView(id);
 	}
 }
