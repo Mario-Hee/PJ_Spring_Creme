@@ -251,14 +251,15 @@ var joinValidate = {
 		}
 	},
 	// 이메일 유효성 체크
-	checkEmail : function(email, emailId) {
+	checkEmail : function(email) {
+		//console.log('이메일이다'+email);
 		var regEmpty = /\s/g;
 		var regEmail = /^[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[@]{1}[-A-Za-z0-9_]+[-A-Za-z0-9_.]*[.]{1}[A-Za-z]{1,5}$/g;
 
-		if (emailId == '' || emailId.length == 0) { //1. 값이 있는지 체크한다.
+		if (email == '' || email.length == 0) { //1. 값이 있는지 체크한다.
 			return this.resultCode.empty_val;
 
-		} else if (emailId.match(regEmpty)) { //2. 공백값이 있는지 체크한다.
+		} else if (email.match(regEmpty)) { //2. 공백값이 있는지 체크한다.
 			return this.resultCode.space_length_val;
 
 		} else if (!email.match(regEmail)) { //3. 정규식 체크

@@ -172,6 +172,11 @@
 		#uemail {
 			margin-right: 87px;
 		}
+		
+		.email_box {
+			display: none;
+		}
+
 		#back {
 			position: fixed;
 			z-index: 1200;
@@ -263,7 +268,7 @@
 								<label for="id">아이디</label>
 							</h3>
 							<span class="ps_box int_id">
-								<input type="text" id="uid" name="id" class="int" placeholder="아이디를 입력해 주세요" readonly value="${user.id}">	
+								<input type="text" id="uid" name="id" class="int" placeholder="아이디를 입력해 주세요"  value="${user.id}">	
 							</span>
 							<span class="error_next_box">필수 정보입니다.</span>
 						</div>
@@ -294,7 +299,7 @@
 								<label for="name">이름</label>
 							</h3>
 							<span class="ps_box">
-								<input type="text" id="uname" name="name" class="int" placeholder="이름을 입력해 주세요">
+								<input type="text" id="uname" name="name" class="int" placeholder="이름을 입력해 주세요" value='${user.name}'>
 							</span>
 							<span class="error_next_box">필수 정보입니다.</span>
 						</div>
@@ -303,15 +308,15 @@
 							<h3 class="join_title">
 								<label for="email">본인 확인 이메일<span class="choice">(선택)</span></label>
 							</h3>
-							<span class="ps_box">
-								<input type="text" id="uemail" class="int" placeholder="이메일을 입력해주세요">
+							<span class="ps_box email_box2">
+								<input type="text" id="uemail" name="email" class="int" placeholder="이메일을 입력해주세요" value="${user.email}">
 								<select class="sel" id="selemail">
 									<option value="No" selected="selected">Email 선택</option>
 									<option value="naver.com">@naver.com(네이버)</option>
 									<option value="daum.net">@daum.net(다음)</option>
 									<option value="gmail.com">@gmail.com(구글)</option>
 								</select>
-								<input type="hidden" name="email" id="emailall">
+								
 								
 							</span>
 							<span class="error_next_box">필수 정보입니다.</span>
@@ -321,7 +326,7 @@
 								<label for="phone">휴대전화</label>
 							</h3>
 							<span class="ps_box">
-								<input type="tel" id="uphone" name="phone" class="int" placeholder="-없이 입력 예)01012345678">
+								<input type="tel" id="uphone" name="phone" class="int" placeholder="-없이 입력 예)01012345678" value='${user.phone}'>
 							</span>
 							<span class="error_next_box">필수 정보입니다.</span>
 						</div>
@@ -338,7 +343,7 @@
 								<input type="text" id="sample6_address" name="addr1" class="int addr_only" placeholder="주소" readonly value="${user.addr1}" ><br>
 							</span>
 							<span class="ps_box">
-								<input type="text" id="sample6_detailAddress" name="addr2" class="int" placeholder="상세주소" readonly value="${user.addr2}">
+								<input type="text" id="sample6_detailAddress" name="addr2" class="int" placeholder="상세주소" value="${user.addr2}">
 								<input type="hidden" id="sample6_extraAddress" placeholder="참고항목">
 							</span>
 							<span class="error_next_box">필수 정보입니다.</span>
@@ -412,35 +417,6 @@
 <script src="${path}/resources/js/validation.js"></script>
 <script type="text/javascript">
 	$(function(){
-		alert('user: '+'${user}');
-		
-		if('${user}' != '') {
-			// 회원정보수정 디자인 변경
-			
-			// →버튼 텍스트가 수정하기로 바뀐다
-			$('#btn_join').text('수정하기');
-			
-			// →비밀번호 제거
-			$('.join_row:eq(1)').css('display', 'none');
-			
-			// →비밀번호 재설정 제거
-			$('.join_row:eq(2)').css('display', 'none');
-			
-			// →id에 readonly 효과를 줘서 입력이 불가능
-			// id=#id를 제거해서 우리가 입력한 유효성체크 동작 불가능
-			$('.join_info_box_input:eq(0)').attr('readonly', 'true')
-										   .removeAttr('id');
-		}
-		// 비정상적인 접근인지 판단한다.
-		// '${flag}' el태그로 받는다.
-		// el태그를 쓸때는 따옴표를 붙여서 써야한다! 그렇지 않으면 오류!
-		
-	//	var flag = '${flag}';
-	//	if (flag == 0) {
-	//		location.href="${path}/member/constract";
-	//	}
-		
-		
 		
 		// 비밀번호가 유효한 값인지 체크해주는 Flag값 
 		// 기본값 false
@@ -455,9 +431,74 @@
 		// 유효성체크 모두 통과 or 불통 여부를 알려주는 변수
 		// 7개에서 하나라도 false가 나오면 
 		var checkAll = true;
+		//alert('user: '+'${user}');
+		
+		if('${user}' != '') {
+			// 회원정보수정 디자인 변경
+			
+			// →버튼 텍스트가 수정하기로 바뀐다
+			$('#btn_join').text('수정하기');
+			
+			// →비밀번호 제거
+			$('.join_row:eq(1)').css('visibility', 'hidden')
+								.css('height', '0')
+								.css('margin-top', '-17px');
+			
+			// →비밀번호 재설정 제거
+			$('.join_row:eq(2)').css('visibility', 'hidden')
+								.css('height', '0')
+								.css('margin-top', '-17px');
+			
+			// →id에 readonly 효과를 줘서 입력이 불가능
+			// id=#id를 제거해서 우리가 입력한 유효성체크 동작 불가능
+			$('.join_info_box_input:eq(0)').attr('readonly', 'true')
+										   .removeAttr('id');
+			$('.email_box').css('display', 'flex');
+			
+			var name = '${user.name}';
+			var phone = '${user.phone}';
+			var email = '${user.email}';
+			var postcode = '${user.postcode}';
+			var addr1 = '${user.addr1}';
+			var addr2 = '${user.addr2}';
+			ckName(name); 
+			ckPhone(phone);
+			ckEmail(email);
+			ckAddr(postcode, addr2);
+			checkArr[0] = true;
+			checkArr[1] = true;
+			ckColorBtn();
+			printcheckArr(checkArr);
+				
+		}
+		
+		// 에러메세지 출력
+		function ckDesign(code, desc, line, msg) {
+			if (code == 0 || code == 10) { // 통과 o
+				$('.ps_box:eq('+line+')').css('border', '2px solid #3885ca');
+				$('.error_next_box:eq('+msg+')').css('visibility', 'visible')
+									   .text(desc)
+									   .css('color', '#3885ca');
+				return true;
+	
+			} else { // 통과 x
+				$('.ps_box:eq('+line+')').css('border', '2px solid #f46665');
+				$('.error_next_box:eq('+msg+')').css('visibility', 'visible')
+									   .text(desc)
+									   .css('color', '#f46665');
+				return false; 
+				}
+			}
 
-
-
+		// 비정상적인 접근인지 판단한다.
+		// '${flag}' el태그로 받는다.
+		// el태그를 쓸때는 따옴표를 붙여서 써야한다! 그렇지 않으면 오류!
+		
+	//	var flag = '${flag}';
+	//	if (flag == 0) {
+	//		location.href="${path}/member/constract";
+	//	}
+		
 		// 아이디 유효성체크:
 		// >> #uid인 input태그의 값을 가져와서 체크
 		$('#uid').keyup(function(){
@@ -467,8 +508,10 @@
 			// 결과를 result에 담음(code, desc)
 			
 			var result = joinValidate.checkId(id);
-
+			
 			if(result.code == 0) {
+				// 결과가 0이면 (0 == 통과)
+				// 통과하면 checkArr 배열에 true가 들어간다.
 				checkArr[0] = true;
 			} else {
 				checkAll[0] = false;
@@ -536,37 +579,59 @@
 		$('#uname').keyup(function(){
 			var name = $.trim($(this).val());
 			// console.log(name);
+			ckName(name);
+		});
+		
+		function ckName(name) {
 			var result = joinValidate.checkName(name);
-
+			ckDesign(result.code, result.desc, 3, 3);
+			
 			if(result.code == 0) {
 				checkArr[2] = true;
 			} else {
 				checkArr[2] = false;
 			}
-			// printcheckArr(checkArr);
+		}
+		// printcheckArr(checkArr);
 
-			ckDesign(result.code, result.desc, 3, 3);
-		});
+
+	
 		// 전화번호 유효성체크
 		$('#uphone').keyup(function(){
 			var phone = $.trim($(this).val());
-			var result = joinValidate.checkPhone(phone);
 			// console.log(phone);
-
+			ckPhone(phone);
+		});
+		
+		function ckPhone(phone){
+			var result = joinValidate.checkPhone(phone);
+			ckDesign(result.code, result.desc, 5, 5);
+			
 			if(result.code == 0) {
 				checkArr[3] = true;
 			} else {
 				checkArr[3] = false;
 			}
-			// printcheckArr(checkArr);
+		}
+		// printcheckArr(checkArr);
 
-			ckDesign(result.code, result.desc, 5, 5);
-		});
-
+		
+		
 		// 이메일 유효성체크
 		$('#uemail').keyup(function(){
 			var emailId = $.trim($(this).val());
 			var url = $('#selemail').val();
+			var email = emailId + '@' +url;
+			
+			ckEmail(email);
+		
+		    if(emailId == '' || emailId.length == 0){
+		    	$('.ps_box:eq(4)').css('border', '2px solid #f46665');
+				$('.error_next_box:eq(4)').css('visibility', 'visible')
+									   .text('아이디를 써주세요.')
+									   .css('color', '#f46665');
+		    }
+			
 			if (url == 'No'){
 				$('.ps_box:eq(4)').css('border', '2px solid #f46665');
 				$('.error_next_box:eq(4)').css('visibility', 'visible')
@@ -574,19 +639,24 @@
 									   .css('color', '#f46665');
 				return false; 
 			}
-			var email = emailId + '@' +url;
-			var result = joinValidate.checkEmail(email, emailId);
+		});
+		
+		function ckEmail(email) {
+			
+			var result = joinValidate.checkEmail(email);
+			ckDesign(result.code, result.desc, 4, 4);
+			//var url = $('#selemail').val();
 
 			if(result.code == 0) {
 				checkArr[4] = true;
 			} else {
 				checkArr[4] = false;
 			}
+		}
 			// printcheckArr(checkArr);
 
 			 // console.log(email);
-			ckDesign(result.code, result.desc, 4, 4);
-		});
+		
 
 		$('#selemail').change(function(){
 			// alert('test');
@@ -594,8 +664,8 @@
 			if (url != 'No') {
 				var emailId = $.trim($(this).val());
 				if (emailId != '' || emailId.length != 0) {
-				var email = emailId + '@' +url;
-				var result = joinValidate.checkEmail(email, emailId);					
+					var email = emailId + '@' +url;
+					var result = joinValidate.checkEmail(email);					
 				}
 				if(result.code == 0) {
 					checkArr[4] = true;
@@ -628,12 +698,18 @@
 
 		// 주소 유효성체크
 		$('#sample6_detailAddress').keyup(function(){
-			var addrDtail = $.trim($(this).val());
-			var addrPost = $('#sample6_postcode').val();
-			// console.log('우편번호: '+ addrPost+', 상세주소: '+addrDtail); //테스트 창
-			var result = joinValidate.checkAddr(addrDtail, addrPost);
+			//var postcode = $.trim($('#sample6_detailAddress').val());
+			var postcode = $('#sample6_postcode').val();
+			var addr2 = $.trim($('#sample6_detailAddress').val());
+			//console.log('우편번호: '+ addrPost+', 상세주소: '+addrDtail); //테스트 창
+			ckAddr(postcode, addr2);
+		});
+			
+		function ckAddr(postcode, addr2) {  
+			var result = joinValidate.checkAddr(addr2, postcode);
 			// console.log(result.code);
-			if(result.code == 3) { // 우편번호 & 주소가 없다.
+			
+			if(result.code == 3) { // 우편번호 & 주소가 없다. 
 				ckDesign(result.code, result.desc, 6, 6);
 				ckDesign(result.code, result.desc, 7, 6);
 				checkArr[5] = false;
@@ -645,14 +721,17 @@
 			} else { // 상세주소 통과 x한 모든 경우
 				ckDesign(result.code, result.desc, 8, 6);
 				checkArr[5] = false;
-
-				
+				}
 			}
-			printcheckArr(checkArr);
-		});
+		//printcheckArr(checkArr);
+
 
 		// 버튼 활성화!
 		$('.int').keyup(function(){
+			ckColorBtn();
+		});
+		
+		function ckColorBtn() {
 			var checkAll = true;
 			
 			for (var i = 0; i < checkArr.length; i++) {
@@ -668,12 +747,11 @@
 				$('.btn_type').css('cursor', 'pointer');
 			} else {
 				$('.btn_type').removeClass('btn-primary')
-				.add('btn-agree');
+				.addClass('btn-agree');
 				// $('#btn_join').prop('disabled', true);
 				$('.btn_type').css('cursor', 'no-drop');
 			}
-		});
-
+		}
 
 
 		// 회원가입 버튼 클릭!
@@ -701,7 +779,7 @@
 				var id = $('#uemail').val();
 				var url = $('#selemail').val(); 
 				console.log(id+", "+url);
-				$('#emailall').val(id+'@'+url);
+				$('#uemail').val(id+'@'+url);
 				alert('회원가입 성공!');
 				// submit: form태그 안에 있는 데이터들을 서버단으로 전송
 				// action: 목적지(MemberController '/join')
@@ -717,24 +795,7 @@
 		});	
 	});
 
-			// 에러메세지 출력
-			function ckDesign(code, desc, line, msg) {
-			if (code == 0 || code == 10) { // 통과 o
-				$('.ps_box:eq('+line+')').css('border', '2px solid #3885ca');
-				$('.error_next_box:eq('+msg+')').css('visibility', 'visible')
-									   .text(desc)
-									   .css('color', '#3885ca');
-				return true;
-
-			} else { // 통과 x
-				$('.ps_box:eq('+line+')').css('border', '2px solid #f46665');
-				$('.error_next_box:eq('+msg+')').css('visibility', 'visible')
-									   .text(desc)
-									   .css('color', '#f46665');
-				return false; 
-				}
-			}
-
+		
 
 	// 개발시 사용: 유효성체크 전체여부를 출력해주는 함수(true, false)
 	function printcheckArr(checkArr) {

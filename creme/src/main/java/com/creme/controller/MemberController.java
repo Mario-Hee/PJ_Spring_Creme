@@ -232,4 +232,14 @@ public class MemberController {
 		
 		return "member/join";
 	}
+	
+	@PostMapping("/update")
+	public String memUpdate(MemberDTO mDto, HttpSession session) {
+		log.info(">>>>>>>>>>>>POST: Member Update Action");
+		log.info(mDto.toString());
+		
+		mService.memUpdate(mDto, session);
+
+		return "redirect:/";
+	}
 }
