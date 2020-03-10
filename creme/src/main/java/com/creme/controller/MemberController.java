@@ -138,8 +138,8 @@ public class MemberController {
 		log.info("Password: " + mDto.getPw()); // 사용자 입력한 PW값 그대로 나타난다.
 		
 		// 1.사용자 암호 hash 변환
-		String encPw = passwordEncoder.encode(mDto.getPw()); //사용자가 입력한 Pw값을  encoder메서드를 실행하겠다!(요상한 값을 바뀌어서 나옴.)
-		mDto.setPw(encPw); // 사용자가 입력한 값을 Hash에 값을 넣어서 바꾸겠다. 암호화된 패스워드가 변화되어서 넣어져있다. mDto에 변환된 값이 넣어져있다.
+
+ // 사용자가 입력한 값을 Hash에 값을 넣어서 바꾸겠다. 암호화된 패스워드가 변화되어서 넣어져있다. mDto에 변환된 값이 넣어져있다.
 		log.info("Password(+Hash): " + mDto.getPw()); // 암호화된 비밀번호가 나온다. 
 		
 		// 2.DB에 회원 등록
@@ -241,5 +241,42 @@ public class MemberController {
 		mService.memUpdate(mDto, session);
 
 		return "redirect:/";
+	}
+	
+	@GetMapping("/pwupdate")
+	public String pwUpdate(HttpSession session) {
+		log.info(">>>>>GET: Password Update Page");
+		String id = (String)session.getAttribute("userid");
+		if(id == null) {
+			return "redirect:/";
+		}
+		
+		return "member/pwupdate";
+	}
+	
+	@PostMapping("/pwupdate")
+	public String pwUpdate(HttpSession session, MemberDTO mDto) {
+		log.info(">>>>>POST: Password Update Action");
+		log.info("수정비밀번호:" + mDto.getPw());
+		String encPw = passwordEncoder.encode(mDto.getPw());
+		mDto.setPw(encPw);
+		String id = (String)session.getAttribute("userid");
+		mDto.setId(id);
+		log.info(mDto.toString());
+		
+		mService.pwUpdate(mDto);
+		
+		return "redirect:/";
+	}
+	
+	@ResponseBody
+	@PostMapping("/pwcheck")
+	public Integer pwCheck(String pw, HttpSession session) {
+		log.info(">>>>POST: PwCheck(AJAX)");
+		
+		//사용자가 입력한 pw가 DB에 있는 id, pw가 같은지 체크(id값도 같이 보내야한다,session에 들어있다) 
+		String id = (String)session.getAttribute("userid");
+		return mService.pwCheck(id, pw);
+		
 	}
 }

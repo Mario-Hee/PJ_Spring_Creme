@@ -529,7 +529,7 @@
 			var pw = $.trim($('#upw').val());
 			var rpw = $.trim($('#urpw').val());
 			//  2. 유효성 체크 하기
-			var result = joinValidate.checkPw(pw, rpw);
+			var result = joinValidate.checkPw("", pw, rpw);
 			if(result.code == 0 || result.code == 10 || result.code == 6) {
 				pwFlag = true;
 			} else {

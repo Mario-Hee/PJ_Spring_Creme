@@ -318,10 +318,10 @@
 			height: 22px;
 			padding: 3px 0 0 27px;
 			color: #8f8f8f;	
-			background: url(${path}/resources/img/icons8-tick-box-off.png) no-repeat;
+			background: url("${path}/resources/img/icons8-tick-box-off.png") no-repeat;
 		}
 		 .save input:checked+label {
-			background-image: url(${path}/resources/img/icons8-tick-box-on.png);
+			background-image: url("${path}/resources/img/icons8-tick-box-on.png");
 		}
 		label {
 			cursor: pointer;
