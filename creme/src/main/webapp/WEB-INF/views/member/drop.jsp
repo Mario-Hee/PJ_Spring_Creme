@@ -11,10 +11,8 @@
 	<style type="text/css">
 	@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
 		* {
-			/*font-size: 12px;*/
-			font-family:font-family: 'Nanum Gothic' ;
-			/*line-height: 1.5;*/
-			color: #333;
+			font-family: 'Nanum Gothic' ;
+			box-sizing: border-box;
 		}
 		body {
 		background: #fff;
@@ -111,7 +109,7 @@
 		.gnb_comm .link_gnb, .gnb_with .link_gnb {
 			display: block;
 			height: 43px;
-			/*background: url(../../img/img_gnb_userinfo2014.gif) no-repeat;*/
+			/*background: url(${path}/resources/img/img_gnb_userinfo2014.gif) no-repeat;*/
 			font-size: 14px;
 			font-weight: bold;
 			line-height: 43px;
@@ -188,12 +186,12 @@
 		.bg_intro {
 			display: block;
 			overflow: hidden;
-			background: url(${path}/resources/img/bg_tit_150917.gif) 0 0 no-repeat;
+			background: url("${path}/resources/img/bg_tit_150917.gif") 0 0 no-repeat;
 		}
 		.tit_comm {
 			display: block;
 			overflow: hidden;
-			background: url(${path}/resources/img/tit_comm_160425.png) 0 0 no-repeat;
+			background: url("${path}/resources/img/tit_comm_160425.png") 0 0 no-repeat;
 			text-indent: -9999px;
 		}
 		.intro_out .cont_intro {
@@ -210,7 +208,7 @@
 		.myinfo_intro .tit_comm {
 			height: 26px;
 			margin-bottom: 14px;
-			padding: 0 148px 63px 0;
+			padding: 20px 148px 63px 0;
 		}
 		.info_agree {
 			padding: 42px 50px 29px;
@@ -251,7 +249,7 @@
 		}
 		.lab_check {
 			display: block;
-			background: url(${path}/resources/img/icons8-checked-40.png) no-repeat;
+			background: url("${path}/resources/img/icons8-checked-40.png") no-repeat;
 			width: 40px;
 			height: 40px;
 			padding-top: 40px;
@@ -577,4 +575,8 @@
 		</footer>
 	</div>
 </body>
+<script src="${path}/resources/js/validation.js"></script>
+<script type="text/javascript">
+	$(documnet)
+</script>
 </html>

@@ -254,6 +254,20 @@ public class MemberController {
 		return "member/pwupdate";
 	}
 	
+	@GetMapping("/drop")
+	public String memDrop() {
+		log.info(">>>GET: Member Drop Page");
+		
+		return "member/drop";
+	}
+	
+	@GetMapping("/mypage")
+	public String memMypage() {
+		log.info(">>>GET: Member My Page");
+		
+		return "member/mypage";
+	}
+	
 	@PostMapping("/pwupdate")
 	public String pwUpdate(HttpSession session, MemberDTO mDto) {
 		log.info(">>>>>POST: Password Update Action");
@@ -276,7 +290,8 @@ public class MemberController {
 		
 		//사용자가 입력한 pw가 DB에 있는 id, pw가 같은지 체크(id값도 같이 보내야한다,session에 들어있다) 
 		String id = (String)session.getAttribute("userid");
-		return mService.pwCheck(id, pw);
 		
+		return mService.pwCheck(id, pw);	
 	}
+	
 }
