@@ -414,14 +414,9 @@
 					<li><a href="#">회원정보 고객센터</a></li>
 				</ul>
 				<div id="address"> 
-					<span>
-						<a href="http://www.naver.com">
-							<img id="addr_logo" src="${path}/resources/img/naver/naver_logo.png">
-						</a>
-					</span>
 					<span>Copyright</span>
 					<span>ⓒ</span>
-					<span><strong><a href="#">NAVER Corp.</a></strong></span>
+					<span><strong><a href="#">Creme Corp.</a></strong></span>
 					<span>ALL Rights Reserved.</span>
 				</div>			
 			</div>
@@ -459,15 +454,16 @@
 			var agree_three = $('#li3box').is(':checked');
 			var agree_four = $('#li4box').is(':checked');
 			
-			/* console.log('동의1: ' + agree_one);
+			console.log('동의1: ' + agree_one);
 			console.log('동의2: ' + agree_two);
 			console.log('동의3: ' + agree_three);
-			console.log('동의4: ' + agree_four); */
+			console.log('동의4: ' + agree_four); 
 			
 			if(agree_one == false || agree_two == false){
 				$('.err_check').css('display', 'block');
 				return false;
 			}
+			
 			// 유효성체크, 통과시 회원가입 페이지로 이동!
 			location.href="${path}/member/join?useon="+agree_one
 												+"&primaryon="+agree_two

@@ -41,8 +41,8 @@ public class IndexController {
 		// 개발 종료시 삭제할 것!(자동로그인)
 		session.removeAttribute("userid"); 
 		session.removeAttribute("name");
-		session.setAttribute("userid", "icon94"); 
-		session.setAttribute("name", "왕콘치");
+		//session.setAttribute("userid", "icon94"); 
+		//session.setAttribute("name", "왕콘치");
 		
 		// 2.출력할 화면을 결정
 		return "index";
