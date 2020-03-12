@@ -348,9 +348,9 @@ function pwCheck(pw) {
 				return_val = true;				
 			}	
 				},
-			error: function() {
-				alert('System ERROR:(');
-				}
+		error: function() {
+			alert('System ERROR:(');
+			}
 	});	
 	return return_val;
 }

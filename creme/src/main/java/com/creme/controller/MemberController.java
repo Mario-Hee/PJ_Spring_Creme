@@ -83,13 +83,16 @@ public class MemberController {
 	@GetMapping("/join")
 	public String getJoin(@ModelAttribute("memberDTO") MemberDTO mDto, 
 						  @RequestParam(value="flag", defaultValue ="0") String flag, Model model) {
-		// 컨스트랙트 페이지를 통해서 들어오는 플래그는 1이 들어가고 그외 비정상적인 페이지를 통해 들어오는 것은 0이 들어간다
+		// 컨스트랙트 페이지를 통해서 들어오는 플래그는 1이 들어가고 
+		// 그외 비정상적인 페이지를 통해 들어오는 것은 0이 들어간다
 		log.info(">>>>>> MEMBER/JOIN PAGE GET 출력");
 		log.info(mDto.toString());
 		model.addAttribute("flag", flag);
+		log.info("flag"+flag);
 		
 		// 비정상적인 접근일 경우 약관 동의페이지로 이동
-		if(!flag.equals(1)) {
+		if(!flag.equals("1")) {  // 플래그는 스트링
+			log.info("똥선");
 			return "member/constract";
 		}
 		
@@ -215,6 +218,8 @@ public class MemberController {
 	public String memUpdate(HttpSession session, Model model) {
 		log.info(">>>>> GET: MEMBER UPDATE PAGE");
 		
+		// HTTP GET 메소드 방식
+		
 		// 현재 로그인 상태를 확인
 		// session 영역에 담는 순간 자기 타입을 상실한다. ()형 변환을 꼭 써줘야한다
 		String id = (String)session.getAttribute("userid"); 
@@ -254,19 +259,35 @@ public class MemberController {
 		return "member/pwupdate";
 	}
 	
-	@GetMapping("/drop")
-	public String memDrop() {
+	@GetMapping("/drop") 	// 탈퇴페이지
+	public String memDrop(Model model) {
 		log.info(">>>GET: Member Drop Page");
+		model.addAttribute("key", "drop");
 		
 		return "member/drop";
 	}
 	
-	@GetMapping("/mypage")
+	@GetMapping("/dropAction")  // 탈퇴 모달페이지
+	public String memDrop(HttpSession session, RedirectAttributes rttr) {   
+		// 회원탈퇴를 하기 위해선 서버에 정보가 남아있으면 안되므로 session을 초기화/삭제해야한다.
+		// id는 mapper에서 DB에 업데이트를 해야하기때문(회원 탈퇴정보 업데이트)
+		log.info(">>>>> GET: Member Drop Action");
+		String id = (String)session.getAttribute("userid");
+		
+		rttr.addFlashAttribute("id", id);
+		rttr.addFlashAttribute("key", "dropResult");
+		
+		mService.memDrop(session, id);
+		return "redirect:/"; 
+	}
+	
+	@GetMapping("/mypage")  // 내정보페이지
 	public String memMypage() {
 		log.info(">>>GET: Member My Page");
 		
 		return "member/mypage";
 	}
+
 	
 	@PostMapping("/pwupdate")
 	public String pwUpdate(HttpSession session, MemberDTO mDto) {
@@ -287,7 +308,7 @@ public class MemberController {
 	@PostMapping("/pwcheck")
 	public Integer pwCheck(String pw, HttpSession session) {
 		log.info(">>>>POST: PwCheck(AJAX)");
-		
+		log.info(pw);
 		//사용자가 입력한 pw가 DB에 있는 id, pw가 같은지 체크(id값도 같이 보내야한다,session에 들어있다) 
 		String id = (String)session.getAttribute("userid");
 		

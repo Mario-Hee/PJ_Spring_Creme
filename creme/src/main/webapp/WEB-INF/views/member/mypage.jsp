@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../include/include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link rel="stylesheet" type="text/css" href="../../css/common.css">
-	<script src="https://kit.fontawesome.com/3d124ab517.js" crossorigin="anonymous"></script>
+		<link rel="icon" type="image/png" href="${path}/resources/img/favicon.png">
+		<link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
+		<script src="https://kit.fontawesome.com/3d124ab517.js" crossorigin="anonymous"></script>
 	<style type="text/css">
 	@import url('https://fonts.googleapis.com/css?family=Secular+One&display=swap');
 	@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
@@ -156,7 +158,7 @@
 			margin: 10px 30px 0 0;
 			font-weight: bold;
 			color: white;
-			background-color: #95A5C3;
+			background-color: #34495e;
 
 		}
 
@@ -197,7 +199,7 @@
 <body>
 	<div class="header_content_logo">
 		<a href="#">
-			<img class="header_content_logo_img" src="../../img/logo_transparent.png" alt="로고이미지">
+			<img class="header_content_logo_img" src="${path}/resources/img/logo_transparent.png" alt="로고이미지">
 			<span class="header_content_logo_text"></span>
 		</a>
 	</div>
@@ -211,7 +213,7 @@
 				<div class="default_img">
 					<dd class="pic_desc">
 						<a href="#" onclick="changeImage();clickcr(this,'imn.prfmodify','','',event);">
-							<img src="../../img/default.png" width="80" height="80" alt>
+							<img src="${path}/resources/img/default.png" width="80" height="80" alt>
 							<span class="spimg img_frame"></span>
 						</a>
 					</dd>
@@ -231,7 +233,7 @@
 					</div>
 					<div class="content_txt">
 						<span class="txt_sub">이메일</span>
-						<span class="desc_sub">icon94@naer.com</span>
+						<span class="desc_sub">icon94@naver.com</span>
 					</div>
 					<div class="content_txt">
 						<span class="txt_sub" style="padding: 0 16px 0 0;">주소</span>
@@ -242,11 +244,24 @@
 		</div>
 		<span class=" btn_area_btm">
 			<div class="btn_model">
-				<button type="button" class="btn2">정보수정</button>
-				<button type="button" class="btn2">비밀번호변경</button>
-				<button type="button" class="button.btn-agree btn2">회원탈퇴</button>
+				<button id="btn_update"  type="button" class="btn2">정보수정</button>
+				<button id="btn_pwupdate" type="button" class="btn2">비밀번호변경</button>
+				<button id="btn_drop"  type="button" class="button.btn-agree btn2">회원탈퇴</button>
 			</div>
 		</span>
 	</div>
 </body>
+<script type="text/javascript">
+	$(function(){
+		$('#btn_update').click(function(){
+			location.href='${path}/member/update';
+		});
+		$('#btn_pwupdate').click(function(){
+			location.href='${path}/member/pwupdate';
+		});
+		$('#btn_drop').click(function(){
+			location.href='${path}/member/drop';
+		});
+	});
+</script>
 </html>

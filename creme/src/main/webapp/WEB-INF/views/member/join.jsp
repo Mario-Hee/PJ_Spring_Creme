@@ -315,9 +315,7 @@
 									<option value="naver.com">@naver.com(네이버)</option>
 									<option value="daum.net">@daum.net(다음)</option>
 									<option value="gmail.com">@gmail.com(구글)</option>
-								</select>
-								
-								
+								</select>	
 							</span>
 							<span class="error_next_box">필수 정보입니다.</span>
 						</div>
@@ -366,11 +364,6 @@
 					<li><a href="#">회원정보 고객센터</a></li>
 				</ul>
 				<div id="address"> 
-					<span>
-						<a href="http://www.naver.com">
-							<img id="addr_logo" src="../img/naver/naver_logo.png">
-						</a>
-					</span>
 					<span>Copyright</span>
 					<span>ⓒ</span>
 					<span><strong><a href="#">NAVER Corp.</a></strong></span>
@@ -528,6 +521,7 @@
 			// 1. 사용자가 입력한 값 받기
 			var pw = $.trim($('#upw').val());
 			var rpw = $.trim($('#urpw').val());
+			
 			//  2. 유효성 체크 하기
 			var result = joinValidate.checkPw("", pw, rpw);
 			if(result.code == 0 || result.code == 10 || result.code == 6) {
@@ -789,8 +783,6 @@
 			} else { 
 				alert('유효성체크를 진행해주세요!');
 			}
-			
-			
 
 		});	
 	});

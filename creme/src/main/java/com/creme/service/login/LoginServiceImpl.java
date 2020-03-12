@@ -52,11 +52,18 @@ public class LoginServiceImpl implements LoginService{
 			return result; // 회원이 아닌데 인증할 필요가 없으므로 값을 반환한다
 		}
 		
+		// 탈퇴한 회원인 경우
+		if(loginDto.getUseyn().equals("d")) {
+			result = 3;
+			return result;
+		}
+		
 		// 인증을 안 했을 경우(y가 아닌경우는 무조건 인증을 안 한것)
 		if(!(loginDto.getUseyn().equals("y"))) {
 			result = 2;
 			return result; // 이메일 인증이 안 된 경우이므로 값을 반환한다
 		}
+		
 		
 		// 회원정보가 있고 인증을 한 경우
 		if(loginDto != null) {
@@ -94,7 +101,6 @@ public class LoginServiceImpl implements LoginService{
 	}
 	@Override
 	public void logout(HttpSession session) {
-		// TODO Auto-generated method stub
 		session.invalidate();
 		
 	}

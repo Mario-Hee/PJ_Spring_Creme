@@ -584,9 +584,7 @@
 									<li><a href="#">주문내역</a></li>
 									<li><a href="#">위시리스트</a></li>
 									<c:if test="${not empty userid}">
-										<li><a href="${path}/member/update">회원정보수정</a></li>
-										<li><a href="${path}/member/pwupdate">비밀번호재설정</a></li>
-										<li><a href="${path}/member/drop">회원탈퇴</a></li>
+										<li><a href="${path}/member/mypage">마이페이지</a></li>
 									</c:if>
 									<li><a href="#">고객센터</a></li>
 								</ul>

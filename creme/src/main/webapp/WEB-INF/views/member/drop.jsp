@@ -7,15 +7,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 	<script src="https://kit.fontawesome.com/3d124ab517.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
 	<link rel="icon" type="image/png" href="${path}/resources/img/favicon.png">
 	<style type="text/css">
 	@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');
 		* {
 			font-family: 'Nanum Gothic' ;
 			box-sizing: border-box;
-		}
-		body {
-		background: #fff;
 		}
 		div {
 			display: block;
@@ -209,6 +207,7 @@
 			height: 26px;
 			margin-bottom: 14px;
 			padding: 20px 148px 63px 0;
+			width: 800px;
 		}
 		.info_agree {
 			padding: 42px 50px 29px;
@@ -263,7 +262,7 @@
 		.check_notice {
 			display: inline-block;
 		}
-		.tf_check:checked +label {
+		.ckboxs:checked +label {
 			background-image: url(${path}/resources/img/icons8-checked-checkbox-40.png);
 		}
 		.check_notice > input {
@@ -327,12 +326,13 @@
 			font-size: 14px;
 			font-weight: 20px;
 			font-weight: bold;
-			color: #fff;
+			color: #34495e;
 			line-height: 42px;
-			background-color: #34495e;
 			border: 1px solid #D1D1D1;
 			border-radius: 4px;
+			cursor: no-drop;
 		}
+		
 		.info_user > .tit_agree {
 			font-size: 16px;
 			font-weight: 800;
@@ -417,10 +417,30 @@
 			color: #2db400;
 		}
 		
+		.error_next_box {
+			text-align: center;
+			background: none;
+			visibility: hidden;
+			color: #f46665;
+			padding-top: 13px;
+		}
+		
+		.btn-agree  {
+			font-weight: bold;
+			color: white;
+			background-color: #95A5C3;			
+		}
+		
+		.btn-primary {
+			background-color: #34495e;
+			border-color: transparent;
+			color: white;
+		}
 	</style>
 </head>
 <body>
-<div id="cremehead" role="banner">
+<%@ include file="../include/modal.jsp" %>
+	<div id="cremehead" role="banner">
 			<div class="inner_head">
 				<div class="cremetop">
 				<h1>
@@ -433,8 +453,8 @@
 					</strong>
 				<div id="minicreme_user" class="minicreme_login">
 					<a href="#" target="_top" class="minicreme_nick" id=""></a>
-			</div>
-		</div>
+				</div>
+				</div>
 				</h1>
 			</div>
 				<!-- pc 웹 내정보 GNB -->
@@ -472,6 +492,7 @@
 				</div>
 			</div>	
 		</div>
+		
 		<hr class="hide">
 		<div id="cremecontent" role="main">
 			<div id="cMain">
@@ -495,8 +516,8 @@
 									신중히 선택하신 후 결정해주세요.
 								</div>
 								<div class="check_notice">
-									<input type="checkbox" id="idagree" name="idagree" class="tf_check">
-								    <label for="idagree" class="lab_check">동의</label>	
+									<input type="checkbox" id="ckbox1" name="idagree" class="ckboxs">
+								    <label for="ckbox1" class="lab_check">동의</label>	
 								</div>
 							</div>
 							<div class="info_user">
@@ -508,8 +529,8 @@
 									삭제되는 내정보를 확인하시고 결정해 주세요.
 								</div>
 								<div class="check_notice">
-									<input type="checkbox" id="idagree2" name="idagree" class="tf_check">
-								    <label for="idagree2" class="lab_check">동의</label>	
+									<input type="checkbox" id="ckbox2" name="idagree" class="ckboxs">
+								    <label for="ckbox2" class="lab_check">동의</label>	
 								</div>
 							</div>
 							<div class="info_user">
@@ -521,8 +542,8 @@
 									신중히 선택하신 후 결정해주세요.
 									</div>
 								<div class="check_notice">
-									<input type="checkbox" id="idagree3" name="idagree" class="tf_check">
-								    <label for="idagree3" class="lab_check">동의</label>	
+									<input type="checkbox" id="ckbox3" name="idagree" class="ckboxs">
+								    <label for="ckbox3" class="lab_check">동의</label>	
 								</div>
 							</div>
 							<div class="info_user">
@@ -533,26 +554,21 @@
 									</div>
 								<div class="info_detail info_pwreconfirm">
 										<span class="pw">비밀번호</span>
-										<input type="password" id="pw" class="input_pw" name="pw" placeholder="비밀번호">
+										<input type="password" id="upw" class="input_pw" name="pw" placeholder="비밀번호">
 								  </div>
+								  <span class="error_next_box">필수 정보입니다.</span>
 								</div>
 							</div>
 						</div>
 					</form>
 				</div>
 			</div>
-			<form name="" method="" action="">
 				<div class="wrap_btn">
-					<a href="#" class="btn_comm btn_cancel">
-					<span class="cancel">탈퇴 취소</span>
-					</a>
-					<a href="#" class="btn_comm btn_next">
-					<span class="out">탈퇴</span>
-					</a>
+					<a href="#" class="btn_comm btn_cancel cancel btn-agree ">탈퇴 취소</a>
+					<a href="#" class="btn_comm btn_next out btn-agree " id="drop_yes">탈퇴</a>
 				</div>
-			</form>
 		</div>
-			<footer>
+		<footer>
 			<div id="footer">
 				<ul>
 					<li><a href="#">이용약관</a></li>
@@ -561,11 +577,6 @@
 					<li><a href="#">회원정보 고객센터</a></li>
 				</ul>
 				<div id="address"> 
-					<span>
-						<a href="http://www.naver.com">
-							<img id="addr_logo" src="${path}/resources/img/naver/naver_logo.png">
-						</a>
-					</span>
 					<span>Copyright</span>
 					<span>ⓒ</span>
 					<span><strong><a href="#">NAVER Corp.</a></strong></span>
@@ -577,6 +588,99 @@
 </body>
 <script src="${path}/resources/js/validation.js"></script>
 <script type="text/javascript">
-	$(documnet)
+	$(function(){
+		var checkArr = new Array(2).fill(false); // 체크박스 
+		
+		$('#upw').keyup(function(){
+			var pw = $.trim($(this).val());
+			console.log(pw);
+			// return 4개 중에 1개 
+			var result = joinValidate.checkNowpw(pw);
+			console.log(result.code +","+result.desc);
+			
+			var color = '';
+			
+			if(result.code == 100) {
+				checkArr[0] = true;
+				color = '#3885ca';
+			} else {
+				checkArr[0] = false;
+				color = '#f46665';
+			}
+			$('.error_next_box:eq(0)').css('visibility', 'visible')
+								      .text(result.desc)
+									  .css('color', color);		
+			
+			ckColorBtn();
+			
+		});
+		
+		$('.ckboxs').click(function(){
+						
+			var ckLen = $('.ckboxs:checkbox:checked').length; 
+			if (ckLen == 3) {
+				checkArr[1] = true;
+				$('.error_next_box:eq('+i+')').css('visibility', 'hidden');
+			} else {
+				checkArr[1] = false;
+			}
+			ckColorBtn();
+		});
+		
+		$('#drop_yes').click(function(){
+			
+		});
+		
+		function ckColorBtn() {
+			var checkAll = true;			
+			for (var i = 0; i < checkArr.length; i++) {
+				if(!checkArr[i]) {
+					checkAll = false;
+				}
+				console.log(checkArr[i]);
+			}
+			
+			
+			
+			if(checkAll) {
+				$('#drop_yes').removeClass('btn-agree')
+				.addClass('btn-primary');
+				
+				$('#drop_yes').css('cursor', 'pointer');
+			} else {
+				$('#drop_yes').removeClass('btn-primary')
+				.addClass('btn-agree');
+				
+				$('#drop_yes').css('cursor', 'no-drop');
+			}
+		}
+		
+		$('#drop_yes').click(function(){
+			
+			var checkAll = true;
+			for(var i = 0; i < checkArr.length; i++) {
+				if(checkArr[i] == false) {
+					$('.error_next_box:eq('+i+')').css('visibility', 'visible');
+					checkAll = false;
+					console.log('check'+i+':'+checkArr[i]);
+				}
+			}
+			
+			if(checkAll) {
+				$('.modal_msg_wrap').css('display', 'flex');
+				// 모달창 온
+			} else {
+				alert('유효성체크 하고 와');
+				return false;
+			}
+		});
+		
+		$('#modal_msg_yes').click(function(){
+			location.href='${path}/member/dropAction';
+			
+		});
+
+	});
+	
 </script>
 </html>

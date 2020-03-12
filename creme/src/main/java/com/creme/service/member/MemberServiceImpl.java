@@ -52,6 +52,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	@Override
 	public int pwCheck(String id, String pw) {
+
 		String encPw = mDao.pwCheck(id);
 		int result = 0;
 		if(passwordEncoder.matches(pw, encPw)) {
@@ -64,7 +65,23 @@ public class MemberServiceImpl implements MemberService {
 	public void pwUpdate(MemberDTO mDto) {
 		mDao.pwUpdate(mDto);
 		
+	}
 	
+	@Override
+	public void memDrop(HttpSession session, String id) {
+		// 비즈니스로직(회원탈퇴)
+		// 로그인 -> session ('쫑이') :session값이 있으면 로그인이 된다.
+		// '쫑이' => 회원탈퇴하고 인덱스 페이지에 가면 session 값이 그대로 있으니 로그인이 되므로
+		//	session값을 초기화 해야한다.
+				
+		// 1) 해당회원의 useyn으로 Update(DB)		
+		int result = mDao.memDrop(id);   
+		
+		// 2) 로그인 정보를 삭제(session 초기화)
+		if(result > 0) {
+			session.invalidate();  // 로그인 된 회원정보를 날린다. 지운다.
+		}
+		
 	}
 	 
 }
