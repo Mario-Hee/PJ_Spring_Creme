@@ -16,6 +16,9 @@
 			font-family: 'Nanum Gothic' ;
 			box-sizing: border-box;
 		}
+		body {
+		background: #f5f6f7;
+		}
 		.header_join {
 			display: block;
 			text-align: center;

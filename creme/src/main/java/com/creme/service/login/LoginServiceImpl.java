@@ -71,7 +71,6 @@ public class LoginServiceImpl implements LoginService{
 			if(passwordEncoder.matches(mDto.getPw(), loginDto.getPw())) {
 				// 로그인 진행~
 				result = 1;
-				
 				// session에 로그인 유저 정보를 저장한다.
 				// 공유영역에 로그인이 되면 userid, name의 값을 가져다 주는데 
 				// 값을 가져다주지 않으면 로그인이 되지않는 상태이다 (session = null일때)
@@ -82,7 +81,6 @@ public class LoginServiceImpl implements LoginService{
 				session.removeAttribute("name");
 				session.setAttribute("userid", loginDto.getId()); 
 				session.setAttribute("name", loginDto.getName());
-				
 			} else {
 				result = 3; // 아이디 또는 비밀번호가 틀린경우이므로 값을 반환한다
 			}

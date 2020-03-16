@@ -141,14 +141,17 @@ public class MemberController {
 		log.info("Password: " + mDto.getPw()); // 사용자 입력한 PW값 그대로 나타난다.
 		
 		// 1.사용자 암호 hash 변환
-
+		String encPw = passwordEncoder.encode(mDto.getPw());
+		mDto.setPw(encPw);
+		
  // 사용자가 입력한 값을 Hash에 값을 넣어서 바꾸겠다. 암호화된 패스워드가 변화되어서 넣어져있다. mDto에 변환된 값이 넣어져있다.
 		log.info("Password(+Hash): " + mDto.getPw()); // 암호화된 비밀번호가 나온다. 
 		
 		// 2.DB에 회원 등록
 		int result = mService.memInsert(mDto);  // mDto 데이터를 가지고  mService에 간다.
 												// mService(인스턴스) memberService를 사용하려면 의존성주입을 해야한다.
-												// insert, update, delete : 성공 1 또는 실패 0 으로 나타난다. 
+										
+		// insert, update, delete : 성공 1 또는 실패 0 으로 나타난다. 
 		
 		log.info("★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★result: " + result);
 		// 3.회원 등록 결과
@@ -226,9 +229,9 @@ public class MemberController {
 		
 		// 로그인이 안돼있으면 비정상적인 접근으로 간주하여
 		// 인덱스페이지로 이동!
-		if(id == null) {
-			return "redirect:/";	
-		}
+		//if(id == null) {
+		//	return "redirect:/";	
+		//}
 		
 		// 로그인된 유저의 정보를 GET
 		// 회원정보수정 페이지로 보내기
@@ -249,12 +252,12 @@ public class MemberController {
 	}
 	
 	@GetMapping("/pwupdate")
-	public String pwUpdate(HttpSession session) {
+	public String pwUpdate() { 
 		log.info(">>>>>GET: Password Update Page");
-		String id = (String)session.getAttribute("userid");
-		if(id == null) {
-			return "redirect:/";
-		}
+		//String id = (String)session.getAttribute("userid");
+		//if(id == null) {
+		//	return "redirect:/";
+		//}
 		
 		return "member/pwupdate";
 	}
@@ -267,6 +270,7 @@ public class MemberController {
 		return "member/drop";
 	}
 	
+	// POST /drop으로 만들기
 	@GetMapping("/dropAction")  // 탈퇴 모달페이지
 	public String memDrop(HttpSession session, RedirectAttributes rttr) {   
 		// 회원탈퇴를 하기 위해선 서버에 정보가 남아있으면 안되므로 session을 초기화/삭제해야한다.

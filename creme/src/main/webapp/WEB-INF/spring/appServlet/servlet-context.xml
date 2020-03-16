@@ -42,4 +42,18 @@
 		</beans:property>
 	</beans:bean>
 	
+	<!-- Add Interceptor Beans -->
+	<beans:bean id="loginInterceptor" class="com.creme.interceptor.LoginInterceptor">
+	</beans:bean>
+	
+	<!-- URL Mapping for Interceptor call -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/member/update"/>
+			<mapping path="/member/mypage"/>
+			<mapping path="/member/pwupdate"/>
+			<mapping path="/member/drop"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+	</interceptors>	
 </beans:beans>

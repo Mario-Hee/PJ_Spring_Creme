@@ -882,6 +882,8 @@
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
+
+
 	$(document).ready(function () {
 		$(window).scroll(function(){ //스크롤이 움직이면
 		if(document.body.scrollTop > 80 || document.documentElement.scrollTop > 80){

@@ -366,7 +366,7 @@
 				<div id="address"> 
 					<span>Copyright</span>
 					<span>ⓒ</span>
-					<span><strong><a href="#">NAVER Corp.</a></strong></span>
+					<span><strong><a href="#">Creme Corp.</a></strong></span>
 					<span>ALL Rights Reserved.</span>
 				</div>			
 			</div>
