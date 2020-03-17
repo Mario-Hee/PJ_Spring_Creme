@@ -583,7 +583,8 @@
 								<ul class="header_dropdown_menu">
 									<li><a href="#">주문내역</a></li>
 									<li><a href="#">위시리스트</a></li>
-										<li><a href="${path}/member/mypage">마이페이지</a></li>
+									<li><a href="${path}/member/mypage">마이페이지</a></li>
+									<li><a href="${path}/board/list">자유게시판</a></li>
 									<li><a href="#">고객센터</a></li>
 								</ul>
 							</div>
