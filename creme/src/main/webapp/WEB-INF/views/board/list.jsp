@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../include/include.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
 	<title>board</title>
+	<link rel="stylesheet" type="text/css" href=""${path}/resources/css/common.css">
 	<!-- 서치박스 스크립트 -->
 	<script src="https://kit.fontawesome.com/1aa6bb9bc2.js" crossorigin="anonymous"></script>
-	<link rel="stylesheet" type="text/css" href="../css/common.css">
 
 <style type="text/css">
 	@import url('https://fonts.googleapis.com/css?family=Nanum+Gothic&display=swap');	
@@ -162,7 +163,10 @@
 			color: white;
 			outline: none;
 		}
-		.header_content_search {}
+		.header_content_search {
+			position: relative;
+			top: 7px;
+		}
 		.header_content_search_group {
 			display: flex;  
 			align-items: center;
@@ -186,14 +190,6 @@
 			animation-duration: 1.8s;
 		}
 
-		@keyframes twinkle{
-			0% {opacity: 0;}
-			100% {opacity: 1;}
-
-			/* from {opacity: 0;}
-			to {opacity: 1;} */
-		}
-
 		.txt_conn {
 			text-align: center;
 		}
@@ -204,11 +200,31 @@
 				.footer {
 
 			padding-bottom: 53px;
-
 		}
+		
+		.twincle_eff {
+			animation-name: twincle;
+			animation-duration: 1.2s;
+			animation-iteration-count: infinite;
+		}
+		@keyframes twinkle{
+			0% {opacity: 0;}
+			100% {opacity: 1;}
+		}
+		.new_color {
+			border: 1px solid tomato;
+			color: tomato;
+			padding: 3px 5px;
+			margin-left: 7px;
+			font-weight: bold;
+			font-size: 12px;
+		}
+		
 </style>
 </head>
 <body>
+	<jsp:useBean id="now" class="java.util.Date"/>
+	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
 		<div class="board_wrap">
 		<h1>자유게시판</h1>
 		
@@ -248,87 +264,31 @@
 				<td style="width: 10%">등록일</td>
 				<td style="width: 10%">조회수</td>
 			</tr>
-
-			<tr>
-				<td>1111</td>
-				<td><a href="#" class="txt_conn">제목<b lass="new">new</b></a></td>
-				<td>작성자</td>
-				<td>20.03.17</td>
-				<td>1</td>
-			</tr>
-
-			<tr>
-				<td>2222</td>
-				<td><a href="#" class="txt_conn">제목<b lass="new">new</b></a></td>
-				<td>작성자</td>
-				<td>20.03.17</td>
-				<td>0</td>
-			</tr>
-
-			<tr>
-				<td>3333</td>
-				<td><a href="#" class="txt_conn">제목<b lass="new">new</b></a></td>
-				<td>작성자</td>
-				<td>20.03.17</td>
-				<td>0</td>
-			</tr>
-
-			<tr>
-				<td>4444</td>
-				<td><a href="#" class="txt_conn">제목<b lass="new">new</b></a></td>
-				<td>작성자</td>
-				<td>20.03.17</td>
-				<td>0</td>
-			</tr>
-
-			<tr>
-				<td>5555</td>
-				<td><a href="#" class="txt_conn">제목<b lass="new">new</b></a></td>
-				<td>작성자</td>
-				<td>20.03.17</td>
-				<td>0</td>
-			</tr>
-
-			<tr>
-				<td>6666</td>
-				<td><a href="#" class="txt_conn">제목<b lass="new">new</b></a></td>
-				<td>작성자</td>
-				<td>20.03.17</td>
-				<td>0</td>
-			</tr>
-
-			<tr>
-				<td>7777</td>
-				<td><a href="#" class="txt_conn">제목</a></td>
-				<td>작성자</td>
-				<td>20.03.17</td>
-				<td>0</td>
-			</tr>
-
-			<tr>
-				<td>8888</td>
-				<td><a href="#" class="txt_conn">제목</a></td>
-				<td>작성자</td>
-				<td>20.03.17</td>
-				<td>0</td>
-			</tr>
-
-			<tr>
-				<td>9999</td>
-				<td><a href="#" class="txt_conn">제목</a></td>
-				<td>작성자</td>
-				<td>20.03.17</td>
-				<td>0</td>
-			</tr>		
+			<c:forEach items="${map.list}" var="list">
+				<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
+					<tr>
+						<td>${list.bno}</td>
+						<td><a href="#" class="txt_conn">${list.title}
+							<c:if test="${today == regdate}">
+								<span class="new_color twincle_eff">N</span>
+							</c:if>
+						</td>
+						<td>${list.writer}</td>
+						<td>
+							<c:choose>
+								<c:when test="${today == regdate}">
+									<fmt:formatDate value="${list.updatedate}" pattern="HH:mm:ss"/>
+								</c:when>
+								<c:otherwise>
+									<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd"/>						
+								</c:otherwise>
+							</c:choose>
+						</td>
+						<td>${list.viewcnt}</td>
+					</tr>
+			</c:forEach>
+	
 		</table>
-
-<!-- 		<div class="search">
-			<span>제목+내용</span>
-			<input type="text" placeholder="검색어" name="" class="">
-			<button>검색</button>
-		</div> -->
-
-
 		
 		<div class="page">
 			<button class="page_btn hover_btn"><</button>	
@@ -339,6 +299,7 @@
 				<a href="#">5</a>
 			<button class="page_btn hover_btn">></button>	
 		</div>
+	</div>
 
 </body>
 </html>
