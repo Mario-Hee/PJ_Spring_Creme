@@ -202,8 +202,8 @@
 			padding-bottom: 53px;
 		}
 		
-		.twincle_eff {
-			animation-name: twincle;
+		.twinkle_eff {
+			animation-name: twinkle;
 			animation-duration: 1.2s;
 			animation-iteration-count: infinite;
 		}
@@ -270,7 +270,7 @@
 						<td>${list.bno}</td>
 						<td><a href="#" class="txt_conn">${list.title}
 							<c:if test="${today == regdate}">
-								<span class="new_color twincle_eff">N</span>
+								<span class="new_color twinkle_eff">N</span>
 							</c:if>
 						</td>
 						<td>${list.writer}</td>
