@@ -236,6 +236,9 @@
     		color: white;
     		border-radius: 3px;
     	}
+    	.fas {
+    		color: #8e8e8e;
+    	}
 </style>
 </head>
 <body>
@@ -252,26 +255,27 @@
 		
 		<div class="orderby_row">
 			<div class="orderby_hover_btn">
-				<a href="#" class="hover_btn">최신순</a>
-				<a href="#" class="hover_btn">조회순</a>
-				<a href="#" class="hover_btn">댓글순</a>
-				<a href="#" class="hover_btn">추천순</a>
+				<a href="${path}/board/list?sort_option=new&keyword=${map.keyword}" id="sort_new" class="hover_btn">최신순</a>
+				<a href="${path}/board/list?sort_option=cnt&keyword=${map.keyword}" id="sort_cnt" class="hover_btn">조회순</a>
+				<a href="${path}/board/list?sort_option=reply&keyword=${map.keyword}" id="sort_reply" class="hover_btn">댓글순</a>
+				<a href="${path}/board/list?sort_option=good&keyword=${map.keyword}" id="sort_good"  class="hover_btn">추천순</a>
 			</div>
 
 
 	<!-- 검색창 -->
 	<div>
 		<div class="header_content_search">
-			<form name="frm_search" action="" method="GET">
+			<form name="keyword" action="${path}/board/list" method="GET">
 				<div class="header_content_search_group">
 					<input type="text" placeholder="검색어를 입력하세요" name="keyword" class="header_content_search_input">
-					<button type="button" class="header_content_search_btn">
+					<button type="submit" class="header_content_search_btn">
 						<i class="fas fa-search"></i>
 					</button>
 				</div>
 			</form>
 		</div>
 	</div>
+
 
 			<div>
 				<button type="button" class="insert_btn hover_btn">글쓰기</button>
@@ -290,9 +294,12 @@
 				<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
 					<tr>
 						<td>${list.bno}</td>
-						<td><a href="#" class="txt_conn">${list.title}
+						<td><a href="#" class="txt_conn">${list.title} 
 							<c:if test="${today == regdate}">
 								<span class="new_color twinkle_eff">N</span>
+								<span class=""></span>
+								<i class="fas fa-paperclip"></i>
+								
 							</c:if>
 						</td>
 						<td>${list.writer}</td>
@@ -334,12 +341,27 @@
 				<span>...</span>
 				<a href="${path}/board/list?curPage=${map.pager.totPage}&sort_option=${map.sort_option}&keyword"=${map.keysord}" class="">${map.pager.totPage}</a>
 				<a href="${path}/board/list?curPage=${map.pager.blockEnd + 1}&sort_option=${map.sort_option}&keyword=${map.keysord}" class="page_right"><button class="page_btn hover_btn">></button></a>
-			</c:if>
-			
-			
+			</c:if>	
 			
 		</div>
 	</div>
 
 </body>
 </html>
+<script type="text/javascript">
+
+$(function(){
+	var sort_option = '${map.sort_option}';
+	if(sort_option != null) {
+		$('#sort_' + sort_option).css('color', '#1D292C');
+		$('#sort_' + sort_option).css('border-radius', '5px');
+		$('#sort_' + sort_option).css('font-weight', 'bold');
+	}
+
+	$('.write_btn').click(function(){
+		location.href="/creme/board/write";
+	});
+});
+
+
+</script>
