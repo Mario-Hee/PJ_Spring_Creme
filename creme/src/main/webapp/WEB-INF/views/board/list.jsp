@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/include.jsp" %> 
+<%@ include file="../include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -244,12 +245,6 @@
 <body>
 	<jsp:useBean id="now" class="java.util.Date"/>
 	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
-	<div class="header_content_logo">
-		<a href="#">
-			<img class="header_content_logo_img" src=${path}/resources/img/logo_transparent.png alt="로고이미지">
-			<span class="header_content_logo_text"></span>
-		</a>
-	</div>
 		<div class="board_wrap">
 		<h1>자유게시판</h1>
 		

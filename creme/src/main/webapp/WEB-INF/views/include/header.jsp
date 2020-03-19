@@ -12,6 +12,9 @@
 		@import url('https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap');
 		@import url('https://fonts.googleapis.com/css?family=Do+Hyeon|Nanum+Gothic+Coding&display=swap');
 		@import url('https://fonts.googleapis.com/css?family=Arimo&display=swap');
+		body {
+			background-color: #f5f6f7;
+		}
 		div.header_wrap {
 			width: 100%;
 			background color: white;
