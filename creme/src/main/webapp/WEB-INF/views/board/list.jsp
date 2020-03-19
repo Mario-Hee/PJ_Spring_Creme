@@ -5,7 +5,8 @@
 <html>
 <head>
 	<title>board</title>
-	<link rel="stylesheet" type="text/css" href=""${path}/resources/css/common.css">
+	<link rel="icon" type="image/png" href="${path}/resources/img/favicon.png">
+	<link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
 	<!-- 서치박스 스크립트 -->
 	<script src="https://kit.fontawesome.com/1aa6bb9bc2.js" crossorigin="anonymous"></script>
 
@@ -219,12 +220,33 @@
 			font-weight: bold;
 			font-size: 12px;
 		}
-		
+
+		.header_content_logo_img {
+    		max-width: 135px;
+    		display: block;
+    		margin: auto;
+    	}
+    	
+    	#check_color {
+			background-color: transparent;
+			color: tomato;
+		}
+    	.board_paging a.active {
+    		background-color: black;
+    		color: white;
+    		border-radius: 3px;
+    	}
 </style>
 </head>
 <body>
 	<jsp:useBean id="now" class="java.util.Date"/>
 	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+	<div class="header_content_logo">
+		<a href="#">
+			<img class="header_content_logo_img" src=${path}/resources/img/logo_transparent.png alt="로고이미지">
+			<span class="header_content_logo_text"></span>
+		</a>
+	</div>
 		<div class="board_wrap">
 		<h1>자유게시판</h1>
 		
@@ -291,13 +313,31 @@
 		</table>
 		
 		<div class="page">
-			<button class="page_btn hover_btn"><</button>	
-				<a href="#">1</a>
-				<a href="#">2</a>
-				<a href="#">3</a>
-				<a href="#">4</a>
-				<a href="#">5</a>
-			<button class="page_btn hover_btn">></button>	
+			
+			
+			<c:if test="${map.pager.curBlock > 1}">
+				<a href="${path}/board/list?curPage=${map.pager.blockBegin-10}&sort_option=${map.sort_option}&keyword=${map.keyword}" class="page_left"><button class="page_btn hover_btn"><</button></a>
+				<a href="${path}/board/list?curPage=1&sort_option=${map.sort_option}" class="">1</a>
+				<span>...</span>
+			</c:if>
+		<c:forEach var="num" begin="${map.pager.blockBegin}" end="${map.pager.blockEnd}">
+		<c:choose>
+			<c:when test="${num == map.pager.curPage}">	
+				<a href="${path}/board/list?curPage=${num}&sort_option=${map.sort_option}&keyword=${map.keyword}" id="check_color">${num}</a>
+			</c:when>
+			<c:otherwise>
+				<a href="${path}/board/list?curPage=${num}&sort_option=${map.sort_option}&keyword=${map.keyword}">${num}</a>
+			</c:otherwise>
+		</c:choose>
+		</c:forEach>
+			<c:if test="${map.pager.curBlock < map.pager.totBlock}">
+				<span>...</span>
+				<a href="${path}/board/list?curPage=${map.pager.totPage}&sort_option=${map.sort_option}&keyword"=${map.keysord}" class="">${map.pager.totPage}</a>
+				<a href="${path}/board/list?curPage=${map.pager.blockEnd + 1}&sort_option=${map.sort_option}&keyword=${map.keysord}" class="page_right"><button class="page_btn hover_btn">></button></a>
+			</c:if>
+			
+			
+			
 		</div>
 	</div>
 

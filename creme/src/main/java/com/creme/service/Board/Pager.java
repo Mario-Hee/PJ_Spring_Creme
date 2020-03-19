@@ -7,7 +7,7 @@ public class Pager {
 	private int curPage;		// 현재 페이지
 	private int prevPage;		// 이전 페이지
 	private int nextPage;		// 다음 페이지
-	private int totPage;		// 전체 페이지 갯수
+	private int totPage;		// 전체 페이지 갯
 	private int totBlock;		// 전체 페이지블록 갯수
 	private int curBlock;		// 현재 블록
 	private int prevBlock;		// 이전 블록
@@ -20,19 +20,19 @@ public class Pager {
 	// pager(레코드 갯수, 출력할 페이지 번호)
 	public Pager(int count, int curPage) {
 		curBlock = 1; 			 // 현재블록 번호
-		this.curPage = curPage;	 // 현재 페이지 번호 
-		setTotPage(count);		 // 전체 페이지 객수 계산
+		this.curPage = curPage;	 // 현재 페이지 번호 this.=전역변수, 자기자신
+		setTotPage(count);		 // 전체 페이지 객수 계산 호출문 count:15
 		setPageRange();			 // #{start}, #{end} 값 계산
 		setTotBlock();			 // 전체 블록 갯수 계산
 		setBlockRange();		 // 블록의 시작, 끝 번호 계산
 	}
 	public void setBlockRange() {
 		// 원하는 페이지가 몇번째 블록에 속하는지 계산
-		curBlock=(curPage=1)/BLOCK_SCALE + 1;
+		curBlock=(curPage-1)/BLOCK_SCALE + 1;   	// curPage(1)-1 / BLOCK_SCALE(10)+1 = 1
 		// 블록의 시작페이지, 끝페이지 번호 계산
-		blockBegin=(curBlock-1)*BLOCK_SCALE+1;
+		blockBegin=(curBlock-1)*BLOCK_SCALE+1;		// curBlock(1)-1 * BLOCK_SCALE(10)+1 = 1
 		// 마지막 블록 번호가 범위를 초과하지 않도록 처리
-		blockEnd=blockBegin+BLOCK_SCALE-1;
+		blockEnd=blockBegin+BLOCK_SCALE-1; 			// blockBegin(1) + BLOCK_SCALE(10)-1 = 2
 		if(blockEnd > totPage) {
 			blockEnd = totPage;
 		}
@@ -47,15 +47,15 @@ public class Pager {
 	}
 	// 블록의 갯수 계산
 	public void setTotBlock() {
-		totBlock = (int)Math.ceil(totPage*1.0 / BLOCK_SCALE);
+		totBlock = (int)Math.ceil(totPage*1.0 / BLOCK_SCALE); // totPage(2)*1.0 = 2.0 / BLOCK_SCALE(10) = 1 (Math.ceil 올림)
 	}
 	
 	// where rn between #{start} and #{end}에 입력될 값
 	public void setPageRange() {
-	// 시작번호=(현재페이지-1)x페이지당 게시물수 + 1
+	// 시작번호=(현재페이지-1)x페이지당 게시물수 + 1 
 	// 끝번호=시작번호 + 페이지당 게시물수 - 1
-		pageBegin = (curPage-1) * PAGE_SCALE + 1;
-		pageEnd = pageBegin + PAGE_SCALE - 1;
+		pageBegin = (curPage-1) * PAGE_SCALE + 1;  // cuePage(1)-1 = 0 * PAGE_SCALE(10)+1 = 1
+		pageEnd = pageBegin + PAGE_SCALE - 1; 	   // pageBedin(1) + PAGE_SCALE(10)-1 = 10
 	}
 	
 	public int getCurPage() {
@@ -80,9 +80,9 @@ public class Pager {
 		return totPage;
 	}
 	// 전체 페이지 갯수 계산
-	public void setTotPage(int count) {
+	public void setTotPage(int count) { 				   // count: 15 
 		// Math.ceil() 올림
-		totPage = (int)Math.ceil(count*1.0 / PAGE_SCALE);
+		totPage = (int)Math.ceil(count*1.0 / PAGE_SCALE); // 15.0 나누기 10 = 1.5 인데  Math.ceil() 올림이므로 2.0에 형변환해서 2
 	}
 	public int getTotBlock() {
 		return totBlock;
