@@ -45,17 +45,15 @@
 		margin: 30px auto;
 	}
 /*■■■■ 모든버튼 스타일 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
-	.hover_btn {
-		background-color: #95A5C3; 
-		color: white;
+	.hover_btn { 
+		color: #333;
 		outline: none; 
 		border-radius: 5px;
 		font-weight: bold;
 
 	}
 	.hover_btn:hover {
-		background-color:  #34495e;
-		color: white;
+		color: tomato;
 		outline: none; 
 	}
 
@@ -64,16 +62,15 @@
 
 /*■■■■ 최신순 조회순 댓글순 추천순 div영역 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
 	.orderby_row a {
-		padding: 8px 10px;
-		margin-right: 9px;
+		padding: 10px 10px;
 		}
 	.orderby_row{
 		display: flex;
 		justify-content: space-between;  
 		align-items: center;	         
 		box-sizing: border-box;
-		border-top: 2px solid  #34495e;
-		border-bottom: 2px solid  #34495e;
+		border-top: 3px solid  #34495e;
+		border-bottom: 3px solid  #34495e;
 		/*background-color: #e1e1e1;*/
 		padding: 9px 0 9px 0;
 		}
@@ -114,7 +111,7 @@
 /*■■■■ 게시글 등록 버튼 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
 	.insert_btn{
 		padding: 8px 10px;
-		border: 1px solid #95A5C3; 
+		border: 2px solid #34495e;
 		font-size: 15px;
 		}
 
@@ -124,13 +121,18 @@
 		text-align: center;
 	    padding: 10px 5px;
 	    /*background-color: #eaeaea;*/
-	    border-top: 2px solid #34495e;
+	    border-top: 3px solid #34495e;
 	}
 	.page_btn{
 		padding: 10px 15px;
 		border: 1px solid #95A5C3; 
+		background-color: #95A5C3; 
 		color: white;
 		outline: none;
+	}
+	
+	.page_btn:hover {
+		color: white;
 	}
 
 	.page > a { 	/* 페이지 넘버 */
@@ -161,7 +163,7 @@
 			outline: none;
 		}
 		.header_content_search_btn:hover {
-			background-color: #34495e;
+			background-color: #95A5C3;
 			color: white;
 			outline: none;
 		}
@@ -232,14 +234,29 @@
 			background-color: transparent;
 			color: tomato;
 		}
+		
     	.board_paging a.active {
     		background-color: black;
     		color: white;
     		border-radius: 3px;
     	}
+    	
     	.fas {
-    		color: #8e8e8e;
+    		color: black;
     	}
+    	
+    	.fa {
+    		display: inline-block;
+    		font-size: 12px;
+    	}
+    	.btn_warning {
+			color: #f0ad4e;
+    	}
+		.searchcnt {
+			font-size: 15px;
+			font-weight: bold;
+			padding-top: 15px;
+		}
 </style>
 </head>
 <body>
@@ -262,7 +279,7 @@
 		<div class="header_content_search">
 			<form name="keyword" action="${path}/board/list" method="GET">
 				<div class="header_content_search_group">
-					<input type="text" placeholder="검색어를 입력하세요" name="keyword" class="header_content_search_input">
+					<input type="text" placeholder="검색어를 입력하세요" name="keyword" class="header_content_search_input" value="${map.keyword}">
 					<button type="submit" class="header_content_search_btn">
 						<i class="fas fa-search"></i>
 					</button>
@@ -270,12 +287,19 @@
 			</form>
 		</div>
 	</div>
-
-
+	
 			<div>
 				<button type="button" class="insert_btn hover_btn">글쓰기</button>
 			</div>
-		</div><!-- orderby_row -->
+		</div><!-- orderby_row 끝-->
+		
+		<c:if test="${not empty map.keyword}">
+			<div class="searchcnt">
+				<span>${map.keyword} 검색결과 ${map.count}건 검색되었습니다.</span>
+				<a href="${path}board/list" class="btn btn_warning"><i class="fa fa-times-circle"></i></a>
+			</div>	
+		</c:if>
+			
 
 		<table class="board_table">
 			<tr class="txt_list">
@@ -346,9 +370,10 @@
 <script type="text/javascript">
 
 $(function(){
+	
 	var sort_option = '${map.sort_option}';
 	if(sort_option != null) {
-		$('#sort_' + sort_option).css('color', '#1D292C');
+		$('#sort_' + sort_option).css('color', 'tomato;');
 		$('#sort_' + sort_option).css('border-radius', '5px');
 		$('#sort_' + sort_option).css('font-weight', 'bold');
 	}
@@ -356,7 +381,17 @@ $(function(){
 	$('.write_btn').click(function(){
 		location.href="/creme/board/write";
 	});
+	
+	var keyword = '';
+	$('.list.title > a').replaceAll(keyword, '<span class="search_thema_box"></span>');
+	
+	
+	// 검색어 입력시 치환
+	/* var keyword = '';
+	if(keyword != '') {
+		var title = '';
+		uTitle = title.replaceAll(keyword, '<span class="search_thema_box"></span>');
+		$('.post_title').text(uTitle);
+	} */
 });
-
-
 </script>
