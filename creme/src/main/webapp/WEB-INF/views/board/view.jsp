@@ -386,28 +386,26 @@
 						<tbody>
 							<tr>
 								<th scope="row">제목</th>
-								<td>테스트 페이지입니다.</td>
+								<td>${one.title}</td>
 							</tr>
 							<tr>
 								<th scope="row">작성자</th>
-								<td>
-									뮤츠
-								</td>
+								<td>${one.writer}</td>
 							</tr>
 							<tr>
 								<td colspan="2">
 									<ul class="etcArea">
 										<li class>
 											<strong>작성일</strong>
-											<span class="txtNum">2020-03-20 15:40</span>
+											<span class="txtNum">${one.regdate}</span>
 										</li>
 										<li class>
 											<strong>조회수</strong>
-											<span class="txtNum2">1000</span>
+											<span class="txtNum2">${one.viewcnt}</span>
 										</li>
 									</ul>
 									<div class="detail">
-										<div class="content_txt">상세게시글 테스트 입니다.</div>
+										<div class="content_txt">${one.content}</div>
 									</div>
 								</td>
 							</tr>

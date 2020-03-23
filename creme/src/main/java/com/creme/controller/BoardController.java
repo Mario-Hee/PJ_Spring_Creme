@@ -62,13 +62,13 @@ public class BoardController {
 	}
 	
 	@GetMapping("/view")  // 상세게시글
-	public String boardView(int bno, 
-							Model model, 
-							@ModelAttribute("boardDTO")BoardDTO bDto) {
+	public String view(BoardDTO bDto, int bno, Model model) {
 		log.info(">>>>> GET: Board Detail Page");
 		log.info("bno");
 		
-		int resuslt = bService.boardView(bDto);
+		bDto = bService.viewArticle(bno);
+		model.addAttribute("one", bDto);
+		
 		
 		return "board/view";
 	}
