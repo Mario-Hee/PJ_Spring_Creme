@@ -38,7 +38,7 @@
 		.header_content_search_group {
 			display: flex;
 			align-items: center;
-			background-color: #f2f3f5;
+			background-color: e9e9e9;
 			border-radius: 2px;
 		}
 		.header_content_search_input {

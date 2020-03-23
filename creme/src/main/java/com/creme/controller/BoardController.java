@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.creme.domain.BoardDTO;
 import com.creme.service.Board.BoardService;
@@ -19,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 @RequestMapping("/board")
+@SessionAttributes({"BoardDTO"})
 public class BoardController {
 	@Autowired
 	private BoardService bService;
@@ -58,5 +61,16 @@ public class BoardController {
 		return "board/list";
 	}
 	
+	@GetMapping("/view")  // 상세게시글
+	public String boardView(int bno, 
+							Model model, 
+							@ModelAttribute("boardDTO")BoardDTO bDto) {
+		log.info(">>>>> GET: Board Detail Page");
+		log.info("bno");
+		
+		int resuslt = bService.boardView(bDto);
+		
+		return "board/view";
+	}
 
 }

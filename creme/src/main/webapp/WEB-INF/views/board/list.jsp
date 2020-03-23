@@ -169,7 +169,7 @@
 		}
 		.header_content_search {
 			position: relative;
-			top: 7px;
+			top: 3px;
 		}
 		.header_content_search_group {
 			display: flex;  
@@ -296,7 +296,7 @@
 		<c:if test="${not empty map.keyword}">
 			<div class="searchcnt">
 				<span>${map.keyword} 검색결과 ${map.count}건 검색되었습니다.</span>
-				<a href="${path}board/list" class="btn btn_warning"><i class="fa fa-times-circle"></i></a>
+				<a href="${path}/board/list" class="btn btn_warning"><i class="fa fa-times-circle"></i></a>
 			</div>	
 		</c:if>
 			
@@ -313,7 +313,7 @@
 				<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
 					<tr>
 						<td>${list.bno}</td>
-						<td><a href="#" class="txt_conn">${list.title} 
+						<td><a href="${path}/board/view?bno=${list.bno}" class="txt_conn">${list.title} </a>
 							<c:if test="${today == regdate}">
 								<span class="new_color twinkle_eff">N</span>
 								<span class=""></span>
