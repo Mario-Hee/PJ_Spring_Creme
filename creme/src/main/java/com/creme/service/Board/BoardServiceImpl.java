@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,9 +52,15 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public BoardDTO view(int bno) {
 		
-		return bDao.view(bno);
-		
+		return bDao.view(bno);		
 
+	}
+
+	@Override
+	public void increaseViewCnt(int bno, HttpSession session) {
+		// 조회수 +1 증가
+		bDao.increaseViewCnt(bno);
+		
 	}
 	
 	

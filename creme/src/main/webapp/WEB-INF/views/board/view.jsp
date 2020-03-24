@@ -32,9 +32,6 @@
 			padding: 0;
 		}
 		h2 {
-			font-family: 'Nanum Gothic Coding', monospace; 
-			font-size: 15px;
-			font-weight: bold;
 		}
 		.board_title {
 			margin: 0;
@@ -318,7 +315,7 @@
 		.gLeft {
 			display: inline-block;
 			position: relative;
-			left: 520px;
+			left: 38px;
 			font-family: 'Nanum Gothic Coding', monospace; 
 			font-size: 15px;
 			font-weight: bold;
@@ -370,7 +367,7 @@
 			<div class="main_board">
 				<div class="board_title">
 					<div class="titleArea">
-						<h2>자유게시판</h2>
+						<div class="main_txt" style="font-size: 20px; font-family: 'Nanum Gothic Coding', monospace; font-weight: bold;">자유게시판</div>
 					</div>
 				</div>
 			</div>
