@@ -16,5 +16,6 @@ public interface BoardService {
 	public BoardDTO view(int bno);
 	// 조회수 +1증가
 	public void increaseViewCnt(int bno, HttpSession session );
-	
+	//
+	public String delete(int bno);
 }

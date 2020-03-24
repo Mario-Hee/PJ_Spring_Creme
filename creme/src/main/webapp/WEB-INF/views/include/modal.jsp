@@ -140,6 +140,8 @@
 		var dropResult_main_txt = id+'님 탈퇴되셨습니다.';
 		var dropResult_sub_txt = '그동안 CREME를 이용해주셔서 감사합니다.';
 		
+		var dropBoard_main_txt = "게시글을 삭제하시겠습니까?";
+		var dropBoardNo_main_txt = "댓글이 있는 게시글은 삭제할 수 없습니다.";
 		
 		if(key == 'join') { // 회원가입
 			$('#modal_msg_main_txt').text(join_main_txt);	// 메인 텍스트
@@ -165,6 +167,14 @@
 			$('#modal_msg_yes').css('display', 'none');
 			$('#modal_msg_cancle').text('확 인');
 			$('.modal_msg_wrap').css('display', 'flex');
+		} else if(key == 'dropBoard') {
+			if('${one.replycnt} == 0') { // 댓글이 없는 경우
+				$('#modal_msg_main_txt').text(dropBoard_main_txt);
+			} else { // 댓글이 있는 경우
+				$('#modal_msg_main_txt').text(dropBoardNo_main_txt);
+				$('#modal_msg_yes').css('display', 'none');
+				$('#modal_msg_cancle').text('확 인');
+			}
 		}
 		
 		

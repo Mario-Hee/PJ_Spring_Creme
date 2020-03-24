@@ -20,7 +20,7 @@
 	}
 		.container {
 			width: 900px;
-			height: 800px;
+			height: 737px;
 			margin: 30px auto;
 		}
 		.contents {
@@ -261,8 +261,12 @@
 			font-weight: 700;
 		}
 		.u_cbox_write_area {
-			max-width: 100%;
 			padding-bottom: 8px;
+			width:846px;
+			height: 80px;
+			margin: 2px -15px 1px;
+			border: 1px solid black;
+			resize: none;
 		}
 		.u_cbox_guide {
 			display: block;
@@ -279,13 +283,11 @@
 			line-height: 1.5;
 			cursor: default;
 		}
-		#Comment {
- 		    /*background-image: url(http://rexkirby.com/kirbyandson/images/comment.svg);*/
+		}
+		.Comment {
 			background-size: 30px 30px;
  	 		background-position: 11px 8px;
    			background-repeat: no-repeat;
-		}
-		.Comment {
 			word-break: break-all;
 			color: black;
 			display: block;
@@ -307,30 +309,39 @@
 			vertical-align: top;
 			resize: none;
 			box-sizing: border-box;
-		}
+			border: 1px solid #34495e;
+			resize: inherit;
+			border: none;
+			height: 91px;
+			width: 846px;
+			margin: 2px -15px 0;
+		}	 
 		.base_button {
 			display: inline-block;
-			padding: 30px 0 0;
+			margin: 1px 0 0 0;
 		}
 		.gLeft {
 			display: inline-block;
 			position: relative;
-			left: 38px;
+			left: 1px;
+			top: 65px;
 			font-family: 'Nanum Gothic Coding', monospace; 
 			font-size: 15px;
+			width: 169px;
 			font-weight: bold;
 		}
 		.gRight {
 			display: inline-block;
 			position: relative;
-			left: 519px;
+			left: 508px;
+			top: 65px;
 			font-family: 'Nanum Gothic Coding', monospace; 
 			font-size: 15px;
 			font-weight: bold;
 		}
 		.postcomment_up {
 			position: relative;
-			left: 676px;
+			left: 707px;
 			top: 3px;
 			border: 1px solid #1b1b1b;
 			padding: 10px 24px;
@@ -362,6 +373,7 @@
 	</style>
 </head>
 <body>
+	<%@ include file="../include/modal.jsp" %>
 	<div class="container">
 		<div class="contents">
 			<div class="main_board">
@@ -412,7 +424,7 @@
 				<div class="post_btn">
 					<div class="wrap_postcomment">
 						<div class="postcomment">
-							<img src="${path}/resources/img/icons8-chat-bubble-50.png" class="chat"><span class="comment_chat">댓글 1<span>
+							<img src="${path}/resources/img/icons8-chat-bubble-50.png" class="chat"><span class="comment_chat">${one.replycnt}<span>
 							<span><a href="#" class="postcomment_up">등록</a></span>
 						</div>
 						</div>
@@ -435,16 +447,12 @@
 														<img src="${path}/resources/img/default.png" class="u_cbox_img_profile" >
 													</div>			
 													<div class="u_cbox_box_name">
-														<span class="u_cbox_write_name">꼬부기 2020.03.23 13:03</span> 
+														<span class="u_cbox_write_name">${one.writer} ${one.regdate}</span> 
 														<span>포켓몬 잡으려면 어디로 가야해요?</span>
 													</div>
-													<div class="u_cbox_write_area">
-												<strong class="u_vc">댓글입력</strong>
-												<div class="u_cbox_inbox">
-													<div id="Comment" class="Comment" style="width: 100%; margin: 2px -15px 0;width: 846px;height: 91px;border: none;resize: inherit; border: 1px solid #34495e;" placeholder="Comment">
+													<div class="Comment" >
+														<textarea class="u_cbox_write_area" placeholder="댓글입력"></textarea>
 													</div>
-												</div>
-											</div>
 												</div>
 											</div>
 										</div>
@@ -453,20 +461,36 @@
 							</div>
 						</div>
 					</div>
-				</div>
-			<div class="base_button">
+				<div class="base_button">
 				<span class="gLeft">
-					<a href="#" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px; ">목록</a>
+					<a href="${header.referer}" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px; ">목록</a>
 					<a href="#" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e;border-radius: 4px;  color: white; text-decoration: none; position: relative; top: -11px; right: 3px;">답변</a>
 				</span>
 			<c:if test="${name == one.writer}">
 				<span class="gRight">
 					<a href="#" style="padding: 12px 25px 10px;;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px;">수정</a>
-					<a href="#" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px; right: 3px;">삭제</a>
+					<a href="#" class="del_btn" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px; right: 3px;">삭제</a>
 				</span>
 			</c:if>
 			</div> 
-		</div>
-	</div>
+				</div>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+	$(function(){
+		
+
+		// 삭제버튼 클릭시 모달창 Open 
+		$('.del_btn').click(function(){
+			$('.modal_msg_wrap').css('display', 'flex');
+		});
+		
+		// 삭제 알림 모달창에서 확인버튼 Click -> 게시글 삭제
+		$('.modal_msg_yes').click(function() {
+			alert("text");
+			location.href='${path}/board/delete?bno=${one.bno}';
+		});
+	});
+</script>
 </html> 

@@ -21,5 +21,5 @@ public interface BoardDAO {
 	//조회수 +1 증가
 	public void increaseViewCnt(@Param("bno") int bno);
 
-
+	public void delete(@Param("bno") int bno);
 }
