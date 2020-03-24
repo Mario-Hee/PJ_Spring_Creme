@@ -16,7 +16,7 @@ public interface BoardDAO {
 	public List<BoardDTO> listView(@Param("map") Map<String, Object> map);
 	
 	//상세게시글
-	public BoardDTO viewArticle(int bno);
+	public BoardDTO view(int bno);
 
 
 }

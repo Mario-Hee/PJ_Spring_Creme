@@ -313,7 +313,7 @@
 				<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
 					<tr>
 						<td>${list.bno}</td>
-						<td><a href="${path}/board/view?bno=${list.bno}" class="txt_conn">${list.title} </a>
+						<td><a href="${path}/board/view/${list.bno}" class="txt_conn">${list.title} </a>
 							<c:if test="${today == regdate}">
 								<span class="new_color twinkle_eff">N</span>
 								<span class=""></span>

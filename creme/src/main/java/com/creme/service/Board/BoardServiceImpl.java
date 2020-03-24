@@ -48,9 +48,9 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public BoardDTO viewArticle(int bno) {
+	public BoardDTO view(int bno) {
 		
-		return bDao.viewArticle(bno);
+		return bDao.view(bno);
 		
 
 	}

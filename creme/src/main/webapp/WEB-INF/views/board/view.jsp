@@ -333,7 +333,7 @@
 		}
 		.postcomment_up {
 			position: relative;
-			left: 651px;
+			left: 676px;
 			top: 3px;
 			border: 1px solid #1b1b1b;
 			padding: 10px 24px;
@@ -415,7 +415,7 @@
 				<div class="post_btn">
 					<div class="wrap_postcomment">
 						<div class="postcomment">
-							<img src="${path}/resources/img/icons8-chat-bubble-50.png" class="chat"><span class="comment_chat">댓글 5<span>
+							<img src="${path}/resources/img/icons8-chat-bubble-50.png" class="chat"><span class="comment_chat">댓글 1<span>
 							<span><a href="#" class="postcomment_up">등록</a></span>
 						</div>
 						</div>
@@ -444,8 +444,8 @@
 													<div class="u_cbox_write_area">
 												<strong class="u_vc">댓글입력</strong>
 												<div class="u_cbox_inbox">
-													<textarea id="Comment" class="Comment" style="width: 100%; margin: 2px -15px 0;width: 846px;height: 91px;border: none;resize: inherit; border: 1px solid #34495e;" placeholder="Comment">
-													</textarea>
+													<div id="Comment" class="Comment" style="width: 100%; margin: 2px -15px 0;width: 846px;height: 91px;border: none;resize: inherit; border: 1px solid #34495e;" placeholder="Comment">
+													</div>
 												</div>
 											</div>
 												</div>
@@ -462,10 +462,12 @@
 					<a href="#" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px; ">목록</a>
 					<a href="#" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e;border-radius: 4px;  color: white; text-decoration: none; position: relative; top: -11px; right: 3px;">답변</a>
 				</span>
+			<c:if test="${name == one.writer}">
 				<span class="gRight">
 					<a href="#" style="padding: 12px 25px 10px;;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px;">수정</a>
 					<a href="#" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px; right: 3px;">삭제</a>
 				</span>
+			</c:if>
 			</div> 
 		</div>
 	</div>
