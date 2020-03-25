@@ -267,19 +267,32 @@
 					<div class="wrap_postcomment">
 						<div class="postcomment">
 							<img src="${path}/resources/img/icons8-chat-bubble-50.png" class="chat"><span class="comment_chat">${one.replycnt}<span>
-							<span><a href="#" class="postcomment_up">등록</a></span>
+								<c:if test="${!empty userid}">
+									<span><a href="#" class="postcomment_up">등록</a></span>
+								</c:if>
 						</div>
 						</div>
 					</div>
 						<!-- 댓글 창 -->
 						<div id="listReply"></div>
+			<div class="base_button">
+				<span class="gLeft">
+					<a href="${header.referer}" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px; ">목록</a>
+					<a href="#" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e;border-radius: 4px;  color: white; text-decoration: none; position: relative; top: -11px; right: 3px;">답변</a>
+				</span>
+			<c:if test="${name == one.writer}">
+				<span class="gRight">
+					<a href="#" style="padding: 12px 25px 10px;;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px;">수정</a>
+					<a href="#" class="del_btn" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px; right: 3px;">삭제</a>
+				</span>
+			</c:if>
+			</div>
 				</div>
 			</div>
 </body>
 <script type="text/javascript">
 
 	$(function(){
-		
 		//alert('이전 URL: $(header.referer)');
 		//페이지가 시작되자마자 listReply();를 호출해서 실행하라
 		listReply();
@@ -306,8 +319,6 @@
 				$("#listReply").html(result);	//"#listReply"를 쓰면 화면 전환은 안하면서도 댓글 값은 불러온다.
 			}
 		});
-	}
-	
-	
+	}	
 </script>
 </html> 
