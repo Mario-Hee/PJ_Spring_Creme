@@ -8,6 +8,7 @@
 		<typeAlias type="com.creme.domain.ProductDTO" alias="ProductDTO"/>
 		<typeAlias type="com.creme.domain.MemberDTO" alias="MemberDTO"/>
 		<typeAlias type="com.creme.domain.BoardDTO" alias="BoardDTO"/>
+		<typeAlias type="com.creme.domain.ReplyDTO" alias="ReplyDTO"/>
 	</typeAliases>
 
 </configuration>
