@@ -167,18 +167,23 @@
 			font-size: 15px;
 			font-weight: bold;
 		}
+		.u_cbox_write_area{
+			font-weight: bold;
+			font-family: 'Nanum Gothic Coding', monospace; 
+			font-size: 15px;
+		}
 
 	</style>
 <body>
 	<%@ include file="../include/modal.jsp" %>
 			<div class="reply_header">
-				${reply.size()}
+			<input type="hidden" class="replyListCnt" value="${list.size()}">
+				<span>${reply.size()}</span>
 			</div>
 				<div class="u_cbox_wrap">
 					<div class="u_cbox">
 						<div class="u_cbox_write_wrap">
 							<div class="u_cbox_write_box">
-								<form>
 									<div class="u_cbox_write">
 										<div class="u_cbox_write_inner">
 											<div class="u_cbox_profile_area">
@@ -189,8 +194,8 @@
 														<img src="${path}/resources/img/default.png" class="u_cbox_img_profile" >
 													</div>
 												<c:forEach items="${list}" var="reply">		
-													<div class="u_cbox_box_name">
-														<span class="u_cbox_write_name">${reply.writer} ${reply.regdate} ${reply.content}</span> 
+													<div class="u_cbox_box_name"><fmt:formatDate value="${reply.regdate}" pattern="yyyy-MM-dd hh-MM-ss" var="regdate"/>
+														<span class="u_cbox_write_name">${reply.writer} ${regdate} ${reply.content}</span> 
 														<div class="u_cbox_write_name"><span> ${reply.content}</span>
 														</div>
 													</div>
@@ -198,7 +203,7 @@
 												<c:if test="${list.size() == 0}" >
 													<div class="u_cbox_box_name">
 														<span class="u_cbox_write_name"><b>관리자 이브</b></span>
-														<span class="u_cbox_write_name">등록된 댓글이 없습니다:(</span>
+														<span class="u_cbox_write_name">등록된 댓글이 없습니다:(</span> 
 															<fmt:formatDate value="${now}" pattern="yyyy-MM-dd HH:mm:ss" var="today"/> 
 													</div>		
 												</c:if>
@@ -207,18 +212,22 @@
 													<c:when test="${empty userid}">
 														<div class="Comment" >
 															<span class="u_cbox_write_name"></span>
-															<textarea class="u_cbox_write_area" placeholder="로그인 후 댓글을 입력할 수 있습니다." readonly></textarea>
+															<textarea class="u_cbox_write_area" placeholder="로그인 후 댓글을 입력할 수 있습니다." readonly></textarea>	
 														</div>
 													</c:when>
 													<c:otherwise>
-														<textarea class="u_cbox_write_area" placeholder="댓글을 입력해주세요"></textarea>
+														<form class="frm_reply">
+															<input type="hidden" name="bno" class="reply_bno">
+															<input type="hidden" name="type" class="reply_type">
+															<input type="hidden" name="writer"" class="reply_writer">
+															<textarea class="u_cbox_write_area" name="content" placeholder="댓글을 입력해주세요"></textarea>
+														</form>
 													</c:otherwise>
 												</c:choose>
 												</div>
 											</div>
 										</div>
 									</div>
-								</form>
 							</div>
 						</div>
 					</div>

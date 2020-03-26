@@ -180,11 +180,17 @@
 			line-height: 29px;
 			padding: 0 10px 0;
 		}
-
+		.error_next_box {
+			display: inline-block;
+			font-size: 12px;
+			line-height: 14px;
+			color: #f46665;
+			margin: 0 0 0 569px;	
+			visibility: hidden;
+		}
 		.postcomment_up {
 			position: relative;
-			left: 707px;
-			top: 3px;
+			top: -1px;
 			border: 1px solid #1b1b1b;
 			padding: 10px 24px;
 			font-family: 'Nanum Gothic Coding', monospace; 
@@ -200,6 +206,7 @@
 		}
 		.chat {
 			width: 27px;
+			padding: 6px 0 0 0;
 		}
 		.comment_chat {
 			position: relative;
@@ -212,6 +219,8 @@
 			right: 16px;
 			margin: -2px 0 0 0;
 		}
+
+		
 	</style>
 </head>
 <body>
@@ -244,15 +253,19 @@
 								<td>${one.writer}</td>
 							</tr>
 							<tr>
-								<td colspan="2">
+								<td colspan="2"><fmt:formatDate value="${one.regdate}" pattern="yyyy-MM-dd" var="regdate"/>
 									<ul class="etcArea">
 										<li class>
 											<strong>작성일</strong>
-											<span class="txtNum">${one.regdate}</span>
+											<span class="txtNum">${regdate}</span>
 										</li>
 										<li class>
 											<strong>조회수</strong>
 											<span class="txtNum2">${one.viewcnt}</span>
+										</li>
+										<li class>
+											<strong>댓글수</strong>
+											<span class="txtNum2">${one.replycnt}</span>
 										</li>
 									</ul>
 									<div class="detail">
@@ -266,13 +279,15 @@
 				<div class="post_btn">
 					<div class="wrap_postcomment">
 						<div class="postcomment">
-							<img src="${path}/resources/img/icons8-chat-bubble-50.png" class="chat"><span class="comment_chat">${one.replycnt}<span>
-								<c:if test="${!empty userid}">
-									<span><a href="#" class="postcomment_up">등록</a></span>
-								</c:if>
-						</div>
+							<img src="${path}/resources/img/icons8-chat-bubble-50.png" class="chat">
+									<span class="comment_chat">${one.replycnt}<span>
+							<c:if test="${!empty userid}">
+								<span class="error_next_box">텍스트를 입력해 주세요</span>
+								<span><button type="button" class="postcomment_up reply_btn">등록</button></span>
+							</c:if>
 						</div>
 					</div>
+				</div>
 						<!-- 댓글 창 -->
 						<div id="listReply"></div>
 			<div class="base_button">
@@ -289,6 +304,7 @@
 			</div>
 				</div>
 			</div>
+		</div>
 </body>
 <script type="text/javascript">
 
@@ -310,15 +326,59 @@
 		});
 	});
 	
+	$(document).on('click', '.postcomment_up', function(){
+		$('.modal_wrap').css('display', 'flex');
+	});
+	
+	$(document).on('click', '.reply_btn', function(){
+		var u_cbox_write_name = $('.u_cbox_write_area').val();
+		alert(u_cbox_write_name);
+		
+		if(u_cbox_write_name == '' || u_cbox_write_name.lengh == 0) {
+			$('.u_cbox_write_area').focus();
+			$('.error_next_box').css('visibility', 'visible');
+			return false;
+		}
+		
+		$('.reply_bno').val('${one.bno}');
+		$('.reply_type').val('${one.type}');
+		$('.reply_writer').val('${name}');
+		
+		// 댓글 등록
+		// 1)type, content, writer, bno 4개의 데이터를 다 보내야한다
+		$.ajax({
+			url: '${path}/reply/insert',
+			type: 'POST',
+			data: $('.frm_reply').serialize(), //serialize() 직렬화는 form(frm_reply)태그 안에 있는 애들을 다 보내겠다
+			success: function() {
+				listReply();
+				
+			}
+			
+		});
+		
+	});
+	
+	
 	// 댓글 목록 출력 함수
 	function listReply(){
 		$.ajax({
 			type: "get",
+			async: false,
 			url: "${path}/reply/list?bno=${one.bno}",
 			success: function(result){  		//result는 결과값
+				console.log(result);
 				$("#listReply").html(result);	//"#listReply"를 쓰면 화면 전환은 안하면서도 댓글 값은 불러온다.
 			}
 		});
+		
+		//게시글 댓글수 수정!
+		$('.txtNum2 > strong').text($('.replyListCnt').val());
 	}	
+	
+	function refreshReply() {
+		listReply();
+	}
+	
 </script>
 </html> 

@@ -40,7 +40,7 @@
 	
 
 	.board_wrap {
-		width: 900px;
+		width: 850px;
 		height: 800px;
 		margin: 30px auto;
 	}
@@ -304,10 +304,11 @@
 		<table class="board_table">
 			<tr class="txt_list">
 				<td style="width: 10%">게시글</td>
-				<td style="width: 60%">제목</td>
+				<td style="width: 50%">제목</td>
 				<td style="width: 10%">작성자</td>
 				<td style="width: 10%">등록일</td>
 				<td style="width: 10%">조회수</td>
+				<td style="width: 10%">댓글수</td>
 			</tr>
 			<c:forEach items="${map.list}" var="list">
 				<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
@@ -333,6 +334,7 @@
 							</c:choose>
 						</td>
 						<td>${list.viewcnt}</td>
+						<td>${list.replycnt}</td>
 					</tr>
 			</c:forEach>
 	

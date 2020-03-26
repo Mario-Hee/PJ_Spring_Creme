@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.creme.domain.ReplyDTO;
+import com.creme.persistence.BoardDAO;
 import com.creme.persistence.ReplyDAO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ public class ReplyServiceImpl implements ReplyService{
 	private SqlSession sqlSessin;
 	
 	private ReplyDAO rDao;
+	private BoardDAO bDao;
 	@Autowired
 	public void ReplyDAO() {
 		rDao = sqlSessin.getMapper(ReplyDAO.class);
@@ -30,5 +32,16 @@ public class ReplyServiceImpl implements ReplyService{
 		
 		return rDao.list(bno);
 	}
+
+	//댓글 등록
+	@Override
+	public void reply_insert(ReplyDTO rDto) {
+		
+		rDao.reply_insert(rDto);
+		
+		rDao.replyCntPlus(rDto.getBno());
+		
+	}
+	
 
 }
