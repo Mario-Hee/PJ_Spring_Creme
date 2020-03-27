@@ -172,6 +172,13 @@
 			font-family: 'Nanum Gothic Coding', monospace; 
 			font-size: 15px;
 		}
+		.reply_del_btn {
+			font-family: 'Nanum Gothic Coding', monospace; 
+			font-size: 12px;
+			color: #ccc;
+			border: 1px solid #ccc;
+			margin: 0 25px 0 0;
+		}
 
 	</style>
 <body>
@@ -195,7 +202,11 @@
 													</div>
 												<c:forEach items="${list}" var="reply">		
 													<div class="u_cbox_box_name"><fmt:formatDate value="${reply.regdate}" pattern="yyyy-MM-dd hh-MM-ss" var="regdate"/>
-														<span class="u_cbox_write_name">${reply.writer} ${regdate} ${reply.content}</span> 
+														<span class="u_cbox_write_name"><b>${reply.writer}</b> ${regdate} ${reply.content}</span> 
+														<c:if test="${name == reply.writer}">	
+															<span>${reply.rno}</span>		
+															<button  type="button" class="reply_del_btn" data_num="${reply.rno}">삭제</button>
+														</c:if>
 														<div class="u_cbox_write_name"><span> ${reply.content}</span>
 														</div>
 													</div>

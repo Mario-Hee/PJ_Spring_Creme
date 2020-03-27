@@ -1,5 +1,6 @@
 package com.creme.service.Reply;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -41,6 +42,19 @@ public class ReplyServiceImpl implements ReplyService{
 		
 		rDao.replyCntPlus(rDto.getBno());
 		
+	}
+
+	@Override
+	public void delete(int rno, int bno) {
+		
+		//1.댓글 삭제
+		rDao.delete(rno);
+		
+		//2.게시글 댓글 수 -1
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("type", "minus");
+		rDao.replyCntUpdate(map);
 	}
 	
 

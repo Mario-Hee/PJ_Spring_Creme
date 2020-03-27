@@ -16,4 +16,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SET replyCnt = replyCnt + 1
 		WHERE bno = #{bno}
 	</update>
+	<delete id="delete">
+		DELETE FROM tbl_reply
+		WHERE rno = #{rno}
+	</delete>
+	<update id="replyCntUpdate">
+		UPDATE tbl_board
+			<if test="map.type == 'minus'">
+			  SET replyCnt = replyCnt - 1
+			</if>
+			WHERE bno = #{map.bno}
+	</update>
 </mapper>

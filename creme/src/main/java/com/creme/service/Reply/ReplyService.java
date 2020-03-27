@@ -11,4 +11,9 @@ public interface ReplyService {
 	//댓글 등록
 	public void reply_insert(ReplyDTO rDto);
 	
+	//댓글 삭제
+	//게시글 댓글수 -1
+	public void delete(int rno, int bno);
+	
+	
 }

@@ -43,5 +43,13 @@ public class ReplyController {
 		//1.댓글등록
 		 rService.reply_insert(rDto);
 	}
+	
+	//댓글 삭제
+	@ResponseBody
+	@PostMapping("/delete")
+	public void delete(int rno, int bno) {
+		log.info(">>>>> GET: Reply Delete Action");
+		rService.delete(rno, bno);
+	}
 
 }

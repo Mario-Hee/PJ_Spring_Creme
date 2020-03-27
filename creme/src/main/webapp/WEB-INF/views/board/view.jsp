@@ -359,6 +359,24 @@
 		
 	});
 	
+	// 댓글 삭제
+	$(document).on('click', '.reply_del_btn', function(){
+		var rno = $(this).attr('data_num');
+		var bno = ${one.bno};
+		alert("삭제");		
+		
+		$.ajax({
+			type: "POST",
+			url: '${path}/reply/delete',
+			data: {'rno' : rno, 'bno' : bno},
+			success: function() {
+				listReply();
+			}
+			
+			
+		});
+		
+	});
 	
 	// 댓글 목록 출력 함수
 	function listReply(){
@@ -372,13 +390,13 @@
 			}
 		});
 		
-		//게시글 댓글수 수정!
+		// 게시글 댓글수 수정!
 		$('.txtNum2 > strong').text($('.replyListCnt').val());
 	}	
 	
-	function refreshReply() {
+	/* function refreshReply() {
 		listReply();
-	}
+	} */
 	
 </script>
 </html> 
