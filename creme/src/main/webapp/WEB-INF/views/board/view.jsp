@@ -252,6 +252,11 @@
 <script type="text/javascript">
 
 	$(function(){
+		setInterval(refreshReply, 180000);
+		//setInterval 자바스크립트 내장함수, 일정한 시간 간격으로 작업을 수행하기 위해 사용한다
+		//일정 시간마다 반복 실행하는 함수
+		//refreshReply를  3000000(5분)에 한번씩 실행하라 
+		
 		//alert('이전 URL: $(header.referer)');
 		//페이지가 시작되자마자 listReply();를 호출해서 실행하라
 		listReply();
@@ -277,7 +282,7 @@
 	$(document).on('click', '.reply_btn', function(){
 		//2.u_cbox_write_name라고 변수에 사용자가 입력한 댓글내용을 입력한다
 		var u_cbox_write_name = $('.u_cbox_write_area').val();
-		alert(u_cbox_write_name);
+		//alert(u_cbox_write_name);
 		
 		//3.조건문 사용자가 입력한 값이 ''이거나 길이가 0이면
 		//null값 이기 떄문에 댓글 입력부분으로 포커스를 이동하고,
@@ -344,9 +349,14 @@
 		$('.txtNum3').text($('.replyListCnt').val());
 	}	
 	
-	/* function refreshReply() {
+	// 새로운 댓글 확인하기 버튼 클릭시
+		$(document).on('click', '.reply_refresh_btn', function(){
+			listReply();
+	});
+	
+	function refreshReply() {
 		listReply();
-	} */
+	} 
 	
 </script>
 </html> 
