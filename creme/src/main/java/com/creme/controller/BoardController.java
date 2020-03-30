@@ -87,5 +87,11 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
+	
+	//글쓰기
+	@GetMapping("/newcontent")
+	public String newcontent() {
+		return "board/newcontent";
+	}
 
 }

@@ -289,7 +289,7 @@
 	</div>
 	
 			<div>
-				<button type="button" class="insert_btn hover_btn">글쓰기</button>
+				<a href="${path}/board/newcontent" class="insert_btn hover_btn">글쓰기</a>
 			</div>
 		</div><!-- orderby_row 끝-->
 		
