@@ -164,60 +164,14 @@
 		li {
 			list-style: none;
 		}
-		.post_btn {
-			height: 46px;
-			padding-bottom: 10px;
-			margin-bottom: 2px;
-		}
-		.wrap_postcomment {
-			display: inline-block;
-			position: relative;
-			margin: 9px 0 0 16px;
-			bottom: 5px;
-			font-family: 'Nanum Gothic Coding', monospace; 
-			font-size: 15px;
-			font-weight: bold;
-			line-height: 29px;
-			padding: 0 10px 0;
-		}
-		.error_next_box {
-			display: inline-block;
-			font-size: 12px;
-			line-height: 14px;
-			color: #f46665;
-			margin: 0 0 0 569px;	
-			visibility: hidden;
-		}
-		.postcomment_up {
-			position: relative;
-			top: -1px;
-			border: 1px solid #1b1b1b;
-			padding: 10px 24px;
-			font-family: 'Nanum Gothic Coding', monospace; 
-			font-size: 15px;
-			font-weight: bold;
-			background-color: #34495e; 
-			color: white;
-			text-decoration: none;
-			border-radius: 4px;
-		}
+
+
 		.content_txt {
 			padding: 20px 40px 0;
 		}
 		.chat {
 			width: 27px;
-			padding: 6px 0 0 0;
-		}
-		.comment_chat {
-			position: relative;
-			bottom: -2px;
-			padding: 0 0 0 10px;
-		}
-		.like_ico {
-			display: inline-block;
-			position: absolute;
-			right: 16px;
-			margin: -2px 0 0 0;
+			padding: 5px 0 0 0;
 		}
 
 		
@@ -265,7 +219,7 @@
 										</li>
 										<li class>
 											<strong>댓글수</strong>
-											<span class="txtNum2">${one.replycnt}</span>
+											<span class="txtNum3">${one.replycnt}</span>
 										</li>
 									</ul>
 									<div class="detail">
@@ -276,18 +230,7 @@
 						</tbody>
 					</table>
 				</div>
-				<div class="post_btn">
-					<div class="wrap_postcomment">
-						<div class="postcomment">
-							<img src="${path}/resources/img/icons8-chat-bubble-50.png" class="chat">
-									<span class="comment_chat">${one.replycnt}<span>
-							<c:if test="${!empty userid}">
-								<span class="error_next_box">텍스트를 입력해 주세요</span>
-								<span><button type="button" class="postcomment_up reply_btn">등록</button></span>
-							</c:if>
-						</div>
-					</div>
-				</div>
+
 						<!-- 댓글 창 -->
 						<div id="listReply"></div>
 			<div class="base_button">
@@ -330,10 +273,16 @@
 		$('.modal_wrap').css('display', 'flex');
 	});
 	
+	//1.사용자가 대스글을 입력하고 댓글등록버튼을 클릭한다
 	$(document).on('click', '.reply_btn', function(){
+		//2.u_cbox_write_name라고 변수에 사용자가 입력한 댓글내용을 입력한다
 		var u_cbox_write_name = $('.u_cbox_write_area').val();
 		alert(u_cbox_write_name);
 		
+		//3.조건문 사용자가 입력한 값이 ''이거나 길이가 0이면
+		//null값 이기 떄문에 댓글 입력부분으로 포커스를 이동하고,
+		//경고 메ㅔ세지를 출력하고 여기서 이벤트를 종료
+		//사용자가 입력한 값이 있으면 실행하지않고 통과한다
 		if(u_cbox_write_name == '' || u_cbox_write_name.lengh == 0) {
 			$('.u_cbox_write_area').focus();
 			$('.error_next_box').css('visibility', 'visible');
@@ -347,12 +296,13 @@
 		// 댓글 등록
 		// 1)type, content, writer, bno 4개의 데이터를 다 보내야한다
 		$.ajax({
-			url: '${path}/reply/insert',
 			type: 'POST',
-			data: $('.frm_reply').serialize(), //serialize() 직렬화는 form(frm_reply)태그 안에 있는 애들을 다 보내겠다
+			url: '${path}/reply/insert',
+			// url: '${path}/reply/insert?bno='+bno+'$type='+type+'$writer='+name+'$content='+content, //쿼리스트링 변수가 많아지면 다 써야하므로 불면하다, 그럴땐 .serialize()를 써야한다. 
+			// data: {"bno": bno, "type" : type, "writer" : name, "content" : content}, // 2)json방식, 해쉬맵을 생각하면 된다. "key" 값으로 : value 값을 꺼낼 수 있다. ("key" : value)
+			data: $('.frm_reply').serialize(), //serialize() 직렬화는 form(frm_reply)태그 안에 있는 애들을 다 보내겠다, 쿼리스트링을 자동으로 만들어서 보내준다.
 			success: function() {
 				listReply();
-				
 			}
 			
 		});
@@ -391,7 +341,7 @@
 		});
 		
 		// 게시글 댓글수 수정!
-		$('.txtNum2 > strong').text($('.replyListCnt').val());
+		$('.txtNum3').text($('.replyListCnt').val());
 	}	
 	
 	/* function refreshReply() {

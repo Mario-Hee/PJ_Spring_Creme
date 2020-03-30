@@ -37,18 +37,19 @@ public class ReplyController {
 	@ResponseBody
 	@PostMapping("/insert")
 	public void insert(ReplyDTO rDto) {
+		log.info(">>>>> POST: Reply Insert DB");
 		//비즈니스 로직 
 		//해당 게시글에 댓글을 등록하고
 		//해당 게시글의 reply_cnt를 + 1 함
 		//1.댓글등록
-		 rService.reply_insert(rDto);
+		 rService.replyinsert(rDto);
 	}
 	
 	//댓글 삭제
 	@ResponseBody
 	@PostMapping("/delete")
 	public void delete(int rno, int bno) {
-		log.info(">>>>> GET: Reply Delete Action");
+		log.info(">>>>> POST: Reply Delete Action");
 		rService.delete(rno, bno);
 	}
 

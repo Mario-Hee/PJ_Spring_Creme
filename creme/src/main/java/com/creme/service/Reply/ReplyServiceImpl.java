@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.creme.domain.ReplyDTO;
 import com.creme.persistence.BoardDAO;
@@ -35,10 +36,11 @@ public class ReplyServiceImpl implements ReplyService{
 	}
 
 	//댓글 등록
+	@Transactional
 	@Override
-	public void reply_insert(ReplyDTO rDto) {
+	public void replyinsert(ReplyDTO rDto) {
 		
-		rDao.reply_insert(rDto);
+		rDao.replyinsert(rDto);
 		
 		rDao.replyCntPlus(rDto.getBno());
 		

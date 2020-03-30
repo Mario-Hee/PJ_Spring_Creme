@@ -7,13 +7,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT * FROM  tbl_reply
 		WHERE bno = #{bno}
 	</select>
-	<insert id="reply_insert">
+	<insert id="replyinsert">
 		INSERT INTO tbl_reply(rno, type, content, writer, bno)
 		VALUES(seq_reply.NEXTVAL, #{type}, #{content}, #{writer}, #{bno})
 	</insert>
 	<update id="replyCntPlus">
 		UPDATE tbl_board
-			SET replyCnt = replyCnt + 1
+			SET replycnt = replycnt + 1
 		WHERE bno = #{bno}
 	</update>
 	<delete id="delete">
@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="replyCntUpdate">
 		UPDATE tbl_board
 			<if test="map.type == 'minus'">
-			  SET replyCnt = replyCnt - 1
+			  SET replycnt = replycnt - 1
 			</if>
 			WHERE bno = #{map.bno}
 	</update>
