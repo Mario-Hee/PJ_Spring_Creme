@@ -526,7 +526,7 @@
 		<div class="header_wrap">
 			<div class="header_content">
 				<div class="header_content_logo">
-					<a href="#">
+					<a href="${path}/creme/">
 						<img class="header_content_logo_img" src="${path}/resources/img/logo_transparent.png" alt="로고이미지">
 						<span class="header_content_logo_text"></span>
 					</a>

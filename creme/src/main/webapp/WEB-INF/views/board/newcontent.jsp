@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../include/include.jsp" %>
-<%@ include file="../include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,14 +10,18 @@
 	<style type="text/css">
 	@import url('https://fonts.googleapis.com/css?family=Do+Hyeon|Nanum+Gothic+Coding&display=swap');
  		body {
-			background: #f5f6f7;
+			background: #fff;
 			font-family: 'Nanum Gothic Coding', monospace; 
 			margin: 0;
 			padding: 0;
 			font-size: 14px;
 			color: #1D292C;
-			padding-top: 70px;
-			 padding-bottom: 30px;
+			padding-bottom: 30px;
+		}
+		.header_content_logo_img {
+			max-width: 135px;
+			display: block;
+			margin: auto;
 		}
 		.container {
 			border: 1px solid #d7d5d5;
@@ -25,6 +29,7 @@
 			width: 900px;
 			height: 800px;
 			margin: 30px auto;
+			padding: 10px;
 		}
 		.inner_txt {
 			position: relative;
@@ -33,51 +38,49 @@
 		.writer_txt {
 			display: inline-block;
 			position: relative;
-			top: 19px;
-			left: 11px;
+
 		}
 		.writer_inner {
 			color: #1b1b1b;
 			display: inline-block;
 			position: relative;
-			right: 241px;
-			bottom: -1px;
 			font-size: 17px;
+			top: 5px;
 		}
 		.mb-3 {
+			display: flex;
 			font-size: 18px;
 			font-weight: bold;
 			color: #1b1b1b;
-			margin: 0 0 20px 34px;
+			margin-bottom: 20px;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0 47px;
 		}
 		.form_control {
 			width: 700px;
 			height: 30px;
 			font-size: 14px;
-			color: #d7d5d5;
+			color: #1b1b1b;
 			position: relative;
-			left: 26px;
-			text-align: center;
+			text-align: left;
 		}
 		.content_txt {
-			position: relative;
-			bottom: 285px;
-			left: 17px
+			min-width: 102px;
 		}
 		.title_txt {
-			position: relative;
-			left: 17px;
+			
 		}
 		#title {
 			position: relative;
-			left: 62px;
+			text-align: center;
 			font-family: 'Nanum Gothic Coding', monospace;
 			border: 1px solid #d7d5d5;
 		}
 		#content {
 			height: 400px;
 			position: relative;
-			left: 62px;
+
 			text-align: center;
 			border: 1px solid #d7d5d5;
 		}
@@ -85,15 +88,24 @@
 			height: 150px;
 			font-weight: bold;
 			font-family: 'Nanum Gothic Coding', monospace;
-			border: 1px solid #d7d5d5;
-			margin: 0 0 0 -15px;
+			border: 3px dashed #d7d5d5;
+		}
+		.tag_text {
+			color: gray;
+			position: absolute;
+			padding: 65px 225px;
+			font-size: 18px;
 		}
 		.tag_txt {
-			height: 100px;
+		}
+		.form_inner {
+			background: white;
+			width: 700px;
+			border: 1px solid #d7d5d5;
 		}
 		.btn_comm {
-			position: relative;
-			text-align: center;
+			position: absolute;
+			padding: 0 410px;
 		}
 		.btn {
 			width: 80px;
@@ -114,26 +126,34 @@
 		}
 		#btncancle {
 			position: relative;
-			right: 226px;
+
 		}
 		#btnup {
 			position: relative;
-			left: 311px;
+
 		}
 		.fa, .fas {
 			font-weight: 900;
+			position: relative;
+			z-index: 10;
+			color: gray;
 		}
 	</style>
 </head>
 
 <body>
-	<article>
+	<div class="content_logo_img">
+		<a href="#"><img class="header_content_logo_img" src="${path}/resources/img/logo_transparent.png" alt="로고이미지"></a>
+	</div>
+	<form:form id="frm_board">
 		<div class="container" role="main">
 			<form name="form" id="form"  method action>	
 				<div class="inner_txt">
 					<div class="mb-3">
 						<label class="writer_txt" for="reg_id">작성자</label>
-							<div class="form_control"><span class=" writer_inner">왕콘치</span>
+						<div class="form_control">
+							<span class=" writer_inner"><b>${name}</b></span>
+							<input type="hidden" value="${name}" name="writer">
 						</div>
 					</div>
 					<div class="mb-3">
@@ -142,11 +162,14 @@
 					</div>
 					<div class="mb-3">
 						<label class="content_txt" for="content">내용</label>
-						<textarea class="form_control" rows="5" name="content" id="content" placeholder></textarea>
+						<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+						<textarea name="content" id="board-content" style="width: 100%; height: 400px;"></textarea>
 					</div>
 					<div class="mb-3">
-						<label class="tag_txt" for="tag"><i class="fas fa-paperclip"></i>첨부파일</label>
-						<input type="text" class="form_control" name="tag" id="tag" placeholder="첨부파일을 드래그 해주세요">
+						<label class="tag_txt" for="tag">첨부파일</label>
+						<div type="text" class="form_inner" name="tag" id="tag" >
+							<span class="tag_text"><i class="fas fa-paperclip"></i>첨부파일을 드래그 해주세요</span>
+						</div>
 					</div>
 				</div>
 			</form>
@@ -155,6 +178,36 @@
 				<button type="button" class="btn button.btn_basic" id="btnup">등록</button>
 			</div>
 		</div>
-	</article>
+	</form:form>
+	<script type="text/javascript">
+		$(function(){	
+		});
+			
+		$(document).on('click', '#btncancle', function(){
+			var referer = '${header.referer}';
+			console.log('이전 URL: '+referer);
+			
+			var index = referer.indexOf('/board/list');
+			console.log('index: '+referer.indexOf('/board/lis'))
+			
+			if(index == '-1') {
+				location.href = '${path}/board/list';				
+			} else {
+				location.href = '${header.referer}';
+			}
+			
+		});
+	</script>
+		
+	<script type="text/javascript">
+		var oEditors = [];
+		nhn.husky.EZCreator.createInIFrame({
+		oAppRef: oEditors,
+		elPlaceHolder: "board-content",
+	    sSkinURI: "${path}/resources/smarteditor/SmartEditor2Skin.html",
+		fCreator: "createSEditor2"
+		});
+	</script>
+		
 </body>
 </html>
