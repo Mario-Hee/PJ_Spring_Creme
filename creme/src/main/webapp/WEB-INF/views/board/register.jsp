@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../include/include.jsp" %>
+<%@ include file="../include/header.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,7 +28,7 @@
 			border: 1px solid #d7d5d5;
 			border-top: 2px solid #34495e;
 			width: 900px;
-			height: 800px;
+			height: 882px;
 			margin: 30px auto;
 			padding: 10px;
 		}
@@ -64,23 +65,22 @@
 			color: #1b1b1b;
 			position: relative;
 			text-align: left;
+			border: 1px solid #d7d5d5;
 		}
 		.content_txt {
-			min-width: 102px;
+			min-width: 84px;
 		}
 		.title_txt {
 			
 		}
 		#title {
 			position: relative;
-			text-align: center;
 			font-family: 'Nanum Gothic Coding', monospace;
 			border: 1px solid #d7d5d5;
 		}
 		#content {
-			height: 400px;
+			height: 450px;
 			position: relative;
-
 			text-align: center;
 			border: 1px solid #d7d5d5;
 		}
@@ -138,13 +138,17 @@
 			z-index: 10;
 			color: gray;
 		}
+		.error_msg {
+			color: tomato;
+			font: 14px;
+			padding: 0 148px;
+			display: none;
+		}
+		
 	</style>
 </head>
 
 <body>
-	<div class="content_logo_img">
-		<a href="#"><img class="header_content_logo_img" src="${path}/resources/img/logo_transparent.png" alt="로고이미지"></a>
-	</div>
 	<form:form id="frm_board">
 		<div class="container" role="main">
 			<form name="form" id="form"  method action>	
@@ -155,6 +159,14 @@
 							<span class=" writer_inner"><b>${name}</b></span>
 							<input type="hidden" value="${name}" name="writer">
 						</div>
+					</div>
+					<div class="mb-3">
+						<label class="type_txt" for="type">타입</label>
+						<select type="type" class="form_control" name="type" id="type">
+							<option value="free" selected>자유게시판</option>
+							<option value="qna">QnA게시판</option>
+							<option value="review">제품후기</option>
+						</select>
 					</div>
 					<div class="mb-3">
 						<label class="title_txt" for="title">제목</label>
@@ -173,6 +185,14 @@
 					</div>
 				</div>
 			</form>
+			
+			<!-- 유효성 체크 경고 메세지  -->
+			<div>
+				<span class="error_msg">필수 정보입니다.</span>
+			</div>
+			
+			
+			<!-- 취소, 등록 버튼 -->
 			<div class="btn_comm">
 				<button type="button" class="btn button.btn_basic" id="btncancle">취소</button>
 				<button type="button" class="btn button.btn_basic" id="btnup">등록</button>
@@ -196,6 +216,31 @@
 				location.href = '${header.referer}';
 			}
 			
+		});
+		$(document).on('click', '#btnup', function(){
+			var title = $('#title').val();
+			
+			if(title == '' || title.length == 0) {
+				// 에러메세지 '제목을 입력해주세요.'
+				$('.error_msg').css('display', 'block');
+				 alert('값 입력해!');
+				return false;
+			} else {
+				// 서버로 전송
+				// 에디터의 내용이 textarea에 적용된다.
+ 				oEditors.getById["board-content"].exec("UPDATE_CONTENTS_FIELD", []);
+				// alert('옮지! 서버로 옮겨 줄게!');
+				$('#frm_board').submit();
+			}
+			
+		});
+		
+		$(document).on('keyup', '#title', function(){
+			var len = $(this).length;
+			
+			if(len != 0) {
+				$('.error_msg').css('display', 'none');
+			}
 		});
 	</script>
 		

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -88,10 +89,24 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
-	//글쓰기
-	@GetMapping("/newcontent")
-	public String newcontent() {
-		return "board/newcontent";
+	//글쓰기 페이지를 띄움
+	@GetMapping("/write")
+	public String writer() {
+		log.info(">>>>> GET: Board Write Page");
+		
+		return "board/register";
+	}
+	
+	//글을 DB에 담음
+	@PostMapping("/write")
+	public String write(BoardDTO bDto) {
+		log.info(">>>>> POST: Board Write Action");
+		
+		log.info(bDto.toString());
+		
+		bService.write(bDto);
+		
+		return "redirect:/board/list";
 	}
 
 }

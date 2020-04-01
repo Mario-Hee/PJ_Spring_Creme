@@ -18,7 +18,7 @@
 		box-sizing: border-box;
 	}
 	body {
-		background: #f5f6f7;
+		background: #fff;
 		margin: 0 auto;
 	}
 
@@ -289,7 +289,7 @@
 	</div>
 	
 			<div>
-				<a href="${path}/board/newcontent" class="insert_btn hover_btn">글쓰기</a>
+				<a href="${path}/board/write" class="insert_btn hover_btn">글쓰기</a>
 			</div>
 		</div><!-- orderby_row 끝-->
 		

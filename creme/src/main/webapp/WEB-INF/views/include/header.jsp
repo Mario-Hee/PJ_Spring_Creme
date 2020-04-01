@@ -614,10 +614,9 @@
 	</header>
 </body>
 <script type="text/javascript">
-
+	var message = '${message}';
+	var uri = '${uri}';
 	$(function(){
-		
-		var message = '${message}';
 		if(message == 'nologin') {
 			$('.modal_wrap2').css('display', 'flex');
 			$('#login_id').focus();
@@ -670,6 +669,7 @@
 		$('.pw_eye').prev().attr('type', 'password');
 		$('.pw_eye').html('<i class="fas fa-eye-slash"></i>')
 				    .css('color', '#AAA');
+		uri = '';
 	});
 
 
@@ -714,6 +714,8 @@
 		var id = $('#login_id').val();
 		var pw = $('#login_pw').val();
 		
+		
+		// LOGIN 기능
 		// 유효성 체크(id, pw) Null체크
 		if(id != '' && pw != '' && id.length != 0 && pw.length != 0) {
 			/* alert(id + ', ' + pw); */
@@ -730,8 +732,11 @@
 						.text('로그인 중 문제가 발생했습니다.아이디 및 비밀번호를 확인하거나 계정을 생성하십시오.');
 					} else if(data == 1) {
 						console.log('로그인 성공');
-						location.reload(); //새로고침
-						
+						if(uri == '') {
+							location.reload(); //새로고침
+						} else {
+							location.href = uri;
+						}	
 					} else if(data == 2) {
 						$('.err_content').css('display', 'block')
 						.text('이메일 인증 후 로그인 할 수 있습니다.');

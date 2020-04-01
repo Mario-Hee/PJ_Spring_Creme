@@ -235,7 +235,7 @@
 						<div id="listReply"></div>
 			<div class="base_button">
 				<span class="gLeft">
-					<a href="${header.referer}" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px; ">목록</a>
+					<a href="${header.referer}" class="view_list" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px; ">목록</a>
 					<a href="#" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e;border-radius: 4px;  color: white; text-decoration: none; position: relative; top: -11px; right: 3px;">답변</a>
 				</span>
 			<c:if test="${name == one.writer}">
@@ -274,11 +274,27 @@
 		});
 	});
 	
+	
+	//목록 버튼
+	$(document).on('click', '.view_list', function(){
+		var referer = '${header.referer}'
+		//console.log('이전 URL : ' + referer);
+		
+		var index = referer.indexOf('/board/list');
+		//console.log('index :  + referer.indexOf('/board/list'));
+	
+		if(index == '-1') {
+			$('.view_list').prop('href', '/creme/board/list')
+		}
+		
+	});
+	
+	
 	$(document).on('click', '.postcomment_up', function(){
 		$('.modal_wrap').css('display', 'flex');
 	});
 	
-	//1.사용자가 대스글을 입력하고 댓글등록버튼을 클릭한다
+	//1.사용자가 댓글을 입력하고 댓글등록버튼을 클릭한다
 	$(document).on('click', '.reply_btn', function(){
 		//2.u_cbox_write_name라고 변수에 사용자가 입력한 댓글내용을 입력한다
 		var u_cbox_write_name = $('.u_cbox_write_area').val();
