@@ -178,7 +178,7 @@
 	</style>
 </head>
 <body>
-	<%@ include file="../include/modal.jsp" %>
+<%@ include file="../include/modal.jsp"%>
 	<div class="container">
 		<div class="contents">
 			<div class="main_board">
@@ -268,8 +268,8 @@
 		});
 		
 		// 삭제 알림 모달창에서 확인버튼 Click -> 게시글 삭제
-		$('.modal_msg_yes').click(function() {
-			alert("text");
+		$('#modal_msg_yes').click(function() {
+			alert("게시글 삭제");
 			location.href='${path}/board/delete?bno=${one.bno}';
 		});
 	});

@@ -167,6 +167,7 @@
 			$('#modal_msg_yes').css('display', 'none');
 			$('#modal_msg_cancle').text('확 인');
 			$('.modal_msg_wrap').css('display', 'flex');
+			
 		} else if(key == 'dropBoard') {
 			if('${one.replycnt} == 0') { // 댓글이 없는 경우
 				$('#modal_msg_main_txt').text(dropBoard_main_txt);
