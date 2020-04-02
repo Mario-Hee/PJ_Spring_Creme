@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="include.jsp" %> 
+<%@ include file="include.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,6 +106,8 @@
 		.header_content_member_bag:hover > a {
 			background-color: rgba(20, 23, 28, .05);
 			border-color: rgba(20, 23, 28, .05);
+			position: relative;
+			z-index: 999;
 		}
 		.header_content_member_bag > a {
 			display: inline-block;

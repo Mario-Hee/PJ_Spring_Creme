@@ -1,7 +1,7 @@
 	/* 구글 웹 폰트*/
 	@import url('https://fonts.googleapis.com/css?family=Gothic+A1&display=swap');
 	
-	/* 고통사항 */
+	/* 공통사항 */
 * { box-sizing: border-box; }
 body {
 		background: #fff;
@@ -40,12 +40,13 @@ a {
 		}
 		button.btn-basic {
 			border: 1px solid #1D292C;
-			background-color: white;
-			color: #1b1b1b;
+			background-color: #95A5C3;
+			color: white;
 		}
 		button.btn-basic:hover {
 			color: #1D292C;
-			background-color: #95A5C3;
+			background-color: #34495e;
+			color: white;
 		}
 		button.btn-agree {
 			font-weight: bold;
@@ -53,12 +54,12 @@ a {
 			background-color: #95A5C3;
 		}
 		button.btn-primary {
-			background-color: #34495e;
+			background-color: #95A5C3;
 			border-color: transparent;
 			color: white;
 		}
 		button.btn-primary:hover {
-			background-color: #95A5C3;
+			background-color: #34495e;
 			border-color: transparent;
 		}
 		button.btn-support {

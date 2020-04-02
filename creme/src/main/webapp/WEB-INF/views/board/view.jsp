@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../include/include.jsp" %>
+<%-- <%@ include file="../include/include.jsp" %> --%>
 <%@ include file="../include/header.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -240,7 +240,7 @@
 				</span>
 			<c:if test="${name == one.writer}">
 				<span class="gRight">
-					<a href="#" style="padding: 12px 25px 10px;;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px;">수정</a>
+					<a href="${path}/board/update?bno=${one.bno}" style="padding: 12px 25px 10px;;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px;">수정</a>
 					<a href="#" class="del_btn" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px; right: 3px;">삭제</a>
 				</span>
 			</c:if>
@@ -269,7 +269,7 @@
 		
 		// 삭제 알림 모달창에서 확인버튼 Click -> 게시글 삭제
 		$('#modal_msg_yes').click(function() {
-			alert("게시글 삭제");
+			//alert("게시글 삭제");
 			location.href='${path}/board/delete?bno=${one.bno}';
 		});
 	});

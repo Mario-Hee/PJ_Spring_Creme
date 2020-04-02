@@ -162,7 +162,7 @@
 					</div>
 					<div class="mb-3">
 						<label class="type_txt" for="type">타입</label>
-						<select type="type" class="form_control" name="type" id="type">
+						<select type="board_type" class="form_control" name="type" id="board_type">
 							<option value="free" selected>자유게시판</option>
 							<option value="qna">QnA게시판</option>
 							<option value="review">제품후기</option>
@@ -170,12 +170,12 @@
 					</div>
 					<div class="mb-3">
 						<label class="title_txt" for="title">제목</label>
-						<input type="text" class="form_control" name="title" id="title" placeholder="제목을 입력해 주세요">
+						<input type="text" class="form_control" name="title" id="title" placeholder="제목을 입력해 주세요" value="${one.title}">
 					</div>
 					<div class="mb-3">
 						<label class="content_txt" for="content">내용</label>
 						<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-						<textarea name="content" id="board-content" style="width: 100%; height: 400px;"></textarea>
+						<textarea name="content" id="board-content" style="width: 100%; height: 400px;">${one.content}</textarea>
 					</div>
 					<div class="mb-3">
 						<label class="tag_txt" for="tag">첨부파일</label>
@@ -201,6 +201,20 @@
 	</form:form>
 	<script type="text/javascript">
 		$(function(){	
+			// update인 경우에만
+			
+			// register를 게시글 등록과 게시글 수정할 때 사용하는데, 
+			// ${one}에 값이 있으면 수정페이지 로딩한다.
+			if('${one}' != '') {
+				// 수정페이지로 디자인 변경
+				$('.btn').css('background', '#95A5C3;');
+				$('#btnup').removeClass('.btn')
+							 .addClass('.button.btn_basic')
+							 .text('수정');
+				
+				// SelectBox 값으로 Selected
+				$('#board_type').val('${one.type}').attr('selected', 'selected');
+			}
 		});
 			
 		$(document).on('click', '#btncancle', function(){

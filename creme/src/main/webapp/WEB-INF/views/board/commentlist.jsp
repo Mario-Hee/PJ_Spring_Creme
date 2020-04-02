@@ -240,7 +240,6 @@
 
 	</style>
 <body>
-	<%@ include file="../include/modal.jsp" %>
 			<div class="reply_header">
 			<input type="hidden" class="replyListCnt" value="${list.size()}">
 				<span class="comment_cnt">${list.size()}</span>

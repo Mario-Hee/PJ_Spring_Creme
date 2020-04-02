@@ -20,4 +20,6 @@ public interface BoardService {
 	public String delete(int bno);
 	// 게시글 등록
 	public void write(BoardDTO bDto);
+	// 게시글 수정
+	public void updateView(BoardDTO bDto);
 }

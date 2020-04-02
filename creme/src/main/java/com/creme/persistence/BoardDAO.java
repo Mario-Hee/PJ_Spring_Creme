@@ -28,6 +28,9 @@ public interface BoardDAO {
 	//댓글 수 
 	public void replyCntUpdate(@Param("map") HashMap<String, Object> map);
 	
+	//게시글 등록
 	public void write(BoardDTO bDto);
 
+	//게시글 수정
+	public void updateView(BoardDTO bDto);
 }

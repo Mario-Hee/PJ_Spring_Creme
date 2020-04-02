@@ -97,6 +97,11 @@ public class BoardServiceImpl implements BoardService{
 		bDao.write(bDto);
 	
 	}
+
+	@Override
+	public void updateView(BoardDTO bDto) {	
+		bDao.updateView(bDto);
+	}
 	
 	
 	
