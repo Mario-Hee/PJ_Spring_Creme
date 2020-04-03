@@ -53,12 +53,14 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			log.info("PREV URL>>>>> " + prevUrl);
 			log.info("NEXT URL>>>>> " + nextUrl);
 			
-			if(nextUrl.equals("/board/update") || nextUrl.equals("/board/delete")) {
+			if(nextUrl.equals("/board/update") || nextUrl.equals("/board/delete")) { 
 				log.info("" + prevUrl.indexOf("board/view"));
-				if(prevUrl.indexOf("board/view") == -1) {
-					log.info("WARNING>> 비정상적인 접근 :(");
-					response.sendRedirect(finalUrl);
-					return false;
+				if(request.getParameter("title") == null) {
+					if(prevUrl.indexOf("board/view") == -1) {
+						log.info("WARNING>> 비정상적인 접근 :(");
+						response.sendRedirect(finalUrl);
+						return false;
+					}
 				}
 			}
 		}
