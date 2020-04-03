@@ -259,11 +259,14 @@
 								<td>${one.writer}</td>
 							</tr>
 							<tr>
-								<td colspan="2"><fmt:formatDate value="${one.regdate}" pattern="yyyy-MM-dd" var="regdate"/>
+								<td colspan="2">
 									<ul class="etcArea">
 										<li class>
 											<strong>작성일</strong>
-											<span class="txtNum">${regdate}</span>
+											<c:if test="${one.regdate != one.updatedate}">
+												<span class="txtNum"><fmt:formatDate value="${one.regdate}" pattern="yyyy-MM-dd HH:mm:ss" var="regdate"/>${regdate}</span>
+												<span class="txtNum"><fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss" var="updatedate"/>${updatedate}</span>
+											</c:if>
 										</li>
 										<li class>
 											<strong>조회수</strong>

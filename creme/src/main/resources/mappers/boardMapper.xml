@@ -57,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</sql>
 	<select id="view" resultType="BoardDTO">
 		SELECT * FROM tbl_board
-		WHERE bno=#{bno}
+		WHERE bno = #{bno}
 	</select>
 	<update id="increaseViewCnt">
 		UPDATE tbl_board
