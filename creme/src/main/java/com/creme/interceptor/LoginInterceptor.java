@@ -28,8 +28,59 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		HttpSession session = request.getSession();
 		//String id = (String)session.getAttribute("userid");
 		//log.info(">>>>> id Session: " + id);
+		// 이동하기 전 있었던 Page URL
 		String referer = request.getHeader("referer");
 		log.info(">>>>> 이전 URL: " + referer);
+		// 이동하려고 했던 Page URL
+		String uri = request.getRequestURI();
+		String ctx = request.getContextPath();
+		String nextUrl = uri.substring(ctx.length());
+		String prevUrl = "";
+		String finalUrl = "http://localhost:8081/creme/";
+		
+		// 비정상적인 접근을 막는 기능!
+		if(referer == null) {
+			log.info("WARNING>> 비정상적인 접근 :(");
+			response.sendRedirect(finalUrl);
+			return false;
+		} else {
+			int indexQuery = referer.indexOf("?");
+			if(indexQuery == -1) {
+				prevUrl =  referer.substring(finalUrl.length()-1);
+			} else {
+				prevUrl = referer.substring(finalUrl.length()-1, indexQuery);
+			}
+			log.info("PREV URL>>>>> " + prevUrl);
+			log.info("NEXT URL>>>>> " + nextUrl);
+			
+			if(nextUrl.equals("/board/update") || nextUrl.equals("/board/delete")) {
+				log.info("" + prevUrl.indexOf("board/view"));
+				if(prevUrl.indexOf("board/view") == -1) {
+					log.info("WARNING>> 비정상적인 접근 :(");
+					response.sendRedirect(finalUrl);
+					return false;
+				}
+			}
+		}
+		//int index = referer.lastIndexOf("/"); // /슬러시가 몇번째에 있는 지 센다.
+		//int len = referer.length(); // 문자열 길이
+		//log.info(">>>>> 인덱스: " + index);
+		//log.info(">>>>> 길이: " + len);
+		//String mapWord = referer.substring(index, len); // 인덱스에서 길이까지 자른다. /write만 잘려서 나온다.
+		//log.info(">>>>> 수정된 URL: " + referer);
+					
+		// 정상적인 접근인 경우 실행!
+		if(session.getAttribute("userid") == null) {
+			if(prevUrl.equals(nextUrl)) {
+				log.info("WARNING>> prevUrl == nextUrl :/");
+				response.sendRedirect(finalUrl);
+				return false;
+			}
+		}
+		
+		
+		
+		
 		
 		
 		// LOGIN NO
@@ -39,8 +90,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			log.info(">>>>> NOLOGIN:(");
 			
 			//
-			String uri = request.getRequestURI();
-			log.info(">>>>>목적지: " + uri);
+			//String uri = request.getRequestURI();
+			//log.info(">>>>>목적지: " + uri);
 			// referer = 바로 직전에 머물렀던 웹링크 주소
 			// 이전 페이지 URL을 GET한다
 			// URL만 신경쓴다. GET or POST는 중요하지 않다.
@@ -52,25 +103,20 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 				// Login No
 				// 이전 페이지 URL을 GET(referer이 없는 경우) 인덱스로 이동 
 				// 외부에서 접근했을 때 오류가 날 때,
-				if(referer == null) {
+				//if(referer == null) {
 					// URL로 바로 접근한 경우
-					referer = "http://localhost:8081/creme/";
-				} else {	
+					//referer = "http://localhost:8081/creme/";
+					//} else {	
 					// 내부에서(내 페이지) 접근했을때 오류가 날 때,
 					// 게시글 등록, 수정(로그인이 필요한 View단)
-					int index = referer.lastIndexOf("/"); // /슬러시가 몇번째에 있는 지 센다.
-					int len = referer.length(); // 문자열 길이
-					log.info(">>>>> 인덱스: " + index);
-					log.info(">>>>> 길이: " + len);
-					String mapWord = referer.substring(index, len); // 인덱스에서 길이까지 자른다. /write만 잘려서 나온다.
-					log.info(">>>>> 수정된 URL: " + referer);
+					
 			
 				// 로그인 후 게시판 - 글쓰기에서 로그아웃을 하면 메인페이지로 돌아가는게 아닌, /board/list 페이지로 돌아간다.
-				if(mapWord.equals("/write")) {
-					response.sendRedirect(request.getContextPath() + "/board/list"); // URL을 /board/list로 다시 보낸다.
-					return false;
-				}
-			}	
+				//if(mapWord.equals("/write")) {
+				//response.sendRedirect(request.getContextPath() + "/board/list"); // URL을 /board/list로 다시 보낸다.
+				//return false;
+				//}
+				//}	
 			
 			
 			
@@ -82,12 +128,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 				RequestContextUtils.saveOutputFlashMap(referer, request, response);
 				response.sendRedirect(referer);
 			
-			
 			//response.sendRedirect(referer+"?message=nologin"); // 값을 보내줘야하므로 쿼리스트링을 쓴다.
 			
 				return false; // 원래 가려던 곳으로 이동 할 수 없어!	
-				// LOGIN OK	
-			} else {
+			
+			} else { // LOGIN OK	
 				log.info(">>>>> LOGIN:)");
 				return true; // 원래 가려던 곳으로 이동해!
 			}

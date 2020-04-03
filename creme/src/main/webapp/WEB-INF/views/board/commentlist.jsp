@@ -153,7 +153,6 @@
 			position: relative;
 			left: 1px;
 			top: 68px;
-			font-family: 'Nanum Gothic Coding', monospace; 
 			font-size: 15px;
 			width: 169px;
 			font-weight: bold;
@@ -206,16 +205,24 @@
 		.postcomment_up {
 			position: relative;
 			top: -1px;
-			border: 1px solid #1b1b1b;
+			border: 1px solid #95A5C3;
 			padding: 10px 24px;
 			font-family: 'Nanum Gothic Coding', monospace; 
 			font-size: 15px;
 			font-weight: bold;
-			background-color: #34495e; 
+			background-color: #95A5C3;
 			color: white;
 			text-decoration: none;
 			border-radius: 4px;
 		}
+		.postcomment_up:hover:hover {
+			background-color: #34495e;
+			border: 1px solid #34495e;
+			border-color: transparent;
+			color: white;
+			font-family: 'Nanum Gothic Coding', monospace; 
+		}
+		
 		.comment_chat {
 			position: relative;
 			bottom: -2px;

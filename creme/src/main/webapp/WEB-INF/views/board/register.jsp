@@ -222,7 +222,7 @@
 			console.log('이전 URL: '+referer);
 			
 			var index = referer.indexOf('/board/list');
-			console.log('index: '+referer.indexOf('/board/lis'))
+			console.log('index: '+referer.indexOf('/board/list'))
 			
 			if(index == '-1') {
 				location.href = '${path}/board/list';				

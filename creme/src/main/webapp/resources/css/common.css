@@ -40,13 +40,13 @@ a {
 		}
 		button.btn-basic {
 			border: 1px solid #1D292C;
-			background-color: #95A5C3;
-			color: white;
+			background-color: white;
+			color: #1D292C;
 		}
 		button.btn-basic:hover {
-			color: #1D292C;
 			background-color: #34495e;
 			color: white;
+			border: 1px solid #34495e;
 		}
 		button.btn-agree {
 			font-weight: bold;

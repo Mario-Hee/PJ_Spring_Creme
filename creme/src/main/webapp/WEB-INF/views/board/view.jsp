@@ -173,7 +173,59 @@
 			width: 27px;
 			padding: 5px 0 0 0;
 		}
-
+		.view_list {
+			padding: 12px 25px 10px;
+			border:1px solid #95A5C3;
+			background-color: #95A5C3;
+			border-radius: 4px; 
+			color: white; 
+			text-decoration: none; 
+			position: relative; 
+			top: -11px;
+			font-family: 'Nanum Gothic Coding', monospace; 
+		}
+		.tel_btn {
+			padding: 12px 25px 10px;
+			border:1px solid #95A5C3;
+			background-color: #95A5C3;
+			border-radius: 4px; 
+			color: white; 
+			text-decoration: none; 
+			position: relative; 
+			top: -11px; 
+			right: -1px;
+			font-family: 'Nanum Gothic Coding', monospace; 
+		}
+		.upt_btn {
+			padding: 12px 25px 10px;
+			border:1px solid #95A5C3;
+			background-color: #95A5C3; 
+			border-radius: 4px; 
+			color: white; 
+			text-decoration: none; 
+			position: relative; 
+			top: -11px;
+			font-family: 'Nanum Gothic Coding', monospace; 
+		}
+		.del_btn {
+			padding: 12px 25px 10px;
+			border:1px solid #95A5C3;
+			background-color: #95A5C3;
+			border-radius: 4px; 
+			color: white; 
+			text-decoration: none; 
+			position: relative; 
+			top: -11px; 
+			right: 3px;
+			font-family: 'Nanum Gothic Coding', monospace; 
+		}
+		.btn:hover {
+			background-color: #34495e;
+			border: 1px solid #34495e;
+			border-color: transparent;
+			color: white;
+			font-family: 'Nanum Gothic Coding', monospace; 
+		}
 		
 	</style>
 </head>
@@ -235,13 +287,13 @@
 						<div id="listReply"></div>
 			<div class="base_button">
 				<span class="gLeft">
-					<a href="${header.referer}" class="view_list" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px; ">목록</a>
-					<a href="#" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e;border-radius: 4px;  color: white; text-decoration: none; position: relative; top: -11px; right: 3px;">답변</a>
+					<a href="${header.referer}" class="view_list btn">목록</a>
+					<a href="#"  class="tel_btn btn" >답변</a>
 				</span>
 			<c:if test="${name == one.writer}">
 				<span class="gRight">
-					<a href="${path}/board/update?bno=${one.bno}" style="padding: 12px 25px 10px;;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px;">수정</a>
-					<a href="#" class="del_btn" style="padding: 12px 25px 10px;border:1px solid black; background-color: #34495e; border-radius: 4px; color: white; text-decoration: none; position: relative; top: -11px; right: 3px;">삭제</a>
+					<a href="${path}/board/update?bno=${one.bno}" class="upt_btn btn">수정</a>
+					<a href="#" class="del_btn btn" >삭제</a>
 				</span>
 			</c:if>
 			</div>
