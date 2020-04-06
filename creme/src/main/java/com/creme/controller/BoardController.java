@@ -102,10 +102,9 @@ public class BoardController {
 	@PostMapping("/write")
 	public String write(BoardDTO bDto) {
 		log.info(">>>>> POST: Board Write Action");
-		//log.info(bDto.toString());
+		log.info(bDto.toString());
 		bService.write(bDto);
-		
-		log.info("currval :" + "번호" + bDto.getBno());
+		// log.info("currval :" + "번호" + bDto.getBno()); 게시글 bno값을 조회
 		
 		return "redirect:/board/view/" + bDto.getBno();
 	}
@@ -126,6 +125,8 @@ public class BoardController {
 		log.info(">>>>> POST: Board Update View Action");
 		
 		bService.updateView(bDto);
+		
+		log.info(">>>>>>>>>>>>>>>>>>>>>>" + bDto.toString());
 		// 수정할 해당 bno정보를 get해서 View단으로 전송
 		return "redirect:/board/list";
 	}

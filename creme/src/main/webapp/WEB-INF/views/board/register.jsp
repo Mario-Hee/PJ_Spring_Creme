@@ -175,7 +175,7 @@
 					<div class="mb-3">
 						<label class="content_txt" for="content">내용</label>
 						<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-						<textarea name="content" id="board-content" style="width: 100%; height: 400px;">${one.content}</textarea>
+						<textarea id="board_content" name="view_content" style="width: 100%; height: 400px;">${one.view_content}</textarea>
 					</div>
 					<div class="mb-3">
 						<label class="tag_txt" for="tag">첨부파일</label>
@@ -231,7 +231,9 @@
 			}
 			
 		});
+		// 게시글 등록 버튼
 		$(document).on('click', '#btnup', function(){
+			// 유효성체크(제목)
 			var title = $('#title').val();
 			
 			if(title == '' || title.length == 0) {
@@ -242,9 +244,26 @@
 			} else {
 				// 서버로 전송
 				// 에디터의 내용이 textarea에 적용된다.
- 				oEditors.getById["board-content"].exec("UPDATE_CONTENTS_FIELD", []);
+				// 스마트에디터에 있는 값을 #board_content에 입력한다. (값을 #board_content에 집어 넣어준다.)
+ 				oEditors.getById["board_content"].exec("UPDATE_CONTENTS_FIELD", []);
+				var view_content = $('#board_content').val();
+				// console.log('view_content: ' + view_content);
+				// view_content는 스마트에디터에서 가져온 값	
+				// search_content는 순수 Text
+				// 정규식을 통해 HTML 태그를 제거 후 순수 Text만 추출한다
+				var search_content = view_content.replace(/(<([^>]+)>)/ig,"").replace("&nbsp;","");
+				// console.log('search_content: ' + search_content);	
+				// 순수 Text를 얻으면 화면단에서 서버단으로 옮겨줘야한다. 
+				// 게시글 등록 버튼을 눌렀을때 폼 태그의 .append때문에 맨 마지막에 추가한다.
+				// .append("코드") : 선택한 요소의 내용의 맨 끝에 콘텐트를 추가한다.
+				 $('#frm_board').append('<textarea id="search_content" name="search_content"></textarea>');
+				 $('#search_content').val(search_content);
+				//var search_content2 = $('#search_content').val();		
+				//console.log('search_content2: ' + search_content2);
 				// alert('옮지! 서버로 옮겨 줄게!');
-				$('#frm_board').submit();
+				// 서버로 이동!
+				 $('#frm_board').submit();
+				// alert('서버로 이동!!!!');
 			}
 			
 		});
@@ -262,7 +281,7 @@
 		var oEditors = [];
 		nhn.husky.EZCreator.createInIFrame({
 		oAppRef: oEditors,
-		elPlaceHolder: "board-content",
+		elPlaceHolder: "board_content",
 	    sSkinURI: "${path}/resources/smarteditor/SmartEditor2Skin.html",
 		fCreator: "createSEditor2"
 		});
