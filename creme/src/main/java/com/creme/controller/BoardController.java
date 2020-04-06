@@ -98,15 +98,16 @@ public class BoardController {
 	}
 	
 	//글을 DB에 담음
+	//게시글 등록
 	@PostMapping("/write")
 	public String write(BoardDTO bDto) {
 		log.info(">>>>> POST: Board Write Action");
-		
-		log.info(bDto.toString());
-		
+		//log.info(bDto.toString());
 		bService.write(bDto);
 		
-		return "redirect:/board/list";
+		log.info("currval :" + "번호" + bDto.getBno());
+		
+		return "redirect:/board/view/" + bDto.getBno();
 	}
 	
 	@GetMapping("/update")
