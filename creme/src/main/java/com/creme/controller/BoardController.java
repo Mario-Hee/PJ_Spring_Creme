@@ -64,7 +64,8 @@ public class BoardController {
 		return "board/list";
 	}
 	
-	@GetMapping("/view/{bno}")  // 상세게시글
+	// 상세게시글
+	@GetMapping("/view/{bno}") 
 	public String view(@PathVariable(value="bno") int bno,  
 						Model model,
 						HttpSession session) {
@@ -109,6 +110,7 @@ public class BoardController {
 		return "redirect:/board/view/" + bDto.getBno();
 	}
 	
+	// 게시글 수정
 	@GetMapping("/update")
 	public String updateBoard(int bno, Model model) {
 		log.info(">>>>> GET: Board Update View Page");
@@ -117,6 +119,8 @@ public class BoardController {
 		//수정을 원하는 게시글의 정보를(1줄)을 원함
 		//1줄짜리 데이터를 가져다 준다. 
 		model.addAttribute("one", bService.view(bno));
+		model.addAttribute("flag", "update");
+		
 		return "/board/register";
 	}
 	
@@ -129,5 +133,49 @@ public class BoardController {
 		log.info(">>>>>>>>>>>>>>>>>>>>>>" + bDto.toString());
 		// 수정할 해당 bno정보를 get해서 View단으로 전송
 		return "redirect:/board/list";
+	}
+	
+	// 답글 달기
+	@GetMapping("/answer")
+	public String answerBoard(BoardDTO bDto, Model model) {  // 컨트롤러 어노테이션이 붙은 것에 한해서 매개변수를 써 놓으면 객체생성을 자동으로 해준다. 
+		log.info(">>>>> GET: Board Answer Page");	
+		bDto = bService.view(bDto.getBno());
+		
+		String newContent = "<p>이전게시글내용</p>"+
+								bDto.getView_content()+
+								"<br>===============================";
+		bDto.setView_content(newContent);
+		
+		model.addAttribute("one", bDto);
+		model.addAttribute("flag", "answer");
+		
+		return "/board/register";
+	}
+	
+	@PostMapping("/answer")
+	public String answerBoard(BoardDTO bDto) {
+		log.info(">>>>> POST: Board Answer Action");
+		
+		// 현재상태: 답글(타입, 제목, 내용, 작성자)이 담겨있다.
+		log.info("메인게시글: " + bDto.toString());
+		
+		// 현재상태: 메인(ALL, ref, re_level, re_step)이 담겨있다.
+		BoardDTO prevDto = bService.view(bDto.getBno());
+		log.info("메인DTO: " + prevDto.toString());
+		
+		// 현재상태: 답글(bno(메인게시글)), 타입, 제목, 내용, 작성자, ref(메인), re_level(메인), re_step(메인)이 담겨있다. / 아직 + 1은 안한 상태
+		bDto.setRef(prevDto.getRef());
+		bDto.setRe_level(prevDto.getRe_level());
+		bDto.setRe_step(prevDto.getRe_step());
+		
+		// ref, re_step, re_lever
+		// ref = 그래도 메인게시글 ref C&P
+		// re_level = 메인게시글 re_level + 1
+		// re_step  = 메인게시글 re_step + 1
+		
+		bService.answer(bDto);
+		
+		return "redirect:/board/view/" + bDto.getBno();
+		
 	}
 }

@@ -31,6 +31,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		// 이동하기 전 있었던 Page URL
 		String referer = request.getHeader("referer");
 		log.info(">>>>> 이전 URL: " + referer);
+		String qString = request.getQueryString(); // 쿼리스트링을 알려준다. ?(물음표)뒤의 값을 알려준다. 쿼리스트링이 없으면 NULL값이 들어온다.
 		// 이동하려고 했던 Page URL
 		String uri = request.getRequestURI();
 		String ctx = request.getContextPath();
@@ -124,6 +125,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			
 				FlashMap fMap = RequestContextUtils.getOutputFlashMap(request);
 				fMap.put("message", "nologin");
+				if(qString != null) {
+					uri = uri + "?" + qString;  // 쿼리스트링이 null값이 아니면 uri에 ?를 붙여서 보내라.
+				}
+				
 				fMap.put("uri", uri);	
 			
 				// URL로 바로 접근한 경우(referer이 없는 경우) 인덱스로 이동 

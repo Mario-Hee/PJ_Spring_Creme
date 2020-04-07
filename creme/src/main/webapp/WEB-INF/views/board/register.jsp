@@ -149,7 +149,8 @@
 </head>
 
 <body>
-	<form:form id="frm_board">
+	<!-- 스프링에서 제공하는 폼태그 -->
+	<form:form id="frm_board"> 
 		<div class="container" role="main">
 			<form name="form" id="form"  method action>	
 				<div class="inner_txt">
@@ -199,13 +200,18 @@
 			</div>
 		</div>
 	</form:form>
+	
 	<script type="text/javascript">
+		var flag = '${flag}';
+		console.log('flag: ' + flag);
+	
+	
 		$(function(){	
 			// update인 경우에만
 			
 			// register를 게시글 등록과 게시글 수정할 때 사용하는데, 
 			// ${one}에 값이 있으면 수정페이지 로딩한다.
-			if('${one}' != '') {
+			if(flag == 'update') {      
 				// 수정페이지로 디자인 변경
 				$('.btn').css('background', '#95A5C3;');
 				$('#btnup').removeClass('.btn')
@@ -214,7 +220,23 @@
 				
 				// SelectBox 값으로 Selected
 				$('#board_type').val('${one.type}').attr('selected', 'selected');
+				
+			} else if(flag == 'answer') {
+				// 답글페이지로 변경
+				$('.btn').css('background', '#95A5C3;');
+				$('#btnup').removeClass('.btn')
+							 .addClass('.button.btn_basic')
+							 .text('답글');
+				
+				// SelectBox 값 선택 할 수 없도록 고정
+				$('#board_type').val('${one.type}')
+								.attr('selected', 'selected')
+								.attr('onFocus', 'this.initialSelect = this.selectedIndex')
+								.attr('onChange', 'this.selectedIndex = this.initialSelect');
+				$('#title').val('${one.title}').attr('readonly', 'readonly');
+							
 			}
+			
 		});
 			
 		$(document).on('click', '#btncancle', function(){

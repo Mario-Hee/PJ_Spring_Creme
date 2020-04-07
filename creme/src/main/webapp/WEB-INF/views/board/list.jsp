@@ -314,12 +314,18 @@
 				<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
 					<tr>
 						<td>${list.bno}</td>
-						<td><a href="${path}/board/view/${list.bno}" class="txt_conn">${list.title} </a>
+						<td>
+							<c:if test="${list.re_level != 0}">
+								<c:forEach begin = "1" end = "${list.re_level}">
+									<img class="empty_val" src="${path}/resources/img/icons8-curved-arrow-16.png">
+								</c:forEach>
+								RE:
+							</c:if>	
+						<a href="${path}/board/view/${list.bno}" class="txt_conn">${list.title} </a>
 							<c:if test="${today == regdate}">
 								<span class="new_color twinkle_eff">N</span>
 								<span class=""></span>
 								<i class="fas fa-paperclip"></i>
-								
 							</c:if>
 						</td>
 						<td>${list.writer}</td>

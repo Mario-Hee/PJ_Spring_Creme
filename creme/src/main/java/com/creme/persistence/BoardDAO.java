@@ -33,4 +33,10 @@ public interface BoardDAO {
 
 	//게시글 수정
 	public void updateView(BoardDTO bDto);
+	
+	//게시글 답글 등록
+	public void answer(BoardDTO bDto);
+	
+	//re_step 수정
+	public void updateStep(BoardDTO bDto);
 }

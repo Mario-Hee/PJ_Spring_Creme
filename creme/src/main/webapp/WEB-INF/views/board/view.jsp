@@ -159,7 +159,7 @@
 		.detail {
 			line-height: 20px;
 			border-top: 1px solid #34495e;
-			height: 330px;
+			min-height: 300px;
 		}
 		li {
 			list-style: none;
@@ -290,10 +290,12 @@
 
 						<!-- 댓글 창 -->
 						<div id="listReply"></div>
+						
+						<!-- 버튼 -->
 			<div class="base_button">
 				<span class="gLeft">
 					<a href="${header.referer}" class="view_list btn">목록</a>
-					<a href="#"  class="tel_btn btn" >답변</a>
+					<a href="${path}/board/answer?bno=${one.bno}" class="tel_btn btn" >답글</a>
 				</span>
 			<c:if test="${name == one.writer}">
 				<span class="gRight">
