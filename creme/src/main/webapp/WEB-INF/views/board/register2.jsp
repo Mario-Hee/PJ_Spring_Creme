@@ -58,7 +58,7 @@
 			justify-content: space-between;
 			padding: 0 47px;
 		}
-		.fileDrop {
+		.board_fileDrop {
 			display: flex;
 			font-size: 18px;
 			font-weight: bold;
@@ -191,7 +191,7 @@
 					</div>
 					
 					<!-- 게시글 첨부파일 목록 -->
-					<div class="fileDrop">
+					<div class="board_fileDrop">
 						<label class="tag_txt" for="tag">파일</label>
 						<div type="text" class="board_div fileDrop" name="tag" id="tag" >
 							<span class="tag_text"><i class="fas fa-paperclip"></i>첨부파일을 드래그 해주세요</span>
@@ -262,6 +262,7 @@
 			// 2.사용자가 파일을 drop했을 때
 			$('.fileDrop').on('drop', function(e){
 				e.preventDefault();
+				console.log("파일전송");
 				
 				var files=e.originalEvent.dataTransfer.files;	// 드래그에 전달된 
 				var file=files[0];	// 그중 하나만 꺼내옴

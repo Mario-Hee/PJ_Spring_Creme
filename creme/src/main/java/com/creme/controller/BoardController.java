@@ -95,7 +95,7 @@ public class BoardController {
 	public String writer() {
 		log.info(">>>>> GET: Board Write Page");
 		
-		return "board/register";
+		return "board/register2";
 	}
 	
 	//글을 DB에 담음
