@@ -7,6 +7,7 @@
 <html>
 <head>
 	<title>글쓰기</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
 	<link rel="icon" type="image/png" href="${path}/resources/img/favicon.png">
 	<style type="text/css">
 	@import url('https://fonts.googleapis.com/css?family=Do+Hyeon|Nanum+Gothic+Coding&display=swap');
@@ -58,7 +59,7 @@
 			justify-content: space-between;
 			padding: 0 47px;
 		}
-		.fileDrop {
+		.tag_fileDrop {
 			display: flex;
 			font-size: 18px;
 			font-weight: bold;
@@ -115,8 +116,7 @@
 			border: 1px solid #d7d5d5;
 		}
 		.btn_comm {
-			position: absolute;
-			padding: 0 410px;
+			text-align: center;
 		}
 		.btn {
 			width: 80px;
@@ -134,14 +134,6 @@
 			border-color: transparent;
 			color: white;
 			font-family: 'Nanum Gothic Coding', monospace; 
-		}
-		#btncancle {
-			position: relative;
-
-		}
-		#btnup {
-			position: relative;
-
 		}
 		.fa, .fas {
 			font-weight: 900;
@@ -191,7 +183,7 @@
 					</div>
 					
 					<!-- 게시글 첨부파일 목록 -->
-					<div class="fileDrop">
+					<div class="tag_fileDrop">
 						<label class="tag_txt" for="tag">파일</label>
 						<div type="text" class="board_div fileDrop" name="tag" id="tag" >
 							<span class="tag_text"><i class="fas fa-paperclip"></i>첨부파일을 드래그 해주세요</span>
@@ -215,12 +207,35 @@
 			</div>
 		</div>
 	</form:form>
+</body>
+	
+<script id="fileTemplate" type="text/x-handlebars-template">
+	
+	     <li>
+			<div class="mailbox-attachment-icon has-img">
+			 <center><img src="{{imgSrc}}" alt="Attachment" class="s_img"></center>
+			</div>
+			<div class="mailbox-attachment-info">
+				<a href= "{{originalFileUrl}}" class="mailbox-attachment-name">
+					<i class = "fa fa-paperclip"></i> {{originalFileName}}
+				</a>
+				<span class="btn btn-default btn-xs pull-right delBtn" data-src="{{basicFileName}}">
+					<i class="fas fa-times"></i>
+				</span>
+			</div>
+		</li>
+		
+</script>
+	
+	
 	
 	<script type="text/javascript">
 		var flag = '${flag}';
 		console.log('flag: ' + flag);
 	
-	
+		// Handlebars 파일템플릿 컴파일
+		var fileTemplate = Handlebars.compile($("#fileTemplate").html());
+		
 		$(function(){	
 			// update인 경우에만
 			
@@ -251,6 +266,8 @@
 				$('#title').val('${one.title}').attr('readonly', 'readonly');
 							
 			}
+		});
+			
 			
 			// 첨부파일
 			// 1.웹브라우저에 drag & drop시 파일이 열리는 문제(기본 효과)
@@ -276,19 +293,127 @@
 					data: formData,
 					datatype: "text",
 					processData: false,		// 쿼리스트링 방식 생성X
-					contentType: false,		// (contentType: 서버를 보내는 역할) 서버단으로 전송하는 데이터 타입(multipart)
+					contentType: false,		// (contentType: 서버를 보내는 역할) 서버단으로 전송하는 데이터 타입(multipart), 컨텐트타입을 펄스로 주면 멀티파트타입으로 바뀐다.
 					type: 'POST',			// 쿼리스트링은 길이제한이 있다(GET).  프로세서 데이터를 false로 하면 쿼리스트링 방식을 쓰지 않는다. 
 					success: function(data) {
 						console.log(data);
-						// data: 업로드한 파일 정보와 http 상태 코드
-						printFiles(Data);	// 첨부파일 출력 메서드 호출한다
+						// data: 업로드한 파일 정보와 http 상태 코드(성공:200)
+						printFiles(data);	// 첨부파일 출력 메서드 호출한다
 					}
 				});
 			});
 			
+			//파일 정보처리
+			function getFileInfo(fullName) {
+				var originalFileName; // 화면에 출력할 파일명
+				var imgSrc; // 썸네일 or 파일 아이콘 이미지 파일
+				var originalFileUrl; // 원본파일 요청 URL
+				var uuidFileName;	// 날짜 경로를 제외한 나머지 파일명(UUID)
+				var basicFileName = fullName; // 삭제시 값을 전달하기 위한
+				
+				//이미지 파일이면
+				if(checkImageType(fullName)){
+					imgSrc = "${path}/upload/displayFile?fileName=" + fullName; // 썸네일 이미지 링크
+					uuidFileName = fullName.substr(14); //fullName.substr(14); 14부터 끝까지 이름을 가져오세요 
+					var originalImg = fullName.substr(0,12) + fullName.substr(14); // s_ 뺀 주소들을 가져옴 즉 원본이미지 경로를 알려줌
+					//원본 이미지 요청링크
+					originalFileUrl = "${path}/upload/displayFile?fileName=" + originalImg; 
+				}else { 
+					imgSrc = "${path}/resources/img/file-icon.png"; //파일 아이콘 이미지 링크
+					uuidFileName = fullName.substr(12);
+					//파일 다운로드 요청링크
+					originalFileUrl = "${path}/upload/displayFile?fileName=" + fullName;
+				}
+				originalFileName = uuidFileName.substr(uuidFileName.indexOf("_") + 1);
+				//전체 파일명의 크기가  14보다 작으면 그래도 이름 출력
+				// 14보다 크면 실행
+				if(originalFileName.length > 14){
+					//앞에서부터 11글자 자름
+					var shortName = originalFileName.substr(0,10);
+					//.을 기준으로 배열 생성
+					var formatVal = originalFileName.split(".");
+					//formatVal = originalFileName.substr(originalFileName.length-3)
+					//파일명에 .이 여러개 들어가 있을 수도 있음
+					// 배열 크기를 구해왕서 무조건 맨 마지막 확장자부분 출력되게 함
+					var arrNum = formatVal.length -1;
+					//맨처음 문자열 10글자 + ....+ 확장자
+					originalFileName = shortName + "..." + formatVal[arrNum];
+				}
+				return {originalFileName: originalFileName, imgSrc: imgSrc, originalFileUrl: originalFileUrl, fullName: fullName, basicFileName: basicFileName};
+			}
+					
+			//첨부파일 출력
+			function printFiles(data) {
+				//파일정보처리
+				var fileInfo = getFileInfo(data);
+				console.log(fileInfo);
+				//Handlebars 파일 템플릿에 파일 정보들을 바인딩하고 HTML 생성
+				var html = fileTemplate(fileInfo);
+				html += "<input type='hidden' class='file' value='"+ fileInfo.fullName +"'>";
+				//Handlebars 파일 템플릿 컴파일을 통해 생성된 HTML을 DOM에 주입
+				$(".uploadedList").append(html);
+				// 이미지 파일인 경우 aaaaaa파일 템플ㄹ릿에 lightbox 속성 추가
+				if(fileInfo.fullName.substr(12,2) === "s_"){
+					//마지막에 추가된 첨부파일 템플릿 선택자
+					var that = $(".uploadedList li").last();
+					//lightboax 속성 추가
+					that.find(".mailbox-attachment-name").attr("data-lightbox","uploadImages");
+					//파일 아이콘에서 이미지 아이콘으로 변경
+					that.find(".fa-paperclip").attr("class","fa fa-camera");
+					
+				}
+									
+			}
 			
+			function getOriginalName(fileName) {
+				if(checkImageType(fileName)){ // 이미지 파일이면 skip
+					return;
+				}
+				var idx= fileName.indexOf("_")+1; // uuid를 제외한 파일이름
+				return fileName.substr(idx);
+			}
+			function getImageLink(fileName) {
+				if(!checkImageType(fileName)){ // 이미지 파일이 아니면 skip
+					return;			
+				}
+				var front=fileName.substr(0,12); // 연월일 결로
+				var end=fileName.substr(14); // s_제거
+				return front+end;		
+			}
+			function checkImageType(fileName) {
+				var pattern =/jpg|gif|png|jpeg/i; // 정규표현식(대소문자 무시)
+				return fileName.match(pattern); // 규칙에 맞으면 true			
+			}
 			
-		});
+			//첨부파일 리스트를 출력하는 함수
+			function listAttach() {
+				var listCnt = 0;
+				$.ajax({
+					type: "post",
+					url: "${path}/board/getAttach/${one.bno}",
+					async: false,
+					success: function (list) {
+						//list: json
+						console.log(list);
+						
+						listCnt = list.length;
+						console.log(list.length);
+						
+						/* 
+							jQuery each()는 반본ㄱ문
+							i와 e는 index와 element로
+							json에서 {0:"apple.png"}일 때
+							index는 0, element는 apple.png가 됌
+						*/
+						$(list).each(function(i,e) {
+							console.log(list);		
+							pringFiles(e); // 첨부파일 출력 메서드 호출
+						});					
+					}							
+				});
+				return listCnt;			
+			}
+
 			
 		$(document).on('click', '#btncancle', function(){
 			var referer = '${header.referer}';
@@ -360,5 +485,5 @@
 		});
 	</script>
 		
-</body>
+
 </html>
