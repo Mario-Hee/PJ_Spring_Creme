@@ -96,7 +96,6 @@
 			font-weight: bold;
 			font-family: 'Nanum Gothic Coding', monospace;
 			border: 3px dashed #d7d5d5;
-			margin: 0 0 0 131px;
 		}
 		.tag_text {
 			color: #d7d5d5;
@@ -178,11 +177,11 @@
 					</div>
 					
 					<!-- 게시글 첨부파일 목록 -->
-					<div class="tag_fileDrop">
+					<div class="tag_fileDrop" >
 						<div type="text" class="board_div fileDrop" name="tag" id="tag" >
 							<span class="tag_text"><i class="fas fa-paperclip"></i>첨부파일을 드래그 해주세요</span>
 						</div>
-						<ul class="mailbox-attachments clearfix uploadedList"></ul>
+						<ul class="mailbox-attachments clearfix uploadedList" style="display: flex;"></ul>
 					</div>
 					
 				</div>
