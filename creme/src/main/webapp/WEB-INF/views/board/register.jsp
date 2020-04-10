@@ -29,7 +29,6 @@
 			border: 1px solid #d7d5d5;
 			border-top: 2px solid #34495e;
 			width: 900px;
-			height: 882px;
 			margin: 30px auto;
 			padding: 10px;
 		}
@@ -60,14 +59,11 @@
 			padding: 0 47px;
 		}
 		.tag_fileDrop {
-			display: flex;
 			font-size: 18px;
 			font-weight: bold;
 			color: #1b1b1b;
 			margin-bottom: 20px;
-			align-items: center;
 			justify-content: space-between;
-			padding: 0 47px;
 		}
 		.form_control {
 			width: 700px;
@@ -100,15 +96,13 @@
 			font-weight: bold;
 			font-family: 'Nanum Gothic Coding', monospace;
 			border: 3px dashed #d7d5d5;
+			margin: 0 0 0 131px;
 		}
 		.tag_text {
-			color: gray;
+			color: #d7d5d5;
 			position: absolute;
 			padding: 65px 194px;
 			font-size: 18px;
-		}
-		.tag_txt {
-			min-width: 85px;
 		}
 		.board_div {
 			background: white;
@@ -140,6 +134,7 @@
 			position: relative;
 			z-index: 10;
 			color: gray;
+			color: #d7d5d5;
 		}
 		.error_msg {
 			color: tomato;
@@ -184,7 +179,6 @@
 					
 					<!-- 게시글 첨부파일 목록 -->
 					<div class="tag_fileDrop">
-						<label class="tag_txt" for="tag">파일</label>
 						<div type="text" class="board_div fileDrop" name="tag" id="tag" >
 							<span class="tag_text"><i class="fas fa-paperclip"></i>첨부파일을 드래그 해주세요</span>
 						</div>
@@ -213,7 +207,7 @@
 	
 	     <li>
 			<div class="mailbox-attachment-icon has-img">
-			 <center><img src="{{imgSrc}}" alt="Attachment" class="s_img"></center>
+			 <div><img src="{{imgSrc}}" alt="Attachment" class="s_img"></div>
 			</div>
 			<div class="mailbox-attachment-info">
 				<a href= "{{originalFileUrl}}" class="mailbox-attachment-name">
@@ -302,6 +296,35 @@
 					}
 				});
 			});
+			
+			// 첨부파일 삭제 버튼
+			$('.uploadedList').on('click', '.delBtn', function(event) {
+				//alert('이미지 삭제');
+				var bno = '${one.bno}';
+				var that = $(this);
+				
+				
+				if(bno == '') { // 게시글 등록
+					//alert('bno='+bno);
+					$.ajax({
+						url: '${path}/upload/deleteFile',
+						type: 'POST',
+						data: {fileName: $(this).attr('data-src')},
+						success: function(data) {  // 성공했다면 data 값에'deleted'가 들어온다  success: data = 'deleted'
+							if(data == 'deleted') {
+								that.parents('li').remove(); // remove() = display:none 이랑 같다. li를 삭제하라.
+							}
+						 }, error: function () {
+							alert('System Error!!!');
+						}				
+					});
+				
+				} else { // 게시글 수정
+					
+				}
+				
+			});
+
 			
 			//파일 정보처리
 			function getFileInfo(fullName) {
@@ -400,7 +423,7 @@
 						console.log(list.length);
 						
 						/* 
-							jQuery each()는 반본ㄱ문
+							jQuery each()는 반복문
 							i와 e는 index와 element로
 							json에서 {0:"apple.png"}일 때
 							index는 0, element는 apple.png가 됌

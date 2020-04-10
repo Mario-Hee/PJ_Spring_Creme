@@ -1,5 +1,6 @@
 //Controller에서 multipart타입의 자료를 받으려면 servlet-context에 파일 업로드 하는 multipartResolver 빈즈를 생성해줘야한다
 package com.creme.controller;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import javax.annotation.Resource;
@@ -51,7 +52,7 @@ public class AjaxUploadController {
 	@ResponseBody // view가 아닌 data 리턴
 	@RequestMapping("/upload/displayFile")
 	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception{
-		log.info("오ㅓㅏ아아앙ㄱ");
+		log.info("와아아ㅏ아아아아아아ㅏ아ㅏ아ㅏㅏ아ㅏ아ㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
 		//서버의 파일을 다운로드하기 위한 스트림
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
@@ -89,8 +90,41 @@ public class AjaxUploadController {
 		 return entity;
 	}
 	
-	
-	
-	
+	@ResponseBody
+	@PostMapping("/upload/deleteFile")
+	public ResponseEntity<String> deletsFile(String fileName) {
+		log.info("fileName: " + fileName);
+		// fileName : /2020/04/10/s_13c900ce-6b89-4a7f-b7c2-f110b9ac202b_banana.jpg
+		
+		// 확장자 검사
+		String formatName= fileName.substring(fileName.lastIndexOf(".") + 1); // 끝에서부터 점을 찾으라
+		// formatName = jpg
+		MediaType mType = MediaUtils.getMediaType(formatName);
+		// 이미지일때만 차는 if문
+		if(mType != null) { // 이미지 파일이면 원본이미지 삭제
+			String front = fileName.substring(0, 12); // 12이므로 11까지 잘린다 (0-11) 끝의 값을 포함이 안된다.
+			// front : /2020/04/10
+			
+			String end=fileName.substring(14);
+			// end : 13c900ce-6b89-4a7f-b7c2-f110b9ac202b_banana.jpg  s_가 빠졌다. 원본이미지 경로이다.
+			
+			// File.separatorChar : 유닉스/ , 윈도우즈\
+			new File(uploadPath+(front+end).replace('/', File.separatorChar)).delete();
+			// new File(c://developer/upload/2020/04/10/13c900ce-6b89-4a7f-b7c2-f110b9ac202b_banana.jpg) (원본이미지)
+			// replace >> c:\\developer\ upload\2020\04\10\13c900ce-6b89-4a7f-b7c2-f110b9ac202b_banana.jpg 역슬러시\ 로 치환(윈도우)
+			// delete >> c:\\developer\ upload\2020\04\10\13c900ce-6b89-4a7f-b7c2-f110b9ac202b_banana.jpg
+			// 원본이미지 삭제 
+		}
+		// 원본 파일 삭제(이미지면 썸네일 삭제)
+		new File(uploadPath+fileName.replace('/', File.separatorChar)).delete();
+		// new File(c://developer/ upload/2020/04/10/s_13c900ce-6b89-4a7f-b7c2-f110b9ac202b_banana.jpg (썸네일이미지)
+		// replace >> c:\\developer\ upload\2020\04\10\s_13c900ce-6b89-4a7f-b7c2-f110b9ac202b_banana.jpg
+		// delete >> c://developer/ upload/2020/04/10/s_13c900ce-6b89-4a7f-b7c2-f110b9ac202b_banana.jpg 
+		
+		// 썸네일 이미지 삭제 or 이미지가 아닌 첨부파일 삭제
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
+		// deleted 라는 값을 보내줄거고 HttpStatus(상태코드)를 보내줄건데 200이 들어오면 .OK 성공이다.
+		// 아직은 Local에서 이미지는 지워지나 화면단에서 디자인이 삭제가 안된다.  
+	}
 	
 }
