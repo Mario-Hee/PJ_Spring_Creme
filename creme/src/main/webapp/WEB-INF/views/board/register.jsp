@@ -64,6 +64,8 @@
 			color: #1b1b1b;
 			margin-bottom: 20px;
 			justify-content: space-between;
+			margin: 0 0 20px 131px;
+			text-align: center;
 		}
 		.form_control {
 			width: 700px;
@@ -99,8 +101,6 @@
 		}
 		.tag_text {
 			color: #d7d5d5;
-			position: absolute;
-			padding: 65px 194px;
 			font-size: 18px;
 		}
 		.board_div {
@@ -451,6 +451,7 @@
 			}
 			
 		});
+		
 		// 게시글 등록 버튼
 		$(document).on('click', '#btnup', function(){
 			// 유효성체크(제목)
@@ -481,6 +482,36 @@
 				//var search_content2 = $('#search_content').val();		
 				//console.log('search_content2: ' + search_content2);
 				// alert('옮지! 서버로 옮겨 줄게!');
+				
+				
+				// 첨부파일 목록[배열]추가
+				var str = '';
+				// uploadedList 내부의 .file 태그 각각 반복
+				// each는 앞에 선택자의 갯수만큼 반복한다.(첨부파일이 5개면 다섯번 반복한다.)
+				// (i)는 인덱스 값 0,1,2.... 5개면 0부터 4까지 반복한다.
+				$(".uploadedList .file").each(function (i) {  // uploadedList 안에 있는 class가 file인 것을 모두 찾아라
+					console.log(i);
+					// hidden 태그 구성
+					str += "<input type='hidden' name='files["+i+"]' value='" + $(this).val()+"'>"; // 첨부파일 하나당 카드 하나(hidden)
+					// str 첨부파일의 목록이 들어가 있다.
+				});
+				
+				// 로컬드라이브에 저장되어있는 해당 게시글
+				// 첨부파일 삭제
+				//if(deleteFileList.length > 0) {
+				//	$.post('${path}/upload/deleteAllFile', {files:deleteFileList}, function(){});
+				//}
+				
+				// 폼에 hidden 태그들을 붙임
+				$("#frm_board").append(str); // append: 맨 뒤에 붙여라. 
+				
+				// 서버로 전송
+				$("#frm_board").submit();
+				
+				
+				
+				
+				
 				// 서버로 이동!
 				 $('#frm_board').submit();
 				// alert('서버로 이동!!!!');

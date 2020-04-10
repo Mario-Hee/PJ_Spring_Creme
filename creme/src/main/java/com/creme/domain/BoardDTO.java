@@ -27,7 +27,7 @@ public class BoardDTO {
     private Date regdate;				// 작성일자
     private Date updatedate;			// 수정일자
     private String show;				// 화면 표시 여부
-    private String[] files;				// 첨부파일 이름 배열
+    private String[] files;				// 첨부파일 이름 배열, 첨부파일 이름만 저장된다(첨부파일이름을 배열로 받아서 저장한다)
     private int ref;					// 답변 그룹 번호
     private int re_step;				// 답변 출력 순번
     private int re_level;				// 답변 단계(계층형)

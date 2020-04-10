@@ -265,6 +265,8 @@
 										<!-- jstl 주석은 <%-- --%>로 사용-->
 										<!-- jsp 주석은 ! 사용-->
 											<strong>작성일</strong>
+											<fmt:formatDate value="${one.regdate}" pattern="yyyy-MM-dd HH:mm:ss" var="regdate"/>${regdate}</span>
+											<fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss" var="updatedate"/>${updatedate}</span>
 											<c:if test="${one.regdate != one.updatedate}">
 												<span class="txtNum"><fmt:formatDate value="${one.regdate}" pattern="yyyy-MM-dd HH:mm:ss" var="regdate"/>${regdate}</span>
 												<span class="txtNum"><fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss" var="updatedate"/>${updatedate}</span>				
