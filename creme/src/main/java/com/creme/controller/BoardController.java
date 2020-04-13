@@ -105,8 +105,15 @@ public class BoardController {
 	public String write(BoardDTO bDto) {
 		log.info(">>>>> POST: Board Write Action");
 		log.info(bDto.toString());
-		bService.write(bDto);
 		// log.info("currval :" + "번호" + bDto.getBno()); 게시글 bno값을 조회
+		
+		if (bDto.getFiles() == null) {  // 첨부파일 NO
+			bDto.setFilecnt(0);
+		} else {  // 첨부파일 YES
+			log.info("첨부파일 수:" +bDto.getFiles().length); // 파일 수만큼 들어간다.
+			bDto.setFilecnt(bDto.getFiles().length);
+		}	
+		bService.write(bDto);
 		
 		return "redirect:/board/view/" + bDto.getBno();
 	}

@@ -105,6 +105,7 @@ public class BoardServiceImpl implements BoardService{
 		if(files == null) {
 			return; // 첨부파일 없음, 종료
 		}
+		
 		for(String name : files) {
 			// tbl_attach 테이블에 첨부파일 1건씩 등록
 			bDao.addAttach(name);

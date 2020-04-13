@@ -322,7 +322,9 @@
 								RE:
 							</c:if>	
 						<a href="${path}/board/view/${list.bno}" class="txt_conn">${list.title} </a>
+							<c:if test="${list.filecnt != 0}">
 								<i class="fas fa-paperclip"></i>
+							</c:if>
 							<c:if test="${today == regdate}">
 								<span class="new_color twinkle_eff">N</span>
 								<span class=""></span>
@@ -390,12 +392,9 @@ $(function(){
 		location.href="/creme/board/write";
 	});
 	
-	// 새 게시글 작성시 'N' 표시가 뜬다.
+	// 검색어 입력시 치환
 	var keyword = '';
 	$('.list.title > a').replaceAll(keyword, '<span class="search_thema_box"></span>');
-	
-	// 첨부파일이 있으면 리스트에 클립표시가 뜬다.
-	
 	
 	
 	// 검색어 입력시 치환
