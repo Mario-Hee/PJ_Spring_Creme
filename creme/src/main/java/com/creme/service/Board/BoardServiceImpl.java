@@ -138,6 +138,11 @@ public class BoardServiceImpl implements BoardService{
 		bDao.answer(bDto);
 		
 	}
+
+	@Override
+	public List<String> getAttach(int bno) {		
+		return bDao.getAttach(bno);
+	}
 	
 	
 	

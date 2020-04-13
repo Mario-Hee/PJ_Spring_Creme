@@ -127,6 +127,8 @@
 			max-width: 114px;
 			height: 97px;
 			vertical-align: middle;
+			border: none;
+			vertical-align: top;
 		}
 		.header_content_logo_text {
 			font-size: 35px;
@@ -289,8 +291,6 @@
 			vertical-align: middle;
 		}
 		img {
-			border: none;
-			vertical-align: top;
 		}
 
 		input.text, input.password, input.edit {

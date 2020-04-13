@@ -225,7 +225,7 @@
 		}
 
 		.header_content_logo_img {
-    		max-width: 135px;
+			width: 114px;
     		display: block;
     		margin: auto;
     	}
@@ -322,10 +322,10 @@
 								RE:
 							</c:if>	
 						<a href="${path}/board/view/${list.bno}" class="txt_conn">${list.title} </a>
+								<i class="fas fa-paperclip"></i>
 							<c:if test="${today == regdate}">
 								<span class="new_color twinkle_eff">N</span>
 								<span class=""></span>
-								<i class="fas fa-paperclip"></i>
 							</c:if>
 						</td>
 						<td>${list.writer}</td>
@@ -390,8 +390,12 @@ $(function(){
 		location.href="/creme/board/write";
 	});
 	
+	// 새 게시글 작성시 'N' 표시가 뜬다.
 	var keyword = '';
 	$('.list.title > a').replaceAll(keyword, '<span class="search_thema_box"></span>');
+	
+	// 첨부파일이 있으면 리스트에 클립표시가 뜬다.
+	
 	
 	
 	// 검색어 입력시 치환
@@ -401,5 +405,6 @@ $(function(){
 		uTitle = title.replaceAll(keyword, '<span class="search_thema_box"></span>');
 		$('.post_title').text(uTitle);
 	} */
+	
 });
 </script>

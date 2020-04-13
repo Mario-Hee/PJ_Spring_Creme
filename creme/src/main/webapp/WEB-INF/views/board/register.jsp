@@ -22,6 +22,7 @@
 		}
 		.header_content_logo_img {
 			max-width: 135px;
+			width: 114px;
 			display: block;
 			margin: auto;
 		}

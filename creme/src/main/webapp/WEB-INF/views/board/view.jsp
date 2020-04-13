@@ -6,18 +6,27 @@
 <html>
 <head>
 	<title>상세게시글</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
 	<link rel="icon" type="image/png" href="${path}/resources/img/favicon.png">
 	<link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
 	<style type="text/css">
 	@import url('https://fonts.googleapis.com/css?family=Do+Hyeon|Nanum+Gothic+Coding&display=swap');
  		body {
-		background: #f5f6f7;
-		font-family: 'Gothic A1', sans-serif;
-		margin: 0;
-		padding: 0;
-		font-size: 14px;
-		color: #1D292C;
+			background: #f5f6f7;
+			font-family: 'Gothic A1', sans-serif;
+			margin: 0;
+			padding: 0;
+			font-size: 14px;
+			color: #1D292C;
 	}
+		.header_content_logo_img {
+			max-width: 114px;
+			width: 114px;
+		    height: 97px;
+		    vertical-align: middle;
+		    border: none;
+		    vertical-align: top;
+		}
 		.container {
 			width: 900px;
 			height: 737px;
@@ -227,10 +236,16 @@
 			font-family: 'Nanum Gothic Coding', monospace; 
 		}
 		
+		.mailbox-attachments {
+			text-align: center;
+			margin: 10px 0 0 40px;
+		}
 	</style>
 </head>
 <body>
 <%@ include file="../include/modal.jsp"%>
+<jsp:useBean id="now" class="java.util.Date"/>
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
 	<div class="container">
 		<div class="contents">
 			<div class="main_board">
@@ -266,9 +281,7 @@
 										<!-- jsp 주석은 ! 사용-->
 											<strong>작성일</strong>
 											<fmt:formatDate value="${one.regdate}" pattern="yyyy-MM-dd HH:mm:ss" var="regdate"/>${regdate}</span>
-											<fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss" var="updatedate"/>${updatedate}</span>
 											<c:if test="${one.regdate != one.updatedate}">
-												<span class="txtNum"><fmt:formatDate value="${one.regdate}" pattern="yyyy-MM-dd HH:mm:ss" var="regdate"/>${regdate}</span>
 												<span class="txtNum"><fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss" var="updatedate"/>${updatedate}</span>				
 											</c:if>
 										</li>
@@ -293,6 +306,9 @@
 						<!-- 댓글 창 -->
 						<div id="listReply"></div>
 						
+						<!-- 첨부파일 -->
+						<ul class="mailbox-attachments clearfix uploadedList" style="display: flex;"></ul>
+						
 						<!-- 버튼 -->
 			<div class="base_button">
 				<span class="gLeft">
@@ -310,9 +326,37 @@
 			</div>
 		</div>
 </body>
-<script type="text/javascript">
 
+<script id="fileTemplate" type="text/x-handlebars-template">
+	
+	     <li>
+			<div class="mailbox-attachment-icon has-img">
+			 <div><img src="{{imgSrc}}" alt="Attachment" class="s_img"></div>
+			</div>
+			<div class="mailbox-attachment-info">
+				<a href= "{{originalFileUrl}}" class="mailbox-attachment-name">
+					<i class = "fa fa-paperclip"></i> {{originalFileName}}
+				</a>
+			</div>
+		</li>
+		
+</script>
+<script src="${path}/resources/js/fileAttach.js"></script>
+<script type="text/javascript">
+	// Handlebars 파일템플릿 컴파일
+	var fileTemplate = Handlebars.compile($("#fileTemplate").html());
+	
 	$(function(){
+		
+		//첨부파일 목록 불러오기
+		var listCnt = listAttach('${path}', '${one.bno}');
+		
+		//첨부파일 0건일때 '첨부파일 없음' 출력
+		if (listCnt == 0) {
+		var text = '<span class="no_attach">첨부파일이 없습니다.</span>';
+		$('.uploadedList').html(text);
+		}
+		
 		setInterval(refreshReply, 180000);
 		//setInterval 자바스크립트 내장함수, 일정한 시간 간격으로 작업을 수행하기 위해 사용한다
 		//일정 시간마다 반복 실행하는 함수

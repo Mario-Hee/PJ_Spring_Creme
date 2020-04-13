@@ -229,7 +229,7 @@ form {
 
 .postcomment_up {
 	position: relative;
-	top: -1px;
+	bottom: 10px;
 	border: 1px solid #95A5C3;
 	padding: 10px 24px;
 	font-family: 'Nanum Gothic Coding', monospace;
