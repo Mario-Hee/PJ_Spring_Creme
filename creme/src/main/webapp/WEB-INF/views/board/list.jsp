@@ -40,7 +40,7 @@
 	
 
 	.board_wrap {
-		width: 850px;
+		width: 950px;
 		height: 800px;
 		margin: 30px auto;
 	}
@@ -80,11 +80,11 @@
 
 /*■■■■ 테이블 스타일 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■*/
 	.board_table{
-		margin: 15px 20px;
-	    width: 850px;
 		border-color: red;
 		border-spacing: 0px;
 		text-align: center;
+		margin: 30px auto;
+		width: -webkit-fill-available;
 				
 	}
 	.board_table tr td {
@@ -306,9 +306,10 @@
 				<td style="width: 10%">게시글</td>
 				<td style="width: 50%">제목</td>
 				<td style="width: 10%">작성자</td>
-				<td style="width: 10%">등록일</td>
-				<td style="width: 10%">조회수</td>
-				<td style="width: 10%">댓글수</td>
+				<td style="width: 11%">등록일</td>
+				<td style="width: 7%">조회</td>
+				<td style="width: 8%">댓글</td>
+				<td style="width: 10%">첨부</td>
 			</tr>
 			<c:forEach items="${map.list}" var="list">
 				<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
@@ -343,6 +344,7 @@
 						</td>
 						<td>${list.viewcnt}</td>
 						<td>${list.replycnt}</td>
+						<td>${list.filecnt}</td>
 					</tr>
 			</c:forEach>
 	

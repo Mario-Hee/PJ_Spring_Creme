@@ -286,12 +286,16 @@
 											</c:if>
 										</li>
 										<li class>
-											<strong>조회수</strong>
+											<strong>조회</strong>
 											<span class="txtNum2">${one.viewcnt}</span>
 										</li>
 										<li class>
-											<strong>댓글수</strong>
+											<strong>댓글</strong>
 											<span class="txtNum3">${one.replycnt}</span>
+										</li>
+										<li class>
+											<strong>첨부</strong>
+											<span class="txtNum4">${one.filecnt}</span>
 										</li>
 									</ul>
 									<div class="detail">
