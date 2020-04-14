@@ -52,7 +52,7 @@ public class AjaxUploadController {
 	@ResponseBody // view가 아닌 data 리턴
 	@RequestMapping("/upload/displayFile")
 	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception{
-		log.info("와아아ㅏ아아아아아아ㅏ아ㅏ아ㅏㅏ아ㅏ아ㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+		//log.info("와아아ㅏ아아아아아아ㅏ아ㅏ아ㅏㅏ아ㅏ아ㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
 		//서버의 파일을 다운로드하기 위한 스트림
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;

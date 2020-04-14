@@ -117,9 +117,10 @@ public class BoardServiceImpl implements BoardService{
 	public void updateView(BoardDTO bDto) {	
 		bDao.updateView(bDto);
 	}
-
+	
+	@Transactional
 	@Override
-	public void answer(BoardDTO bDto) {
+	public void answer(BoardDTO bDto) {  // 답글
 		// 답글 알고리즘
 		// Current Status bDto:
 		// answer: title, writer, type, content
@@ -137,6 +138,19 @@ public class BoardServiceImpl implements BoardService{
 		bDto.setRe_level(bDto.getRe_level()+1);
 		bDto.setRe_step(bDto.getRe_step()+1);
 		bDao.answer(bDto);
+		
+		// tbl_attach에 해당 게시글 첨부파일 등록
+		// answer : 답글에 첨부파일을 사용하려면 @Transactional을 사용해야한다.
+		String[] files = bDto.getFiles();
+				
+		if(files == null) {
+			return; // 첨부파일 없음, 종료
+		}
+				
+		for(String name : files) {
+		// tbl_attach 테이블에 첨부파일 1건씩 등록
+			bDao.addAttach(name);
+		}
 		
 	}
 
