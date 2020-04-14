@@ -227,6 +227,9 @@
 		// Handlebars 파일템플릿 컴파일
 		var fileTemplate = Handlebars.compile($("#fileTemplate").html());
 		
+		//배열을 만듬
+		var deleteFileList = new Array();
+		
 		$(function(){	
 			// update인 경우에만
 			
@@ -241,6 +244,8 @@
 				
 				// SelectBox 값으로 Selected
 				$('#board_type').val('${one.type}').attr('selected', 'selected');
+				
+				listAttach('${path}', '${one.bno}');
 				
 			} else if(flag == 'answer') {
 				// 답글페이지로 변경
@@ -317,11 +322,17 @@
 					});
 				
 				} else { // 게시글 수정
+					var arr_size = deleteFileList.length;
+					deleteFileList[arr_size] = $(this).attr('data-src');
+					$(this).parents('li').next('input').remove();
+					$(this).parents('li').remove();
 					
+					for (var i =0; i < deleteFileList.length; i++) {
+						console.log(i+', '+deletsFileList[i]);
+					}
 				}
 				
 			});
-
 
 			
 		$(document).on('click', '#btncancle', function(){
@@ -383,11 +394,10 @@
 					// str 첨부파일의 목록이 들어가 있다.
 				});
 				
-				// 로컬드라이브에 저장되어있는 해당 게시글
-				// 첨부파일 삭제
-				//if(deleteFileList.length > 0) {
-				//	$.post('${path}/upload/deleteAllFile', {files:deleteFileList}, function(){});
-				//}
+				// 삭제한 첨부파일 목록에 있는 첨부파일들을 Local에서 삭제
+				if(deleteFileList.length > 0) {
+					$.post('${path}/upload/deleteAllFile', {files:deleteFileList}, function(){});
+				}
 				
 				// 폼에 hidden 태그들을 붙임
 				$("#frm_board").append(str); // append: 맨 뒤에 붙여라. 

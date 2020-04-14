@@ -137,9 +137,16 @@ public class BoardController {
 	public String updateView(BoardDTO bDto) {
 		log.info(">>>>> POST: Board Update View Action");
 		
+		if (bDto.getFiles() == null) {  // 첨부파일 NO = 0
+			bDto.setFilecnt(0);
+		} else {  // 첨부파일 YES = 파일이 들어있는 갯수만큼 알려준다.
+			log.info("첨부파일 수:" +bDto.getFiles().length); // 파일 수만큼 들어간다.
+			bDto.setFilecnt(bDto.getFiles().length);
+		}	
+		log.info(bDto.toString());
+		
 		bService.updateView(bDto);
 		
-		log.info(">>>>>>>>>>>>>>>>>>>>>>" + bDto.toString());
 		// 수정할 해당 bno정보를 get해서 View단으로 전송
 		return "redirect:/board/list";
 	}
