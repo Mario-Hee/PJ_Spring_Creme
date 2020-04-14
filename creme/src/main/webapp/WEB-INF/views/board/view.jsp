@@ -350,6 +350,10 @@
 	// Handlebars 파일템플릿 컴파일
 	var fileTemplate = Handlebars.compile($("#fileTemplate").html());
 	
+	//삭제할 첨부파일 목록
+	//배열을 만듬
+	var deleteFileList = new Array();
+	
 	$(function(){
 		
 		//첨부파일 목록 불러오기
@@ -379,6 +383,24 @@
 		// 삭제 알림 모달창에서 확인버튼 Click -> 게시글 삭제
 		$('#modal_msg_yes').click(function() {
 			//alert("게시글 삭제");
+			
+			//1. Ajax로 해당 게시글의 첨부파일을 Local에서 삭제!
+			//uploadedList 내분의 .file 태그 각각 반복
+			$(".uploadedList .file").each(function(i) {
+				// console.log(i + ", "+ $(this).val());
+				deleteFileList[i] = $(this).val();
+			});
+			
+			//console.log(deleteFileList);
+			if (deleteFileList.length > 0) { //0보다 큰 경우만 삭제한다
+				$.post('${path}/upload/deleteAllFile',
+						{files: deleteFileList},
+						function(){}
+				);
+			}
+				
+			//2. 서버단으로 가서 첨부파일 DB에서 삭제
+			//3. 서버단으로 가서 게시글 삭제
 			location.href='${path}/board/delete?bno=${one.bno}';
 		});
 	});

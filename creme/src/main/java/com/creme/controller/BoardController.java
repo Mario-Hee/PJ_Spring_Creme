@@ -83,6 +83,7 @@ public class BoardController {
 		return "board/view";
 	}
 	
+	// 게시글 삭제
 	@GetMapping("/delete")
 	public String delete(int bno) {
 		log.info(">>>>> GET: Board Delete Action");

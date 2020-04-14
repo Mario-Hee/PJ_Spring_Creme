@@ -25,6 +25,9 @@ public interface BoardDAO {
 	//게시글 삭제
 	public void delete(@Param("bno") int bno);
 	
+	//첨부파일 삭제
+	public void deleAttach(@Param("bno") int bno);
+	
 	//댓글 수 
 	public void replyCntUpdate(@Param("map") HashMap<String, Object> map);
 	
@@ -45,4 +48,6 @@ public interface BoardDAO {
 	
 	//첨부파일 목록
 	public List<String> getAttach(@Param("bno") int bno);
+	
+
 }

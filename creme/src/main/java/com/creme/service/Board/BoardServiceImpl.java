@@ -85,12 +85,22 @@ public class BoardServiceImpl implements BoardService{
 			session.setAttribute("update_time_"+bno, current_time);
 		}
 	}
-
+	
+	@Transactional
 	@Override
 	public String delete(int bno) {
-		bDao.delete(bno);
+		
+		bDao.deleAttach(bno);	// DB에서 첨부파일 삭제
+		bDao.delete(bno); 		// 게시글 삭제
 		
 		return null;
+		
+		// 기타방법
+		// 예) 90일 이후에 일괄삭제
+		// tbl_board와 tbl_attach를 relation을 맺고
+		// Cascade작업을 통해 tbl_board에서 해당 게시글 삭제하면
+		// 자동으로 tbl_attach에 해당 게시글 첨부파일 일괄삭제
+		// 즉 첨부파일 DB에서 삭제하는 코드는 작성 안해도 됨!
 	}
 	
 	@Transactional
