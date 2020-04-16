@@ -51,7 +51,7 @@ public class SyncFileScheduler {
 		// 오늘 날짜 가져오기 ex) 2020-04-16
 		Calendar cal = Calendar.getInstance();
 		// 오늘 날짜에서 -1해서 어제로 설정
-		//cal.add(Calendar.DATE, -1); 해제할것
+		cal.add(Calendar.DATE, -1);
 		// 어제날짜 yyyy-MM-dd로 설정 ex) 2020-04-15
 		String str = sf.format(cal.getTime());
 		// File.separator은 \ 또는 /로 파일 경로를 분리
@@ -61,7 +61,7 @@ public class SyncFileScheduler {
 	
 	// 매일 새벽 2시에 첨부파일 목록과 DB를 비교해서
 	// DB에 없는 첨부파일을 로컬 디렉토리에서 삭제
-	@Scheduled(cron = "0 44 14 * * *") //0 0 2
+	@Scheduled(cron = "0 0 2 * * *") 
 	public void checkFiles() throws Exception {
 		log.warn("File Check Tack run ......................");
 		log.warn("" + new Date());
@@ -70,7 +70,7 @@ public class SyncFileScheduler {
 		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
 		// 오늘 날짜 가져오기 ex) 2020-04-16
 		Calendar cal = Calendar.getInstance();
-		// cal.add(Calendar.DATE, -1); // 어제날짜로 된 첨부파일을 가져온다. 해제할것
+		cal.add(Calendar.DATE, -1); // 어제날짜로 된 첨부파일을 가져온다. 해제할것
 		log.info("어제날짜: " + sf.format(cal.getTime()));
 		List<AttachDTO> fileList = bDao.getOldFiles(sf.format(cal.getTime()));
 		
@@ -125,9 +125,9 @@ public class SyncFileScheduler {
 		// -> DB에 없는 첨부파일 목록 = 삭제 목록 생성
 		// targetDir은 예를들어 파일목록에 5개까 있다면 5개를 .listFiles가 배열로 만든다.(Local) 
 		// file은 배열로 만든 것에서 한칸씩 꺼내온다.(Local)
-		// .toPath()은 Local목록에 있는 것이 DB 목록에 있냐 없냐를 판단한다. 있으면 false이므로 다시 반환한다.
-		// 없으면 true이므로 ...
-		// removeFiles은 삭제해야 할 애들이 다 들어있다. 
+		// .toPath()은 Local목록에 있는 것이 DB 목록에 있냐 없냐를 판단한다. DB 포함하고 있으면 false이므로 다시 반환한다.
+		//  DB 포함하고 있지않으면 true이므로 Local에서 삭제한다. 
+		// removeFiles은 삭제해야 할 목록이 다 들어있다. 
 		File[] removeFiles = targetDir.listFiles(file -> fileListPaths.contains(file.toPath()) == false);
 		//file => 로컬에 있는 것들 //fileListPaths =DB의 꺼
 		//정상이니까 하지말라고 false반환
