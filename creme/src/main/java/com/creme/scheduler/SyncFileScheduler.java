@@ -70,7 +70,7 @@ public class SyncFileScheduler {
 		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
 		// 오늘 날짜 가져오기 ex) 2020-04-16
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, -1); // 어제날짜로 된 첨부파일을 가져온다. 해제할것
+		cal.add(Calendar.DATE, -1); // 어제날짜로 된 첨부파일을 가져온다.
 		log.info("어제날짜: " + sf.format(cal.getTime()));
 		List<AttachDTO> fileList = bDao.getOldFiles(sf.format(cal.getTime()));
 		
@@ -84,7 +84,6 @@ public class SyncFileScheduler {
 		// stream() : 배열에서 값을 하나씩 꺼내온다. fileList에서 값을 하나씩 꺼내온다. = 불러오기
 		// .map() : 꺼내온 데이터를 전처리(정제)작업을 한다. stream에서 하나씩 꺼내온 값을 전처리한다. 그래서 .map()은 stream이 없으면 안된다. =전처리
 		// .collect : 전처리까지 다 된 작업을 다시 어딘가에 저장한다(집어넣는다.) = 저장
-		
 		List<Path> fileListPaths = fileList.stream()
 				.map(dto -> Paths.get(uploadPath+dto.getFullname())) // 람다식 : 좌측은 매개변수이고  화살표(->) 우측에 있는게 실행하는 함수이다.
 				.collect(Collectors.toList());
