@@ -73,6 +73,7 @@
 		}
 		.header_content_nav > div {
 			border: 1px;
+			z-index: 1000;
 		}
 		.header_content_member {
 			/* width: 160px; */
@@ -83,6 +84,7 @@
 		}
 		.header_content_member > div {
 			padding: 10px 0px 10px 3px;
+			z-index: 1000;
 		}
 		.header_content_dropdown_group {
 			position: relative;
