@@ -32,22 +32,28 @@ public class AjaxUploadController {
 	BoardService bService;
 	
 	//업로드 디렉토리 servlet-context.xml에 설저되어 있음
-	// 의존성 주입
+	// Resource ==> 의존성 주입(DI패턴)
+	// 의존성 주입 하는 패턴은 
+	// 1)Autowired = 타입으로 찾는다. 
+	// 2)Inject = 타입으로 찾는다.
+	// 3)Resource = 변수명으로 찾는다.
 	@Resource(name = "uploadPath")
-	String uploadPath;
+	String uploadPath; // "c:/developer/upload" <== servlet-context.xml
 	
 	//Upload File 멀티파트파일에 Save
 	// 파일첨부 할때는 예외처리 해야함
 	// @RequestMapping( method = "get" OR "post"로 적으면 get인지 post인지 확인 할 수 있는데 안 쓰면 둘다 사용 할 수 있음)
 	@ResponseBody
 	@RequestMapping(value="/upload/uploadAjax", produces = "text/plain;charset=utf-8")
+											   			// file = 사용자가 드래그앤드롭한 첨부파일
 	public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception{
 		log.info("POST : uploadAjax");
 		// 업로드한 파일 정보와 Http 상태 코드를 함께 리턴  : Ajax에 있는 success: function (data)의 data에 리턴 
 		//UploadFileUtils :static 메서드(객체생성없이 사용 가능)
-		// c드라이브에 developer의 uploadPath 
+		// c드라이브에 developer의 uploadPath 						"c:/developer/upload"
 		return new ResponseEntity<String>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(),file.getBytes()),HttpStatus.OK);
-	}
+	}								//(									매개변수 한개									   ),( 매개변수한개)
+									//(								"/2020/04/08s_asdf2_dobby.jpg")
 	
 	//이지미 표시기능
 	@ResponseBody // view가 아닌 data 리턴

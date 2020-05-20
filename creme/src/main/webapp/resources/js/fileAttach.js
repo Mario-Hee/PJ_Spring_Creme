@@ -39,12 +39,13 @@
 			
 			
 			//첨부파일 출력
+			// "/2020/04/08s_asdf2_dobby.jpg", ${path}
 			function printFiles(data, path) {
 				//파일정보처리
 				var fileInfo = getFileInfo(data, path);
 				console.log(fileInfo);
 				//Handlebars 파일 템플릿에 파일 정보들을 바인딩하고 HTML 생성
-				var html = fileTemplate(fileInfo);
+				var html = fileTemplate(fileInfo); // fileInfo 의 5개의 값을 가짐 fileTemplate는 register.jsp에 있다.
 				html += "<input type='hidden' class='file' value='"+ fileInfo.fullName +"'>";
 				//Handlebars 파일 템플릿 컴파일을 통해 생성된 HTML을 DOM에 주입
 				$(".uploadedList").append(html);
@@ -53,7 +54,7 @@
 					//마지막에 추가된 첨부파일 템플릿 선택자
 					var that = $(".uploadedList li").last();
 					//lightboax 속성 추가
-					that.find(".mailbox-attachment-name").attr("data-lightbox","uploadImages");
+					//that.find(".mailbox-attachment-name").attr("data-lightbox","uploadImages"); <-- 사용안함. 실행안되고 있는 코드
 					//파일 아이콘에서 이미지 아이콘으로 변경
 					that.find(".fa-paperclip").attr("class","fa fa-camera");
 					
