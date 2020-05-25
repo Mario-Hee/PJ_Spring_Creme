@@ -319,4 +319,12 @@ public class MemberController {
 		return mService.pwCheck(id, pw);	
 	}
 	
+	@GetMapping("/daily")
+	public String dailyView() {
+		log.info(">>>>GET: Daily Page 출력");
+		
+		return "/member/daily";
+	}
+	
+	
 }

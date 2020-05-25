@@ -10,6 +10,7 @@
 		<typeAlias type="com.creme.domain.BoardDTO" alias="BoardDTO"/>
 		<typeAlias type="com.creme.domain.ReplyDTO" alias="ReplyDTO"/>
 		<typeAlias type="com.creme.domain.AttachDTO" alias="AttachDTO"/>
+		<typeAlias type="com.creme.domain.DailyDTO" alias="DailyDTO"/>
 	</typeAliases>
 
 </configuration>
